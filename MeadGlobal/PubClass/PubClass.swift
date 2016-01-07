@@ -135,6 +135,25 @@ class PubClass {
     }
     
     /**
+     * [我知道了] 彈出視窗, with 'handler'
+     */
+    func popIsee(var Title strTitle: String? = nil, Msg strMsg: String!, withHandler mHandler:()->Void) {
+        if strTitle == nil {
+            strTitle = getLang("sysprompt")
+        }
+        
+        let mAlert = UIAlertController(title: strTitle, message: strMsg, preferredStyle:UIAlertControllerStyle.Alert)
+        
+        mAlert.addAction(UIAlertAction(title:getLang("i_see"), style: UIAlertActionStyle.Default, handler:
+            {(action: UIAlertAction!) in mHandler()}
+        ))
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.mVCtrl.presentViewController(mAlert, animated: true, completion: nil)
+        })
+    }
+    
+    /**
     * 產生 UIAlertController (popWindow 資料傳送中)
     */
     func getPopLoading(msg: String?) -> UIAlertController {
@@ -467,10 +486,68 @@ class PubClass {
     // ********** 以下為本專案使用 ********** //
     
     /**
-    * 會員大頭照圖片檔名
+    * JSON string 轉為 Array
     */
-    func MemberHeadimgFile(memberid: String!)->String {
-        return "HP_\(memberid).png"
+    func JSONStrToAry(strJSON: String)->Array<AnyObject> {
+        var aryRS: Array<AnyObject> = []
+        
+        do {
+            let mNSData: NSData = strJSON.dataUsingEncoding(NSUTF8StringEncoding)!
+            let jobjRoot = try NSJSONSerialization.JSONObjectWithData(mNSData, options:NSJSONReadingOptions(rawValue: 0))
+            
+            guard let tmpAllData = jobjRoot as? Array<AnyObject> else {
+                return aryRS
+            }
+            
+            aryRS = tmpAllData
+        }
+        catch let err as NSError {
+            print("err_data:\n\(err)")
+            return aryRS
+        }
+        
+        return aryRS
     }
+    
+    /**
+     * JSON string 轉為 Dictionary
+     */
+    func JSONStrToDict(strJSON: String)->Dictionary<String, AnyObject> {
+        var aryRS: Dictionary<String, AnyObject> = [:]
+        
+        do {
+            let mNSData: NSData = strJSON.dataUsingEncoding(NSUTF8StringEncoding)!
+            let jobjRoot = try NSJSONSerialization.JSONObjectWithData(mNSData, options:NSJSONReadingOptions(rawValue: 0))
+            
+            guard let tmpAllData = jobjRoot as? Dictionary<String, AnyObject> else {
+                return aryRS
+            }
+            
+            aryRS = tmpAllData
+        } catch let err as NSError {
+            print("err_data:\n\(err)")
+        }
+        
+        return aryRS
+    }
+    
+    
+    /**
+     * Dictionary | Array 轉為 JSON string
+     */
+    func DictAryToJSONStr(mData: AnyObject)->String {
+        var strJSON = ""
+        
+        do {
+            let jsonData = try
+                NSJSONSerialization.dataWithJSONObject(mData, options: NSJSONWritingOptions(rawValue: 0))
+            strJSON = NSString(data: jsonData, encoding: NSUTF8StringEncoding)! as String
+        } catch let err as NSError {
+            print("err_data:\n\(err)")
+        }
+        
+        return strJSON
+    }
+    
     
 }

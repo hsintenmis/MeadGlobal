@@ -426,6 +426,92 @@
                                 </constraints>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search"/>
                             </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nuG-53-SKN">
+                                <rect key="frame" x="-2" y="108" width="324" height="460"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cellMemberList" rowHeight="120" id="ktC-vy-b0Y" customClass="MemberListCell" customModule="MeadGlobal" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="324" height="120"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ktC-vy-b0Y" id="Ou7-Nk-4bd">
+                                            <rect key="frame" x="0.0" y="0.0" width="324" height="119"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="f1_l_p.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="ccs-1Z-4TO" userLabel="ImgPict">
+                                                    <rect key="frame" x="18" y="24" width="72" height="72"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="72" id="cZk-vP-xsV"/>
+                                                        <constraint firstAttribute="width" constant="72" id="dEs-MR-6Ad"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="陳先生" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="isK-r4-SfJ" userLabel="labName">
+                                                    <rect key="frame" x="100" y="24" width="206" height="18"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="18" id="tBx-Rc-Rxa"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TEL: 886 2 85225858" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cEg-8c-4S7" userLabel="labTel">
+                                                    <rect key="frame" x="100" y="65" width="206" height="12"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="12" id="lfD-ba-dUC"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.37647058820000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="gender: Famale, age: 26" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RCF-rP-dRR" userLabel="labGender">
+                                                    <rect key="frame" x="100" y="81" width="206" height="12"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="12" id="v7D-zI-2pz"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.37647058820000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID: MEAD000001" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RMM-2J-Mcf" userLabel="labId">
+                                                    <rect key="frame" x="100" y="45" width="206" height="12"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="12" id="urk-X5-Xl0"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="0.56470588239999997" green="0.56470588239999997" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="ccs-1Z-4TO" firstAttribute="centerY" secondItem="Ou7-Nk-4bd" secondAttribute="centerY" id="BVd-yh-CIw"/>
+                                                <constraint firstItem="isK-r4-SfJ" firstAttribute="top" secondItem="ccs-1Z-4TO" secondAttribute="top" id="Kih-Ju-Z9e"/>
+                                                <constraint firstItem="RMM-2J-Mcf" firstAttribute="trailing" secondItem="isK-r4-SfJ" secondAttribute="trailing" id="Oja-WG-xBi"/>
+                                                <constraint firstItem="RCF-rP-dRR" firstAttribute="trailing" secondItem="isK-r4-SfJ" secondAttribute="trailing" id="P6P-b7-ddw"/>
+                                                <constraint firstItem="isK-r4-SfJ" firstAttribute="leading" secondItem="ccs-1Z-4TO" secondAttribute="trailing" constant="10" id="Q58-GF-pLl"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="isK-r4-SfJ" secondAttribute="trailing" constant="10" id="Qhs-93-5Vr"/>
+                                                <constraint firstItem="cEg-8c-4S7" firstAttribute="trailing" secondItem="isK-r4-SfJ" secondAttribute="trailing" id="c7w-Ga-iKd"/>
+                                                <constraint firstItem="cEg-8c-4S7" firstAttribute="leading" secondItem="isK-r4-SfJ" secondAttribute="leading" id="frI-kq-Ojl"/>
+                                                <constraint firstItem="RMM-2J-Mcf" firstAttribute="top" secondItem="isK-r4-SfJ" secondAttribute="bottom" constant="3" id="gUW-XY-HXo"/>
+                                                <constraint firstItem="RCF-rP-dRR" firstAttribute="leading" secondItem="isK-r4-SfJ" secondAttribute="leading" id="i9O-Bw-NDt"/>
+                                                <constraint firstItem="cEg-8c-4S7" firstAttribute="top" secondItem="RMM-2J-Mcf" secondAttribute="bottom" constant="8" id="mf2-9K-jy0"/>
+                                                <constraint firstItem="RMM-2J-Mcf" firstAttribute="leading" secondItem="isK-r4-SfJ" secondAttribute="leading" id="rUb-PF-8OO"/>
+                                                <constraint firstItem="RCF-rP-dRR" firstAttribute="top" secondItem="cEg-8c-4S7" secondAttribute="bottom" constant="4" id="vep-g0-vdc"/>
+                                                <constraint firstItem="ccs-1Z-4TO" firstAttribute="leading" secondItem="Ou7-Nk-4bd" secondAttribute="leadingMargin" constant="10" id="yzC-Zt-8AM"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="imgPict" destination="ccs-1Z-4TO" id="oJu-cR-RHU"/>
+                                            <outlet property="labGender" destination="RCF-rP-dRR" id="RRX-3s-16C"/>
+                                            <outlet property="labId" destination="RMM-2J-Mcf" id="mzk-yB-LX8"/>
+                                            <outlet property="labName" destination="isK-r4-SfJ" id="WEk-fb-dUb"/>
+                                            <outlet property="labTel" destination="cEg-8c-4S7" id="BHy-pU-fkz"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="aK6-Yy-Llx" id="wnT-b5-kQo"/>
+                                    <outlet property="delegate" destination="aK6-Yy-Llx" id="0It-yb-4Pd"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -434,7 +520,11 @@
                             <constraint firstAttribute="trailingMargin" secondItem="Dox-MY-2IX" secondAttribute="trailing" constant="-18" id="Snk-tg-fzO"/>
                             <constraint firstItem="st9-1g-49h" firstAttribute="leading" secondItem="Auh-9u-3BV" secondAttribute="leadingMargin" constant="-18" id="TZK-fj-goh"/>
                             <constraint firstItem="st9-1g-49h" firstAttribute="top" secondItem="Dox-MY-2IX" secondAttribute="bottom" id="Zr3-gX-Iii"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="nuG-53-SKN" secondAttribute="trailing" constant="-18" id="aUh-8o-ZMr"/>
+                            <constraint firstItem="nuG-53-SKN" firstAttribute="leading" secondItem="Auh-9u-3BV" secondAttribute="leadingMargin" constant="-18" id="dRD-n0-ZDs"/>
+                            <constraint firstItem="ljZ-4O-Vvd" firstAttribute="top" secondItem="nuG-53-SKN" secondAttribute="bottom" id="jzh-es-cSM"/>
                             <constraint firstItem="Dox-MY-2IX" firstAttribute="leading" secondItem="Auh-9u-3BV" secondAttribute="leadingMargin" constant="-18" id="kq8-AA-3bM"/>
+                            <constraint firstItem="nuG-53-SKN" firstAttribute="top" secondItem="st9-1g-49h" secondAttribute="bottom" id="ss9-e9-XgT"/>
                         </constraints>
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
@@ -442,6 +532,9 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="tableData" destination="nuG-53-SKN" id="Pd0-IY-uNY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a4l-FG-hYu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -450,7 +543,7 @@
         <!--會員新增-->
         <scene sceneID="Fl9-WZ-lO4">
             <objects>
-                <viewController title="會員新增" id="beN-aa-WJk" customClass="MemberAdEd" customModule="MeadGlobal" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="會員新增" id="beN-aa-WJk" customClass="MemberAdd" customModule="MeadGlobal" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JhV-kt-Fuw"/>
                         <viewControllerLayoutGuide type="bottom" id="5R7-8G-Mdr"/>

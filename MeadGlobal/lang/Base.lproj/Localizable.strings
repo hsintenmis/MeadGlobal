@@ -1,8 +1,9 @@
 "app_name" = "Mead system";
 "version" = "ver";
-
+"sysprompt" = "System prompt";
 "back" = "Back";
 "save" = "Save";
 "datasavecomplete" = "Save completed !!";
+"i_see" = "I see!";
 
 "member_add" = "Member add";

@@ -8,7 +8,7 @@ import Foundation
 /**
  * 會員新增, 文字/圖片 資料儲存
  */
-class MemberAdEd: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ClipViewControllerDelegate {
+class MemberAdd: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ClipViewControllerDelegate {
     
     // @IBOutlet
     @IBOutlet weak var PageTitle: UINavigationItem!
@@ -167,33 +167,20 @@ class MemberAdEd: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         }
         else {
             // JSON string 轉為 Array or Dictionary
-            do {
-                let mNSData: NSData = strJSON.dataUsingEncoding(NSUTF8StringEncoding)!
-                let jobjRoot = try NSJSONSerialization.JSONObjectWithData(mNSData, options:NSJSONReadingOptions(rawValue: 0))
-                
-                guard let tmpAllData = jobjRoot as? Array<Dictionary<String, String>> else {
-                    pubClass.popIsee(Msg: "err_data")
-                    return false
-                }
-                
-                strMemberID = pubClass.D_STR_IDHEAD + String(format: "%05d", tmpAllData.count + 1)
-                dictData["id"] = strMemberID
-                aryAllData = tmpAllData
-                aryAllData.append(dictData)
-            }
-            catch let errJson as NSError {
-                pubClass.popIsee(Msg: "err_data:\n\(errJson)")
+            aryAllData = pubClass.JSONStrToAry(strJSON) as! Array<Dictionary<String, String>>
+            if (aryAllData.count < 1) {
+                pubClass.popIsee(Msg: pubClass.getLang("err_data"))
                 return false
             }
+            
+            strMemberID = pubClass.D_STR_IDHEAD + String(format: "%05d", aryAllData.count + 1)
+            dictData["id"] = strMemberID
+            aryAllData.append(dictData)
         }
         
         // Array/Dictionary data 轉為 JSON string
-        do {
-            let jobjData = try
-                NSJSONSerialization.dataWithJSONObject(aryAllData, options: NSJSONWritingOptions(rawValue: 0))
-            strJSON = NSString(data: jobjData, encoding: NSUTF8StringEncoding)! as String
-
-        } catch {
+        strJSON = pubClass.DictAryToJSONStr(aryAllData)
+        if (strJSON.isEmpty) {
             pubClass.popIsee(Msg: pubClass.getLang("err_data"))
             return false
         }
@@ -219,15 +206,7 @@ class MemberAdEd: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         }
         
         // popWindow, 點取後 class close
-        let mAlert = UIAlertController(title: "", message: pubClass.getLang("datasavecomplete"), preferredStyle:UIAlertControllerStyle.Alert)
-        
-        mAlert.addAction(UIAlertAction(title:pubClass.getLang("i_see"), style: UIAlertActionStyle.Default, handler:
-            {(action: UIAlertAction!) in self.dismissViewControllerAnimated(true, completion: nil)}
-            ))
-        
-        dispatch_async(dispatch_get_main_queue(), {
-            self.mVCtrl.presentViewController(mAlert, animated: true, completion: nil)
-        })
+        pubClass.popIsee(Msg: pubClass.getLang("datasavecomplete"), withHandler: {self.dismissViewControllerAnimated(true, completion: nil)})
     }
  
     /**

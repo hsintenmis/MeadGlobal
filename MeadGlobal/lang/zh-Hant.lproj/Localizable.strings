@@ -1,7 +1,9 @@
 "app_name" = "能量檢測系統";
 "version" = "ver";
+"sysprompt" = "系統提示";
 "back" = "返回";
 "save" = "儲存";
 "datasavecomplete" = "儲存完成";
+"i_see" = "我知道了!";
 
 "member_add" = "會員新增";
