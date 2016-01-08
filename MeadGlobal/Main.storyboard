@@ -437,7 +437,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="324" height="119"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="f1_l_p.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="ccs-1Z-4TO" userLabel="ImgPict">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_empty01.png" translatesAutoresizingMaskIntoConstraints="NO" id="ccs-1Z-4TO" userLabel="ImgPict">
                                                     <rect key="frame" x="18" y="24" width="72" height="72"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="72" id="cZk-vP-xsV"/>
