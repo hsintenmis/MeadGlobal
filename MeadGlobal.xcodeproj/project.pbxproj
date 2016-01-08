@@ -92,7 +92,7 @@
 		D77687211C3B72DE008F4564 /* TestingMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77687201C3B72DE008F4564 /* TestingMain.swift */; };
 		D77687261C3B7B17008F4564 /* CellCollect.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77687251C3B7B17008F4564 /* CellCollect.swift */; };
 		D77687291C3B9801008F4564 /* MemberList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77687281C3B9801008F4564 /* MemberList.swift */; };
-		D776872B1C3B9A40008F4564 /* MemberAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = D776872A1C3B9A40008F4564 /* MemberAdd.swift */; };
+		D776872B1C3B9A40008F4564 /* MemberAdEd.swift in Sources */ = {isa = PBXBuildFile; fileRef = D776872A1C3B9A40008F4564 /* MemberAdEd.swift */; };
 		D776872E1C3BAF56008F4564 /* FileMang.swift in Sources */ = {isa = PBXBuildFile; fileRef = D776872D1C3BAF56008F4564 /* FileMang.swift */; };
 		D7FFDD661C3E6497003EEF92 /* MemberListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FFDD651C3E6497003EEF92 /* MemberListCell.swift */; };
 /* End PBXBuildFile section */
@@ -191,7 +191,7 @@
 		D77687241C3B76C9008F4564 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D77687251C3B7B17008F4564 /* CellCollect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CellCollect.swift; path = Testing/CellCollect.swift; sourceTree = "<group>"; };
 		D77687281C3B9801008F4564 /* MemberList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemberList.swift; path = Member/MemberList.swift; sourceTree = "<group>"; };
-		D776872A1C3B9A40008F4564 /* MemberAdd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemberAdd.swift; path = Member/MemberAdd.swift; sourceTree = "<group>"; };
+		D776872A1C3B9A40008F4564 /* MemberAdEd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemberAdEd.swift; path = Member/MemberAdEd.swift; sourceTree = "<group>"; };
 		D776872D1C3BAF56008F4564 /* FileMang.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileMang.swift; sourceTree = "<group>"; };
 		D7FFDD651C3E6497003EEF92 /* MemberListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemberListCell.swift; path = Member/MemberListCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -370,7 +370,7 @@
 			children = (
 				D77687281C3B9801008F4564 /* MemberList.swift */,
 				D7FFDD651C3E6497003EEF92 /* MemberListCell.swift */,
-				D776872A1C3B9A40008F4564 /* MemberAdd.swift */,
+				D776872A1C3B9A40008F4564 /* MemberAdEd.swift */,
 			);
 			name = Member;
 			sourceTree = "<group>";
@@ -522,7 +522,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D72C9BEC1C3A4A9000856494 /* AppDelegate.swift in Sources */,
-				D776872B1C3B9A40008F4564 /* MemberAdd.swift in Sources */,
+				D776872B1C3B9A40008F4564 /* MemberAdEd.swift in Sources */,
 				D776872E1C3BAF56008F4564 /* FileMang.swift in Sources */,
 				D72C9BF51C3A4CCD00856494 /* PubClass.swift in Sources */,
 				D72C9BF41C3A4CCD00856494 /* NoDataView.swift in Sources */,
@@ -655,6 +655,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mysoqi.com.MeadGlobal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -666,6 +667,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mysoqi.com.MeadGlobal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

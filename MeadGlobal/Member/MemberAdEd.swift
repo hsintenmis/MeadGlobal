@@ -6,9 +6,9 @@ import UIKit
 import Foundation
 
 /**
- * 會員新增, 文字/圖片 資料儲存
+ * 會員新增/編輯, 文字/圖片 資料儲存
  */
-class MemberAdd: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ClipViewControllerDelegate {
+class MemberAdEd: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ClipViewControllerDelegate {
     
     // @IBOutlet
     @IBOutlet weak var PageTitle: UINavigationItem!
@@ -25,11 +25,16 @@ class MemberAdd: UIViewController, UIImagePickerControllerDelegate, UINavigation
     private var mVCtrl: UIViewController!
     private var pubClass: PubClass!
     
+    // 由 parent 'prepareForSegue' 設定, 有資料表示本頁面編輯模式
+    var dictMember: Dictionary<String, String> = [:]
+    var strMode = "add"  // 本頁面模式, 'add' or 'edit'
+    var mParentClass: MemberList!
+    
     // 檔案存取/圖片處理
     var mFileMang: FileMang!
     var mImgPicker: UIImagePickerController!
     var isNewPict = false
-    var strMemberID = ""
+    var strMemberID: String = ""  // 若為 'edit' 模式一定有值
     
     let sizeZoom: CGFloat = 3.0  // 图片缩放的最大倍数
     let sizeCute: CGFloat = 120.0  // 裁剪框的長寬
@@ -51,26 +56,43 @@ class MemberAdd: UIViewController, UIImagePickerControllerDelegate, UINavigation
         
         // 設定頁面語系
         self.setPageLang()
+        
+        // 編輯模式特殊處理
+        self.procEditMode()
     }
     
     // View did Appear
     override func viewDidAppear(animated: Bool) {
-        // !! 顯示 'document' 圖片
-        /*
-        let imgFile = "m00001.png"
-        if (mFileMang.isFilePath(imgFile)) {
-            imgTarget.image = UIImage(contentsOfFile: mFileMang.mDocPath + imgFile)
-        }
-        */
     }
     
     /**
      * 設定頁面語系
      */
     private func setPageLang() {
-        PageTitle.title = pubClass.getLang("member_add")
+        PageTitle.title = (strMode == "add") ?
+            pubClass.getLang("member_add") : pubClass.getLang("member_edit")
         btnBack.title = pubClass.getLang("back")
         btnSave.title = pubClass.getLang("save")
+    }
+    
+    /**
+     * 編輯模式特殊處理
+     */
+    private func procEditMode() {
+        if (strMode != "edit") {
+            return
+        }
+        
+        strMemberID = dictMember["id"]!
+        edName.text = dictMember["name"]
+        edTel.text = dictMember["tel"]
+        edBirth.text = dictMember["birth"]
+        swchGender.selectedSegmentIndex = (dictMember["gender"] == "M") ? 0 : 1
+        
+        let imgFileName = dictMember["id"]! + ".png"
+        if (mFileMang.isFilePath(imgFileName)) {
+            imgTarget.image = UIImage(contentsOfFile: mFileMang.mDocPath + imgFileName)
+        }
     }
     
     /**
@@ -140,13 +162,19 @@ class MemberAdd: UIViewController, UIImagePickerControllerDelegate, UINavigation
      */
     private func startSaveData()->Bool {
         // 檢查輸入資料
-        if (edName.text!.isEmpty || edTel.text!.isEmpty) {
-            pubClass.popIsee(Msg: "err_nameortel")
+        if (edName.text!.isEmpty) {
+            pubClass.popIsee(Msg: "err_membername")
+            return false
+        }
+        
+        if (edTel.text!.isEmpty) {
+            pubClass.popIsee(Msg: "err_tel")
             return false
         }
         
         // 產生 Dictionary data
         var dictData = Dictionary<String, String>()
+        dictData["id"] = ""
         dictData["name"] = edName.text!
         dictData["tel"] = edTel.text!
         dictData["gender"] = (swchGender.selectedSegmentIndex == 0) ? "M" : "F"
@@ -156,10 +184,29 @@ class MemberAdd: UIViewController, UIImagePickerControllerDelegate, UINavigation
             dictData["birth"] = strBirth
         }
         
-        // 取得全部會員 JSON Array data
-        var strJSON = mFileMang.read(pubClass.D_FILE_MEMBER)
+        // 取得全部會員 JSON String, 資料存檔
+        let strJSON = (self.strMode == "add") ? addDataProc(dictData) : editDataProc(dictData)
+        if (strJSON.isEmpty) {
+            pubClass.popIsee(Msg: "err_data")
+            
+            return false
+        }
+        
+        mFileMang.write(pubClass.D_FILE_MEMBER, strData: strJSON)
+        
+        return true
+    }
+    
+    /**
+    * 資料新增作業
+    * @param dictData: 會員輸入的資料
+    * @return String: JSON string, 已整理好的全部會員資料
+    */
+    private func addDataProc(var dictData: Dictionary<String, String>)->String {
+        let strJSON = mFileMang.read(pubClass.D_FILE_MEMBER)
         var aryAllData: Array<Dictionary<String, String>> = []
         
+        // 第一筆資料
         if (strJSON.isEmpty) {
             strMemberID = pubClass.D_STR_IDHEAD + String(format: "%05d", 1)
             dictData["id"] = strMemberID
@@ -169,26 +216,51 @@ class MemberAdd: UIViewController, UIImagePickerControllerDelegate, UINavigation
             // JSON string 轉為 Array or Dictionary
             aryAllData = pubClass.JSONStrToAry(strJSON) as! Array<Dictionary<String, String>>
             if (aryAllData.count < 1) {
-                pubClass.popIsee(Msg: pubClass.getLang("err_data"))
-                return false
+                return ""
             }
             
+            // 取得新會員ID, 最後一個 id 流水號 +1
             strMemberID = pubClass.D_STR_IDHEAD + String(format: "%05d", aryAllData.count + 1)
+            
             dictData["id"] = strMemberID
             aryAllData.append(dictData)
         }
         
-        // Array/Dictionary data 轉為 JSON string
-        strJSON = pubClass.DictAryToJSONStr(aryAllData)
+        return pubClass.DictAryToJSONStr(aryAllData)
+    }
+    
+    /**
+     * 資料更新作業
+     * @param dictData: 會員輸入的資料
+     * @return String: JSON string, 已整理好的全部會員資料
+     */
+    private func editDataProc(dictData: Dictionary<String, String>)->String {
+        let strJSON = mFileMang.read(pubClass.D_FILE_MEMBER)
+        
         if (strJSON.isEmpty) {
-            pubClass.popIsee(Msg: pubClass.getLang("err_data"))
-            return false
+            return ""
+        }
+            
+        // JSON string 轉為 Array or Dictionary
+        let aryAllData = pubClass.JSONStrToAry(strJSON) as! Array<Dictionary<String, String>>
+        if (aryAllData.count < 1) {
+            return ""
         }
         
-        // 全部會員 String 資料存檔
-        mFileMang.write(pubClass.D_FILE_MEMBER, strData: strJSON)
+        // loop all data, 比對指定會員 id 修改資料
+        var newAllData: Array<Dictionary<String, String>> = []
         
-        return true
+        for dictItem in aryAllData {
+            if (dictItem["id"] == strMemberID) {
+                var tmpItem = dictData
+                tmpItem["id"] = strMemberID
+                newAllData.append(tmpItem)
+            } else {
+                newAllData.append(dictItem)
+            }
+        }
+        
+        return pubClass.DictAryToJSONStr(newAllData)
     }
     
     /**
@@ -203,6 +275,11 @@ class MemberAdd: UIViewController, UIImagePickerControllerDelegate, UINavigation
         // 圖片儲存
         if (self.isNewPict == true) {
             mFileMang.write(strMemberID + ".png", withUIImage: imgTarget.image)
+        }
+        
+        // 是否新增資料完成，設定 parent 'hasNewDataAdd'
+        if (strMode == "add") {
+            mParentClass.hasNewDataAdd = true
         }
         
         // popWindow, 點取後 class close

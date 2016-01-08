@@ -5,5 +5,10 @@
 "save" = "Save";
 "datasavecomplete" = "Save completed !!";
 "i_see" = "I see!";
+"confirm_yes" = "Yes";
+"confirm_no" = "No";
+"cancel" = "Cancel";
 
 "member_add" = "Member add";
+"member_edit" = "Member edit";
+"member_delconfirmmsg" = "Make sure delete selected member ?!";

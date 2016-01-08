@@ -5,5 +5,10 @@
 "save" = "儲存";
 "datasavecomplete" = "儲存完成";
 "i_see" = "我知道了!";
+"confirm_yes" = "是";
+"confirm_no" = "否";
+"cancel" = "取消";
 
 "member_add" = "會員新增";
+"member_edit" = "會員編輯";
+"member_delconfirmmsg" = "確定刪除已選擇的會員?!";
