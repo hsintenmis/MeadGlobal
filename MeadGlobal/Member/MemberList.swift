@@ -18,7 +18,7 @@ class MemberList: UIViewController, UISearchBarDelegate {
     private var mVCtrl: UIViewController!
     private var pubClass: PubClass!
     
-    // public, 若 child 頁面為新增資料, 是否儲存完成
+    // public, 若 child 頁面為新增資料是否儲存完成
     var hasNewDataAdd = false
     
     // 原始的 TableView data
@@ -31,8 +31,9 @@ class MemberList: UIViewController, UISearchBarDelegate {
     private var searchActive : Bool = false
     private var aryNewAllData: Array<Dictionary<String, String>> = []
     
-    // 檔案存取
-    private var mFileMang: FileMang!
+    // 其他 class
+    private let mFileMang = FileMang()
+    private let mMemberClass = MemberClass()
     
     // viewDidLoad
     override func viewDidLoad() {
@@ -41,7 +42,6 @@ class MemberList: UIViewController, UISearchBarDelegate {
         // common property
         mVCtrl = self
         pubClass = PubClass(viewControl: mVCtrl)
-        mFileMang = FileMang()
         
         searchBar.delegate = self
         
@@ -65,18 +65,8 @@ class MemberList: UIViewController, UISearchBarDelegate {
     * 重新整理 TableView 資料
     */
     func reloadTableData() {
-        let strJSON = mFileMang.read(pubClass.D_FILE_MEMBER)
-        aryAllData = []
-        
-        if (!strJSON.isEmpty) {
-            let tmpAllData = pubClass.JSONStrToAry(strJSON) as! Array<Dictionary<String, String>>
-            
-            // 資料反向整理，新資料在前
-            for (var loopi = (tmpAllData.count - 1); loopi >= 0; loopi--) {
-                aryAllData.append(tmpAllData[loopi])
-            }
-        }
-        
+        // 取得會員全部資料
+        aryAllData = mMemberClass.getAll(isSortASC: false)
         aryNewAllData = aryAllData
         tableData.reloadData()
         
@@ -134,7 +124,7 @@ class MemberList: UIViewController, UISearchBarDelegate {
         if let indexPath: NSIndexPath = self.tableData.indexPathForRowAtPoint(sender.locationInView(self.tableData)) {
             self.tableData.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: UITableViewScrollPosition.None)
             
-            popConfirmDelData(indexPath.row);
+            self.popConfirmDelData(indexPath.row);
         }
     }
     
@@ -144,21 +134,42 @@ class MemberList: UIViewController, UISearchBarDelegate {
      * @param positionItem : TableView cell position
      */
     private func popConfirmDelData(positionItem: Int) {
-        let mAlert = UIAlertController(title: pubClass.getLang("sysprompt"), message: pubClass.getLang("member_delconfirmmsg"), preferredStyle:UIAlertControllerStyle.Alert)
+        let mAlert = UIAlertController(title: pubClass.getLang("syswarring"), message: pubClass.getLang("member_delconfirmmsg"), preferredStyle:UIAlertControllerStyle.Alert)
+        var strRS = "member_delcompleted"
         
         // btn 'Yes', 執行刪除資料程序
         mAlert.addAction(UIAlertAction(title:pubClass.getLang("confirm_yes"), style:UIAlertActionStyle.Default, handler:{
             (action: UIAlertAction!) in
             
-            // TODO 執行刪除資料程序
-            print(self.aryNewAllData[positionItem])
+            let strId = self.aryNewAllData[positionItem]["id"]!
+            
+            // 執行刪除資料程序
+            let strErr = self.mMemberClass.del(strId)
+            if (!strErr.isEmpty) {
+                strRS = strErr
+                return
+            }
+            
+            // 刪除會員圖片
+            self.mFileMang.delete(strId + ".png")
+            
+            // TODO 刪除 mead 檢測資料
+            
         }))
         
         // btn ' No', 取消，關閉 popWindow
         mAlert.addAction(UIAlertAction(title:pubClass.getLang("confirm_no"), style:UIAlertActionStyle.Cancel, handler:nil ))
         
+        // 顯示本彈出視窗
+        /*
         dispatch_async(dispatch_get_main_queue(), {
             self.mVCtrl.presentViewController(mAlert, animated: true, completion: nil)
+        })
+        */
+        dispatch_async(dispatch_get_main_queue(), {
+            self.mVCtrl.presentViewController(mAlert, animated: true, completion: {
+                self.pubClass.popIsee(Msg: strRS)
+            })
         })
     }
     

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4256A34A1C40DDCC00131142 /* MemberClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4256A3491C40DDCC00131142 /* MemberClass.swift */; };
+		4256A34C1C40E5F900131142 /* JSONClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4256A34B1C40E5F900131142 /* JSONClass.swift */; };
 		D70EE3471C3CDE7100944E21 /* CutImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70EE3461C3CDE7100944E21 /* CutImage.swift */; };
 		D72C9BDB1C3A492F00856494 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D72C9BDA1C3A492F00856494 /* Assets.xcassets */; };
 		D72C9BE81C3A4A6B00856494 /* MainLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72C9BE71C3A4A6B00856494 /* MainLogin.swift */; };
@@ -98,6 +100,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4256A3491C40DDCC00131142 /* MemberClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemberClass.swift; path = Member/MemberClass.swift; sourceTree = "<group>"; };
+		4256A34B1C40E5F900131142 /* JSONClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONClass.swift; sourceTree = "<group>"; };
 		D70EE3461C3CDE7100944E21 /* CutImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CutImage.swift; sourceTree = "<group>"; };
 		D72C9BD01C3A492E00856494 /* MeadGlobal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeadGlobal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D72C9BDA1C3A492F00856494 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../Assets.xcassets; sourceTree = "<group>"; };
@@ -267,6 +271,7 @@
 				D72C9BF11C3A4CCD00856494 /* NoDataView.swift */,
 				D70EE3461C3CDE7100944E21 /* CutImage.swift */,
 				D776872D1C3BAF56008F4564 /* FileMang.swift */,
+				4256A34B1C40E5F900131142 /* JSONClass.swift */,
 			);
 			path = PubClass;
 			sourceTree = "<group>";
@@ -368,6 +373,7 @@
 		D77687271C3B97D9008F4564 /* Member */ = {
 			isa = PBXGroup;
 			children = (
+				4256A3491C40DDCC00131142 /* MemberClass.swift */,
 				D77687281C3B9801008F4564 /* MemberList.swift */,
 				D7FFDD651C3E6497003EEF92 /* MemberListCell.swift */,
 				D776872A1C3B9A40008F4564 /* MemberAdEd.swift */,
@@ -529,9 +535,11 @@
 				D70EE3471C3CDE7100944E21 /* CutImage.swift in Sources */,
 				D72C9BE81C3A4A6B00856494 /* MainLogin.swift in Sources */,
 				D72C9BF31C3A4CCD00856494 /* ImageClass.swift in Sources */,
+				4256A34C1C40E5F900131142 /* JSONClass.swift in Sources */,
 				D77687211C3B72DE008F4564 /* TestingMain.swift in Sources */,
 				D77687261C3B7B17008F4564 /* CellCollect.swift in Sources */,
 				D77687291C3B9801008F4564 /* MemberList.swift in Sources */,
+				4256A34A1C40DDCC00131142 /* MemberClass.swift in Sources */,
 				D7FFDD661C3E6497003EEF92 /* MemberListCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

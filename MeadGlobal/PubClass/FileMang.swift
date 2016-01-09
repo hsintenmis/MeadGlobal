@@ -23,14 +23,14 @@ class FileMang {
     /**
      * 檔案/目錄 是否存在
      */
-    func isFilePath(strFileName: String) -> Bool{
+    func isFilePath(strFileName: String!) -> Bool{
         return self.mFileMgr.fileExistsAtPath(self.mDocPath + strFileName)
     }
     
     /**
      * 刪除 檔案/目錄
      */
-    func delete(strFileName: String) -> Bool{
+    func delete(strFileName: String!) -> Bool{
         if (!isFilePath(strFileName)) {
             return false
         }
@@ -49,25 +49,30 @@ class FileMang {
     /**
     * 檔案寫資料 / 建立檔案 (String 寫入)
     *
-    * @param strData : string or nil
+    * @param strData : string or ""
+    * @return Boolean
     */
-    func write(strFileName: String, strData: String) {
+    func write(strFileName: String!, strData: String)->Bool {
         let mFile = self.mDocPath + strFileName
         let mData = (strData.isEmpty) ? "" : strData
         let databuffer = mData.dataUsingEncoding(NSUTF8StringEncoding)
-        self.mFileMgr.createFileAtPath(mFile, contents: databuffer, attributes: nil)
+        
+        return self.mFileMgr.createFileAtPath(mFile, contents: databuffer, attributes: nil)
     }
     
     /**
      * 檔案寫資料 / 建立檔案 (UIImage 寫入, jpeg)
      *
      * @param mImg : UIImage!
+     * @return Boolean
      */
-    func write(strFileName: String, withUIImage mImg: UIImage!) {
+    func write(strFileName: String!, withUIImage mImg: UIImage!)->Bool {
         if let data = UIImageJPEGRepresentation(mImg, 0.8) {
             let mFile = self.mDocPath + strFileName
-            data.writeToFile(mFile, atomically: true)
+            return data.writeToFile(mFile, atomically: true)
         }
+        
+        return false
     }
     
     /**

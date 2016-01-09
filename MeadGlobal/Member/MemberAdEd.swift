@@ -31,7 +31,6 @@ class MemberAdEd: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     var mParentClass: MemberList!
     
     // 檔案存取/圖片處理
-    var mFileMang: FileMang!
     var mImgPicker: UIImagePickerController!
     var isNewPict = false
     var strMemberID: String = ""  // 若為 'edit' 模式一定有值
@@ -40,6 +39,10 @@ class MemberAdEd: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     let sizeCute: CGFloat = 120.0  // 裁剪框的長寬
     let typeCut: Int = 1; // 裁剪框的形狀, 0=圓, 1=方
     
+    // 其他 class
+    private let mFileMang = FileMang()
+    private let mMemberClass = MemberClass()
+    
     // viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +50,6 @@ class MemberAdEd: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         // common property
         mVCtrl = self
         pubClass = PubClass(viewControl: mVCtrl)
-        mFileMang = FileMang()
         
         // 圖片處理相關
         mImgPicker = UIImagePickerController()
@@ -158,7 +160,30 @@ class MemberAdEd: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     }
     
     /**
-     * 會員資料儲存
+     * action 資料儲存
+     */
+    @IBAction func actSave(sender: UIBarButtonItem) {
+        // 文字資料儲存程序
+        if (!self.startSaveData()) {
+            return
+        }
+        
+        // 圖片儲存
+        if (self.isNewPict == true) {
+            mFileMang.write(strMemberID + ".png", withUIImage: imgTarget.image)
+        }
+        
+        // 是否新增資料完成，設定 parent 'hasNewDataAdd'
+        if (strMode == "add") {
+            mParentClass.hasNewDataAdd = true
+        }
+        
+        // popWindow, 點取後 class close
+        pubClass.popIsee(Msg: pubClass.getLang("datasavecomplete"), withHandler: {self.dismissViewControllerAnimated(true, completion: nil)})
+    }
+    
+    /**
+     * 會員資料儲存(新增 or 更新資料)
      */
     private func startSaveData()->Bool {
         // 檢查輸入資料
@@ -184,106 +209,30 @@ class MemberAdEd: UIViewController, UIImagePickerControllerDelegate, UINavigatio
             dictData["birth"] = strBirth
         }
         
-        // 取得全部會員 JSON String, 資料存檔
-        let strJSON = (self.strMode == "add") ? addDataProc(dictData) : editDataProc(dictData)
-        if (strJSON.isEmpty) {
-            pubClass.popIsee(Msg: "err_data")
+        // 會員新增 or 資料更新
+        if (self.strMode == "add") {
+            let dictRS = mMemberClass.add(dictData)
+            if (dictRS["rs"] as! Bool != true) {
+                pubClass.popIsee(Msg: "err_member_newadd")
+                
+                return false
+            }
             
-            return false
+            strMemberID = dictRS["id"] as! String
+        } else {
+            dictData["id"] = dictMember["id"]
+            let dictRS = mMemberClass.update(dictData)
+            
+            if (dictRS["rs"] as! Bool != true) {
+                pubClass.popIsee(Msg: dictRS["err"] as! String)
+                
+                return false
+            }
+            
+            strMemberID = dictData["id"]!
         }
-        
-        mFileMang.write(pubClass.D_FILE_MEMBER, strData: strJSON)
         
         return true
-    }
-    
-    /**
-    * 資料新增作業
-    * @param dictData: 會員輸入的資料
-    * @return String: JSON string, 已整理好的全部會員資料
-    */
-    private func addDataProc(var dictData: Dictionary<String, String>)->String {
-        let strJSON = mFileMang.read(pubClass.D_FILE_MEMBER)
-        var aryAllData: Array<Dictionary<String, String>> = []
-        
-        // 第一筆資料
-        if (strJSON.isEmpty) {
-            strMemberID = pubClass.D_STR_IDHEAD + String(format: "%05d", 1)
-            dictData["id"] = strMemberID
-            aryAllData.append(dictData)
-        }
-        else {
-            // JSON string 轉為 Array or Dictionary
-            aryAllData = pubClass.JSONStrToAry(strJSON) as! Array<Dictionary<String, String>>
-            if (aryAllData.count < 1) {
-                return ""
-            }
-            
-            // 取得新會員ID, 最後一個 id 流水號 +1
-            strMemberID = pubClass.D_STR_IDHEAD + String(format: "%05d", aryAllData.count + 1)
-            
-            dictData["id"] = strMemberID
-            aryAllData.append(dictData)
-        }
-        
-        return pubClass.DictAryToJSONStr(aryAllData)
-    }
-    
-    /**
-     * 資料更新作業
-     * @param dictData: 會員輸入的資料
-     * @return String: JSON string, 已整理好的全部會員資料
-     */
-    private func editDataProc(dictData: Dictionary<String, String>)->String {
-        let strJSON = mFileMang.read(pubClass.D_FILE_MEMBER)
-        
-        if (strJSON.isEmpty) {
-            return ""
-        }
-            
-        // JSON string 轉為 Array or Dictionary
-        let aryAllData = pubClass.JSONStrToAry(strJSON) as! Array<Dictionary<String, String>>
-        if (aryAllData.count < 1) {
-            return ""
-        }
-        
-        // loop all data, 比對指定會員 id 修改資料
-        var newAllData: Array<Dictionary<String, String>> = []
-        
-        for dictItem in aryAllData {
-            if (dictItem["id"] == strMemberID) {
-                var tmpItem = dictData
-                tmpItem["id"] = strMemberID
-                newAllData.append(tmpItem)
-            } else {
-                newAllData.append(dictItem)
-            }
-        }
-        
-        return pubClass.DictAryToJSONStr(newAllData)
-    }
-    
-    /**
-     * action 資料儲存
-     */
-    @IBAction func actSave(sender: UIBarButtonItem) {
-        // 文字資料儲存程序
-        if (!self.startSaveData()) {
-            return
-        }
-        
-        // 圖片儲存
-        if (self.isNewPict == true) {
-            mFileMang.write(strMemberID + ".png", withUIImage: imgTarget.image)
-        }
-        
-        // 是否新增資料完成，設定 parent 'hasNewDataAdd'
-        if (strMode == "add") {
-            mParentClass.hasNewDataAdd = true
-        }
-        
-        // popWindow, 點取後 class close
-        pubClass.popIsee(Msg: pubClass.getLang("datasavecomplete"), withHandler: {self.dismissViewControllerAnimated(true, completion: nil)})
     }
  
     /**

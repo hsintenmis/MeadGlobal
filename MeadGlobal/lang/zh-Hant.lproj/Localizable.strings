@@ -1,6 +1,7 @@
 "app_name" = "能量檢測系統";
 "version" = "ver";
 "sysprompt" = "系統提示";
+"syswarring" = "!! 系統警告 !!";
 "back" = "返回";
 "save" = "儲存";
 "datasavecomplete" = "儲存完成";

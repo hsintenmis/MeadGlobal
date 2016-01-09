@@ -24,9 +24,6 @@ class MainLogin: UIViewController {
         mVCtrl = self
         pubClass = PubClass(viewControl: mVCtrl)
         
-        // 檢查裝置是否有指定檔案(會員/Mead 資料檔)
-        self.DBCheck()
-        
         // 語系 switch 預設
         let langCode = pubClass.getPrefData("lang") as! String
         pubClass.setAppDelgVal("V_LANGCODE", withVal: langCode)
@@ -41,6 +38,9 @@ class MainLogin: UIViewController {
         
         // 設定頁面語系
         self.setPageLang()
+        
+        // 檢查裝置是否有指定檔案(會員/Mead 資料檔)
+        self.DBCheck()
     }
 
     /**
@@ -51,16 +51,11 @@ class MainLogin: UIViewController {
     }
     
     /**
-     * 檢查裝置是否有指定檔案(會員/Mead 資料檔)
+     * 檢查裝置是否有指定資料庫檔案 (會員/Mead 資料檔)
      */
     private func DBCheck() {
-        let mFileMang = FileMang()
-        
-        if (mFileMang.isFilePath(pubClass.D_FILE_MEMBER)) {
-            return
-        }
-        
-        mFileMang.write(pubClass.D_FILE_MEMBER, strData: "")
+        let mMemberClass = MemberClass()
+        mMemberClass.chkData()
     }
     
     /**

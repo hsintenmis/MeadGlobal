@@ -1,6 +1,7 @@
 "app_name" = "Mead system";
 "version" = "ver";
 "sysprompt" = "System prompt";
+"syswarring" = "!! Warring !!";
 "back" = "Back";
 "save" = "Save";
 "datasavecomplete" = "Save completed !!";
