@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4256A34A1C40DDCC00131142 /* MemberClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4256A3491C40DDCC00131142 /* MemberClass.swift */; };
 		4256A34C1C40E5F900131142 /* JSONClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4256A34B1C40E5F900131142 /* JSONClass.swift */; };
+		42D3D3081C42A2FA002FF7B8 /* TestingUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D3D3071C42A2FA002FF7B8 /* TestingUser.swift */; };
+		42D3D30A1C42C52A002FF7B8 /* TestingMemberSel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D3D3091C42C52A002FF7B8 /* TestingMemberSel.swift */; };
 		D70EE3471C3CDE7100944E21 /* CutImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70EE3461C3CDE7100944E21 /* CutImage.swift */; };
 		D72C9BDB1C3A492F00856494 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D72C9BDA1C3A492F00856494 /* Assets.xcassets */; };
 		D72C9BE81C3A4A6B00856494 /* MainLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72C9BE71C3A4A6B00856494 /* MainLogin.swift */; };
@@ -102,6 +104,8 @@
 /* Begin PBXFileReference section */
 		4256A3491C40DDCC00131142 /* MemberClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemberClass.swift; path = Member/MemberClass.swift; sourceTree = "<group>"; };
 		4256A34B1C40E5F900131142 /* JSONClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONClass.swift; sourceTree = "<group>"; };
+		42D3D3071C42A2FA002FF7B8 /* TestingUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestingUser.swift; path = Testing/TestingUser.swift; sourceTree = "<group>"; };
+		42D3D3091C42C52A002FF7B8 /* TestingMemberSel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestingMemberSel.swift; path = Testing/TestingMemberSel.swift; sourceTree = "<group>"; };
 		D70EE3461C3CDE7100944E21 /* CutImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CutImage.swift; sourceTree = "<group>"; };
 		D72C9BD01C3A492E00856494 /* MeadGlobal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeadGlobal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D72C9BDA1C3A492F00856494 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../Assets.xcassets; sourceTree = "<group>"; };
@@ -364,6 +368,8 @@
 		D77687221C3B72F3008F4564 /* Testing */ = {
 			isa = PBXGroup;
 			children = (
+				42D3D3071C42A2FA002FF7B8 /* TestingUser.swift */,
+				42D3D3091C42C52A002FF7B8 /* TestingMemberSel.swift */,
 				D77687201C3B72DE008F4564 /* TestingMain.swift */,
 				D77687251C3B7B17008F4564 /* CellCollect.swift */,
 			);
@@ -535,8 +541,10 @@
 				D70EE3471C3CDE7100944E21 /* CutImage.swift in Sources */,
 				D72C9BE81C3A4A6B00856494 /* MainLogin.swift in Sources */,
 				D72C9BF31C3A4CCD00856494 /* ImageClass.swift in Sources */,
+				42D3D3081C42A2FA002FF7B8 /* TestingUser.swift in Sources */,
 				4256A34C1C40E5F900131142 /* JSONClass.swift in Sources */,
 				D77687211C3B72DE008F4564 /* TestingMain.swift in Sources */,
+				42D3D30A1C42C52A002FF7B8 /* TestingMemberSel.swift in Sources */,
 				D77687261C3B7B17008F4564 /* CellCollect.swift in Sources */,
 				D77687291C3B9801008F4564 /* MemberList.swift in Sources */,
 				4256A34A1C40DDCC00131142 /* MemberClass.swift in Sources */,

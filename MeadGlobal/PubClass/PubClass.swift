@@ -23,8 +23,9 @@ class PubClass {
     // AppDelegate
     var AppDelg: AppDelegate!
     
-    // 本專案語系相關
-    var aryLangCode = ["Base", "zh-Hans", "zh-Hant", "es"]
+    // 本專案 其他 public property
+    var aryLangCode = ["Base", "zh-Hans", "zh-Hant", "es"]  // 語系相關
+    let D_DEFPICTUSER = "user_empty01.png"  // 沒圖片的大頭照
     
     // private property
     private let mVCtrl: UIViewController!

@@ -107,8 +107,13 @@ class MemberClass {
             let tmpAllData = mJSONClass.JSONStrToAry(strJSON) as! Array<Dictionary<String, String>>
             
             // 資料反向整理，新資料在前
-            for (var loopi = (tmpAllData.count - 1); loopi >= 0; loopi--) {
-                aryAllData.append(tmpAllData[loopi])
+            if (!isASC) {
+                for (var loopi = (tmpAllData.count - 1); loopi >= 0; loopi--) {
+                    aryAllData.append(tmpAllData[loopi])
+                }
+            }
+            else {
+                aryAllData = tmpAllData
             }
         }
         
@@ -153,7 +158,10 @@ class MemberClass {
         // 產生 ID, dict data 轉為 JSON string 寫入檔案
         dictData["id"] = D_IDHEAD + self.getSerial()
         dictRS["id"] = dictData["id"]
+        
         aryAllData.append(dictData)
+        //aryAllData.insert(dictData, atIndex: aryAllData.count)
+        
         dictRS["rs"] = mFileMang.write(D_FILE_MEMBER, strData: mJSONClass.DictAryToJSONStr(aryAllData))
         
         if (dictRS["rs"] as! Bool != true) {
@@ -169,7 +177,7 @@ class MemberClass {
      * 會員資料更新
      *
      * @param dictData: 會員資料(包含會員ID)
-     * @return Dict: 'rs'=Bool, 'err'='' or error msg, 'id'= serial text or ''
+     * @return Dict: 'rs'=Bool, 'err'='' or error msg
      */
     func update(dictData: Dictionary<String, String>!)->Dictionary<String, AnyObject> {
         var dictRS: Dictionary<String, AnyObject> = ["rs": false, "err": ""]
@@ -210,12 +218,16 @@ class MemberClass {
      * 會員刪除
      *
      * @param dictData: 會員ID
-     * @return String: "" = true or err code
+     * @return Dict: 'rs'=Bool, 'err'='' or error msg
      */
-    func del(strId: String!)->String {
+    func del(strId: String!)->Dictionary<String, AnyObject> {
+        var dictRS: Dictionary<String, AnyObject> = ["rs": false, "err": ""]
+        
         // 指定 id 的資料是否存在
         if (self.getSingle(strId).count < 1) {
-            return "err_memberclass_datanotexists"
+            dictRS["err"] = "err_memberclass_datanotexists"
+            
+            return dictRS
         }
         
         // loop all data, 比對指定會員 id 跳過該筆資料
@@ -235,7 +247,9 @@ class MemberClass {
             mFileMang.write(D_FILE_MEMBER, strData: mJSONClass.DictAryToJSONStr(newAllData))
         }
         
-        return ""
+        dictRS["rs"] = true
+        
+        return dictRS
     }
     
 }
