@@ -30,9 +30,10 @@ class MemberList: UIViewController, UISearchBarDelegate {
     private var searchActive : Bool = false
     private var aryNewAllData: Array<Dictionary<String, String>> = []
     
-    // 其他 class
+    // 其他 class, property
     private let mFileMang = FileMang()
     private let mMemberClass = MemberClass()
+    private var strToday: String!
     
     // viewDidLoad
     override func viewDidLoad() {
@@ -43,6 +44,8 @@ class MemberList: UIViewController, UISearchBarDelegate {
         pubClass = PubClass(viewControl: mVCtrl)
         
         searchBar.delegate = self
+        
+        strToday = pubClass.getDevToday()
     }
     
     // viewDidAppear
@@ -91,9 +94,14 @@ class MemberList: UIViewController, UISearchBarDelegate {
         let ditItem = aryNewAllData[indexPath.row] as Dictionary<String, AnyObject>
         
         mCell.labName.text = ditItem["name"] as? String
-        mCell.labId.text = ditItem["id"] as? String
-        mCell.labTel.text = ditItem["tel"] as? String
-        mCell.labGender.text = ditItem["gender"] as? String
+        mCell.labId.text = pubClass.getLang("member_id") + ": " + (ditItem["id"] as! String)
+        mCell.labTel.text = pubClass.getLang("tel") + ": " + (ditItem["tel"] as! String)
+        
+        // 年齡性別處理
+        pubClass.subStr(ditItem["birth"] as! String, strFrom: 0, strEnd: 4)
+        let strAge = String(Int(pubClass.subStr(strToday, strFrom: 0, strEnd: 4))! - Int(pubClass.subStr(ditItem["birth"] as! String, strFrom: 0, strEnd: 4))!)
+        let strGender = pubClass.getLang("gender_" + (ditItem["gender"] as! String))
+        mCell.labGender.text = pubClass.getLang("gender") + ": " + strGender + ", " + pubClass.getLang("age") + ": " + strAge
         
         // 圖片設定
         let imgFileName = (ditItem["id"] as! String) + ".png"

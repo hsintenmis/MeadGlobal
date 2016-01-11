@@ -9,7 +9,15 @@
 "confirm_yes" = "Yes";
 "confirm_no" = "No";
 "cancel" = "Cancel";
+"btnact_done" = "Done";
 
+"age" = "age";
+"gender" = "gender";
+"gender_M" = "Male";
+"gender_F" = "Female";
+"tel" = "TEL";
+
+"member_id" = "Member Id";
 "member_add" = "Member add";
 "member_edit" = "Member edit";
 "member_delconfirmmsg" = "Make sure delete selected member ?!";

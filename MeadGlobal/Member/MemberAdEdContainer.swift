@@ -39,6 +39,9 @@ class MemberAdEdContainer: UITableViewController, UIImagePickerControllerDelegat
     
     // UIDatePicker 設定
     private let defBirth = "19600101"
+    private let defMaxYMD = "20101231"
+    private let defMinYMD = "19150101"
+    
     private var strBirth = ""
     private let dateFmt_YMD = NSDateFormatter()  // YYMMDD
     private let dateFmt_Read = NSDateFormatter()  // 根據local顯示, ex. 2015年1月1日
@@ -88,44 +91,62 @@ class MemberAdEdContainer: UITableViewController, UIImagePickerControllerDelegat
         dateFmt_Read.timeStyle = NSDateFormatterStyle.NoStyle
         datePickerView.datePickerMode = UIDatePickerMode.Date
         
+        datePickerView.minimumDate = dateFmt_YMD.dateFromString(defMinYMD)!
+        datePickerView.maximumDate = dateFmt_YMD.dateFromString(defMaxYMD)!
+        
         // 設定 datePick value change 要執行的程序
-        datePickerView.addTarget(self, action: Selector("datePickerValueChanged:"), forControlEvents: UIControlEvents.ValueChanged)
+        //datePickerView.addTarget(self, action: Selector("datePickerValueChanged:"), forControlEvents: UIControlEvents.ValueChanged)
     }
     
     /**
-    * edit 點取彈出輸入視窗， 'InputView' 的頂端顯示 'navyBar'
+    * edit 點取彈出 資料輸入視窗 (虛擬鍵盤), 'InputView' 的頂端顯示 'navyBar'
     */
     private func initInputViewTopBar() {
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.Default
-        toolBar.translucent = true
-        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        toolBar.translucent = true  // 半透明
+        //toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)  // 文字顏色
         toolBar.sizeToFit()
         
-        /*
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Bordered, target: self,
-            action:
-        )
-        */
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: "closeDatePicker")
-        
+        let doneButton = UIBarButtonItem(title: pubClass.getLang("btnact_done"), style: UIBarButtonItemStyle.Plain, target: self, action: "DatePickerDone")
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: pubClass.getLang("cancel"), style: UIBarButtonItemStyle.Plain, target: self, action: "DatePickerCancel")
         
-        /*
-        var cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Bordered, target: self, action: "canclePicker")
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
-        */
-
-        toolBar.setItems([spaceButton, doneButton], animated: false)
         toolBar.userInteractionEnabled = true
         
         edBirth.inputAccessoryView = toolBar
     }
     
-    func closeDatePicker() {
-        print("close")
+    /**
+     * DatePicker 點取　'done'
+    */
+    @objc private func DatePickerDone() {
         self.edBirth.resignFirstResponder()
-        //edBirth.endEditing(true)
+        self.datePickerValueChanged(self.datePickerView)
+    }
+    
+    /**
+     * DatePicker 點取　'cancel'
+     */
+    @objc private func DatePickerCancel() {
+        self.edBirth.resignFirstResponder()
+    }
+    
+    /**
+     * UIDatePicker 自訂的 value change method
+     * 使用方式如下:
+     * datePickerView.addTarget(self, action: Selector("datePickerValueChanged:"), 
+     *   forControlEvents: UIControlEvents.ValueChanged)
+     */
+    @objc private func datePickerValueChanged(sender:UIDatePicker) {
+        // edBirth 顯示文字
+        dispatch_async(dispatch_get_main_queue(), {
+            self.edBirth.text = self.dateFmt_Read.stringFromDate(sender.date)
+        })
+        
+        // 設定 strBirth value
+        strBirth = dateFmt_YMD.stringFromDate(sender.date)
     }
     
     /**
@@ -136,7 +157,7 @@ class MemberAdEdContainer: UITableViewController, UIImagePickerControllerDelegat
             // 生日初始預設值
             let mDate = dateFmt_YMD.dateFromString(defBirth)!
             datePickerView.setDate(mDate, animated: false)
-            edBirth.text = dateFmt_Read.stringFromDate(mDate)
+            //edBirth.text = dateFmt_Read.stringFromDate(mDate)
             
             return
         }
@@ -155,21 +176,7 @@ class MemberAdEdContainer: UITableViewController, UIImagePickerControllerDelegat
         strBirth = dictMember["birth"]!
         let mDate = dateFmt_YMD.dateFromString(strBirth)!
         edBirth.text = dateFmt_Read.stringFromDate(mDate)
-    }
-    
-    /**
-    * UIDatePicker 自訂的 value change method
-    */
-    func datePickerValueChanged(sender:UIDatePicker) {
-        // edBirth 顯示文字
-        dispatch_async(dispatch_get_main_queue(), {
-            self.edBirth.text = self.dateFmt_Read.stringFromDate(sender.date)
-        })
-        
-        // 設定 strBirth value
-        strBirth = dateFmt_YMD.stringFromDate(sender.date)
-        
-        print(strBirth)
+        datePickerView.setDate(mDate, animated: false)
     }
     
     /**
@@ -249,17 +256,18 @@ class MemberAdEdContainer: UITableViewController, UIImagePickerControllerDelegat
             return false
         }
         
+        if (edBirth.text!.isEmpty) {
+            pubClass.popIsee(Msg: "err_birth")
+            return false
+        }
+        
         // 產生 Dictionary data
         var dictData = Dictionary<String, String>()
         dictData["id"] = ""
         dictData["name"] = edName.text!
         dictData["tel"] = edTel.text!
         dictData["gender"] = (swchGender.selectedSegmentIndex == 0) ? "M" : "F"
-        dictData["birth"] = ""
-        
-        if let strBirth: String = edBirth.text {
-            dictData["birth"] = strBirth
-        }
+        dictData["birth"] = strBirth
         
         // 會員新增 or 資料更新
         if (self.strMode == "add") {

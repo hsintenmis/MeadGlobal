@@ -9,7 +9,15 @@
 "confirm_yes" = "是";
 "confirm_no" = "否";
 "cancel" = "取消";
+"btnact_done" = "完成";
 
+"age" = "年齡";
+"gender" = "性別";
+"gender_M" = "男性";
+"gender_F" = "女性";
+"tel" = "TEL";
+
+"member_id" = "會員編號";
 "member_add" = "會員新增";
 "member_edit" = "會員編輯";
 "member_delconfirmmsg" = "確定刪除已選擇的會員?!";
