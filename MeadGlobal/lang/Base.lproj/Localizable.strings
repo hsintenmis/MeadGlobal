@@ -13,3 +13,4 @@
 "member_add" = "Member add";
 "member_edit" = "Member edit";
 "member_delconfirmmsg" = "Make sure delete selected member ?!";
+"member_guestname" = "Guest";

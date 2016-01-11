@@ -104,7 +104,10 @@ class TestingMemberSel: UIViewController, UISearchBarDelegate {
      * UITableView, Cell click
      */
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //CODE TO BE RUN ON CELL TOUCH
+        mParentClass.dictUser = aryNewAllData[indexPath.row]
+        mParentClass.strMemberType = "member"
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     //********** #Delegate: 系統的 UISearchBar, Start **********//

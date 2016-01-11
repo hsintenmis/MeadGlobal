@@ -12,6 +12,7 @@
 		42D3D3081C42A2FA002FF7B8 /* TestingUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D3D3071C42A2FA002FF7B8 /* TestingUser.swift */; };
 		42D3D30A1C42C52A002FF7B8 /* TestingMemberSel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D3D3091C42C52A002FF7B8 /* TestingMemberSel.swift */; };
 		D70EE3471C3CDE7100944E21 /* CutImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70EE3461C3CDE7100944E21 /* CutImage.swift */; };
+		D7240CB31C4359A900B1C191 /* MemberAdEdContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7240CB21C4359A900B1C191 /* MemberAdEdContainer.swift */; };
 		D72C9BDB1C3A492F00856494 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D72C9BDA1C3A492F00856494 /* Assets.xcassets */; };
 		D72C9BE81C3A4A6B00856494 /* MainLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72C9BE71C3A4A6B00856494 /* MainLogin.swift */; };
 		D72C9BEC1C3A4A9000856494 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72C9BEB1C3A4A9000856494 /* AppDelegate.swift */; };
@@ -107,6 +108,7 @@
 		42D3D3071C42A2FA002FF7B8 /* TestingUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestingUser.swift; path = Testing/TestingUser.swift; sourceTree = "<group>"; };
 		42D3D3091C42C52A002FF7B8 /* TestingMemberSel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestingMemberSel.swift; path = Testing/TestingMemberSel.swift; sourceTree = "<group>"; };
 		D70EE3461C3CDE7100944E21 /* CutImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CutImage.swift; sourceTree = "<group>"; };
+		D7240CB21C4359A900B1C191 /* MemberAdEdContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemberAdEdContainer.swift; path = Member/MemberAdEdContainer.swift; sourceTree = "<group>"; };
 		D72C9BD01C3A492E00856494 /* MeadGlobal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeadGlobal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D72C9BDA1C3A492F00856494 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../Assets.xcassets; sourceTree = "<group>"; };
 		D72C9BE71C3A4A6B00856494 /* MainLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainLogin.swift; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 				D77687281C3B9801008F4564 /* MemberList.swift */,
 				D7FFDD651C3E6497003EEF92 /* MemberListCell.swift */,
 				D776872A1C3B9A40008F4564 /* MemberAdEd.swift */,
+				D7240CB21C4359A900B1C191 /* MemberAdEdContainer.swift */,
 			);
 			name = Member;
 			sourceTree = "<group>";
@@ -545,6 +548,7 @@
 				4256A34C1C40E5F900131142 /* JSONClass.swift in Sources */,
 				D77687211C3B72DE008F4564 /* TestingMain.swift in Sources */,
 				42D3D30A1C42C52A002FF7B8 /* TestingMemberSel.swift in Sources */,
+				D7240CB31C4359A900B1C191 /* MemberAdEdContainer.swift in Sources */,
 				D77687261C3B7B17008F4564 /* CellCollect.swift in Sources */,
 				D77687291C3B9801008F4564 /* MemberList.swift in Sources */,
 				4256A34A1C40DDCC00131142 /* MemberClass.swift in Sources */,

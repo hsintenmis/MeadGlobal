@@ -10,6 +10,7 @@ import Foundation
  */
 class TestingUser: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
     // @IBOutlet
+    @IBOutlet weak var labName: UILabel!
     @IBOutlet weak var swchGender: UISegmentedControl!
     @IBOutlet weak var edAge: UITextField!
     @IBOutlet weak var pickAge: UIPickerView!
@@ -19,12 +20,14 @@ class TestingUser: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
     private var mVCtrl: UIViewController!
     private var pubClass: PubClass!
     
-    /** 其他 property **/
-    // user data, 傳送給檢測主頁面
-    private var dictUser: Dictionary<String, String> = ["id":"", "name":"guest", "age":"0", "gender":"M"]
+    // public, 目前user身份, 'guest' or 'member'
+    var strMemberType = "guest"  //
+    
+    // public, 受測者資料 user data, 傳送給檢測主頁面
+    var dictUser: Dictionary<String, String> = ["id":"", "name":"guest", "age":"0", "gender":"M"]
     
     // pickView 設定
-    var pickData: Array<String> = [] // 年齡 string, 18~120
+    private var pickData: Array<String> = [] // 年齡 string, 18~120
     
     // viewDidLoad
     override func viewDidLoad() {
@@ -51,6 +54,22 @@ class TestingUser: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
         edAge.delegate = self
     }
     
+    // viewDidAppear
+    override func viewDidAppear(animated: Bool) {
+        // 根據目前 user type, 設定頁面內容
+        if (strMemberType == "guest") {
+            dictUser = ["id":"", "name":pubClass.getLang("member_guestname"), "age":"", "gender":""]
+            swchGender.enabled = true
+        }
+        else {
+            swchGender.enabled = false
+            swchGender.selectedSegmentIndex = (dictUser["gender"] == "M") ? 0 : 1
+        }
+        
+        labName.text = dictUser["name"]
+        edAge.text = dictUser["age"]
+    }
+    
     /** Start #mark: UIPickerView Delegate **/
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
@@ -74,8 +93,11 @@ class TestingUser: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
      * Action, 點取 '年齡' TextView
      */
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        pickAge.hidden = false
-        btnClosePick.hidden = false
+        // 訪客需要設定年齡, 顯示 picker
+        if (strMemberType == "guest") {
+            pickAge.hidden = false
+            btnClosePick.hidden = false
+        }
         
         return false
     }
@@ -95,6 +117,12 @@ class TestingUser: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
         }
         
         return
+    }
+    
+    /**
+     * Action, 點取'訪客'
+     */
+    @IBAction func actGuest(sender: UIButton) {
     }
     
     /**

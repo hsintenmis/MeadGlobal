@@ -13,3 +13,4 @@
 "member_add" = "會員新增";
 "member_edit" = "會員編輯";
 "member_delconfirmmsg" = "確定刪除已選擇的會員?!";
+"member_guestname" = "尊榮貴賓";
