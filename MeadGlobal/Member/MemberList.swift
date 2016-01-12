@@ -97,10 +97,18 @@ class MemberList: UIViewController, UISearchBarDelegate {
         mCell.labId.text = pubClass.getLang("member_id") + ": " + (ditItem["id"] as! String)
         mCell.labTel.text = pubClass.getLang("tel") + ": " + (ditItem["tel"] as! String)
         
-        // 年齡性別處理
-        pubClass.subStr(ditItem["birth"] as! String, strFrom: 0, strEnd: 4)
-        let strAge = String(Int(pubClass.subStr(strToday, strFrom: 0, strEnd: 4))! - Int(pubClass.subStr(ditItem["birth"] as! String, strFrom: 0, strEnd: 4))!)
+        // 性別
         let strGender = pubClass.getLang("gender_" + (ditItem["gender"] as! String))
+        
+        // 年齡
+        var strAge = "--"
+        if let strBirth = ditItem["birth"] as? String {
+            if (strBirth.characters.count == 8) {
+                strAge = String(Int(pubClass.subStr(strToday, strFrom: 0, strEnd: 4))! - Int(pubClass.subStr(ditItem["birth"] as! String, strFrom: 0, strEnd: 4))!)
+            }
+        }
+
+        // 顯示性別年齡
         mCell.labGender.text = pubClass.getLang("gender") + ": " + strGender + ", " + pubClass.getLang("age") + ": " + strAge
         
         // 圖片設定
