@@ -22,3 +22,8 @@
 "member_edit" = "Member edit";
 "member_delconfirmmsg" = "Make sure delete selected member ?!";
 "member_guestname" = "Guest";
+
+"mead_body_FL" = "L-Foot";
+"mead_body_FR" = "R-Foot";
+"mead_body_HL" = "L-Hand";
+"mead_body_HR" = "R-Hand";

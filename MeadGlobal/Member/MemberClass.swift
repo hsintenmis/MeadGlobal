@@ -23,14 +23,18 @@ class MemberClass {
     let D_IDHEAD = "MD"
     
     // 其他 class
+    private var pubClass: PubClass!
     private var mFileMang = FileMang()
     private var mJSONClass = JSONClass()
+    private var strToday: String!
 
     /**
     * init
+    * @today: ex. YMD hms 14碼
     */
-    init() {
-
+    init(ProjectPubClass mPubClass: PubClass) {
+        pubClass = mPubClass
+        strToday = pubClass.getDevToday()
     }
     
     /**
@@ -250,6 +254,23 @@ class MemberClass {
         dictRS["rs"] = true
         
         return dictRS
+    }
+    
+    /**
+    * 根據生日 YMD 取得年齡
+    *
+    * @param strBirth: ex. 20000131 八碼
+    */
+    func getBirthToAge(strBirth: String?)->String! {
+        var strAge = ""
+        
+        if let mBirth = strBirth {
+            if (mBirth.characters.count == 8) {
+                strAge = String(Int(pubClass.subStr(strToday, strFrom: 0, strEnd: 4))! - Int(pubClass.subStr(mBirth, strFrom: 0, strEnd: 4))!)
+            }
+        }
+        
+        return strAge
     }
     
 }

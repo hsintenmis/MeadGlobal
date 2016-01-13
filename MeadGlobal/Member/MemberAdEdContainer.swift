@@ -1,5 +1,5 @@
 //
-// 檔案寫入(String / UIImage)
+// UIDatePicker, 檔案寫入(String / UIImage)
 //
 
 import UIKit
@@ -50,7 +50,7 @@ class MemberAdEdContainer: UITableViewController, UIImagePickerControllerDelegat
     
     // 其他 class
     private let mFileMang = FileMang()
-    private let mMemberClass = MemberClass()
+    private var mMemberClass: MemberClass!
     
     // viewDidLoad
     override func viewDidLoad() {
@@ -59,6 +59,10 @@ class MemberAdEdContainer: UITableViewController, UIImagePickerControllerDelegat
         // common property
         mVCtrl = self
         pubClass = PubClass(viewControl: mVCtrl)
+        mMemberClass = MemberClass(ProjectPubClass: pubClass)
+        
+        // 設定頁面語系
+        self.setPageLang()
         
         // 圖片處理相關
         mImgPicker = UIImagePickerController()
@@ -78,6 +82,14 @@ class MemberAdEdContainer: UITableViewController, UIImagePickerControllerDelegat
     
     // View did Appear
     override func viewDidAppear(animated: Bool) {
+    }
+    
+    /**
+     * 設定頁面語系
+     */
+    private func setPageLang() {
+        swchGender.setTitle(pubClass.getLang("gender_M"), forSegmentAtIndex: 0)
+        swchGender.setTitle(pubClass.getLang("gender_F"), forSegmentAtIndex: 1)
     }
     
     /**
@@ -108,9 +120,9 @@ class MemberAdEdContainer: UITableViewController, UIImagePickerControllerDelegat
         //toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)  // 文字顏色
         toolBar.sizeToFit()
         
-        let doneButton = UIBarButtonItem(title: pubClass.getLang("btnact_done"), style: UIBarButtonItemStyle.Plain, target: self, action: "DatePickerDone")
+        let doneButton = UIBarButtonItem(title: pubClass.getLang("btnact_done"), style: UIBarButtonItemStyle.Plain, target: self, action: "PickerDone")
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: pubClass.getLang("cancel"), style: UIBarButtonItemStyle.Plain, target: self, action: "DatePickerCancel")
+        let cancelButton = UIBarButtonItem(title: pubClass.getLang("cancel"), style: UIBarButtonItemStyle.Plain, target: self, action: "PickerCancel")
         
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
         toolBar.userInteractionEnabled = true
@@ -121,7 +133,7 @@ class MemberAdEdContainer: UITableViewController, UIImagePickerControllerDelegat
     /**
      * DatePicker 點取　'done'
     */
-    @objc private func DatePickerDone() {
+    @objc private func PickerDone() {
         self.edBirth.resignFirstResponder()
         self.datePickerValueChanged(self.datePickerView)
     }
@@ -129,7 +141,7 @@ class MemberAdEdContainer: UITableViewController, UIImagePickerControllerDelegat
     /**
      * DatePicker 點取　'cancel'
      */
-    @objc private func DatePickerCancel() {
+    @objc private func PickerCancel() {
         self.edBirth.resignFirstResponder()
     }
     

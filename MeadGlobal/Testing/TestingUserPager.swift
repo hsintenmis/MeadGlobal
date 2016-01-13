@@ -5,14 +5,19 @@
 import Foundation
 import UIKit
 
+/**
+ * 顯示訪客或會員的 pager
+ */
 class TestingUserPager: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
+    // VC 設定
+    var mTestingUser: TestingUser!
     private var mVCtrl: UIPageViewController!
     
     // Pager 包含的 sub VC
-    var pages = [UIViewController]()
-    var indexPages = 0;
-    var indexNextPages = 0;
+    var pages: Array<UIViewController> = []
+    var indexPages = 0;  // 目前以滑動完成的 page position
+    var indexNextPages = 1;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,17 +32,28 @@ class TestingUserPager: UIPageViewController, UIPageViewControllerDataSource, UI
         pages.append(page1)
         pages.append(page2)
         
-        
         // 初始與顯示第一個頁面
-        setViewControllers([page1], direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
-
+        self.moveToPage(0)
     }
     
+    // viewDidAppear
+    override func viewDidAppear(animated: Bool) {
+    }
+    
+    /**
+    * 根據代入的 position 滑動到指定的頁面
+    */
     func moveToPage(position: Int) {
-        //self.select(<#T##sender: AnyObject?##AnyObject?#>)
+        let mDirect = (position == 0) ? UIPageViewControllerNavigationDirection.Reverse : UIPageViewControllerNavigationDirection.Forward
+        
+        setViewControllers([pages[position]], direction: mDirect, animated: true, completion: nil)
     }
     
     /** Start #mark: UIPageViewController **/
+     
+    /**
+     * page 前一個頁面
+     */
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
         
         let currentIndex = pages.indexOf(viewController)!
@@ -54,6 +70,9 @@ class TestingUserPager: UIPageViewController, UIPageViewControllerDataSource, UI
         return pages[previousIndex]
     }
     
+    /**
+     * page 下個頁面
+     */
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
         
         let currentIndex = pages.indexOf(viewController)!
@@ -81,11 +100,17 @@ class TestingUserPager: UIPageViewController, UIPageViewControllerDataSource, UI
         return self.indexPages
     }
     
+    /**
+     * page 滑動至下一個頁面狀態
+     */
     func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
         if(completed){
             self.indexPages = self.indexNextPages;
-            print(self.indexPages)
+            // TODO 設定目前已選擇的 page position
+            mTestingUser.changBtnColor(self.indexPages)
+            
+            return
         }
         
         self.indexNextPages = 0;
@@ -96,8 +121,6 @@ class TestingUserPager: UIPageViewController, UIPageViewControllerDataSource, UI
         let controller = pendingViewControllers.first
         self.indexNextPages = pages.indexOf(controller!)!
     }
-    
-
     
     /** End #mark: UIPageViewController **/
 }

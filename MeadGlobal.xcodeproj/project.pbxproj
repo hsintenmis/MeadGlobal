@@ -99,6 +99,10 @@
 		D77687291C3B9801008F4564 /* MemberList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77687281C3B9801008F4564 /* MemberList.swift */; };
 		D776872B1C3B9A40008F4564 /* MemberAdEd.swift in Sources */ = {isa = PBXBuildFile; fileRef = D776872A1C3B9A40008F4564 /* MemberAdEd.swift */; };
 		D776872E1C3BAF56008F4564 /* FileMang.swift in Sources */ = {isa = PBXBuildFile; fileRef = D776872D1C3BAF56008F4564 /* FileMang.swift */; };
+		D7FD81671C45F6CA00FA9E5A /* TestingMemberSel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FD81661C45F6CA00FA9E5A /* TestingMemberSel.swift */; };
+		D7FD81691C46070F00FA9E5A /* TestingGuestSel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FD81681C46070F00FA9E5A /* TestingGuestSel.swift */; };
+		D7FD816C1C46368F00FA9E5A /* MeadConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FD816B1C46368F00FA9E5A /* MeadConfig.swift */; };
+		D7FD81711C464E1500FA9E5A /* pict_testing in Resources */ = {isa = PBXBuildFile; fileRef = D7FD81701C464E1500FA9E5A /* pict_testing */; };
 		D7FFDD661C3E6497003EEF92 /* MemberListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FFDD651C3E6497003EEF92 /* MemberListCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -203,6 +207,10 @@
 		D77687281C3B9801008F4564 /* MemberList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemberList.swift; path = Member/MemberList.swift; sourceTree = "<group>"; };
 		D776872A1C3B9A40008F4564 /* MemberAdEd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemberAdEd.swift; path = Member/MemberAdEd.swift; sourceTree = "<group>"; };
 		D776872D1C3BAF56008F4564 /* FileMang.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileMang.swift; sourceTree = "<group>"; };
+		D7FD81661C45F6CA00FA9E5A /* TestingMemberSel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestingMemberSel.swift; path = Testing/TestingMemberSel.swift; sourceTree = "<group>"; };
+		D7FD81681C46070F00FA9E5A /* TestingGuestSel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestingGuestSel.swift; path = Testing/TestingGuestSel.swift; sourceTree = "<group>"; };
+		D7FD816B1C46368F00FA9E5A /* MeadConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeadConfig.swift; path = MeadClass/MeadConfig.swift; sourceTree = "<group>"; };
+		D7FD81701C464E1500FA9E5A /* pict_testing */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pict_testing; sourceTree = "<group>"; };
 		D7FFDD651C3E6497003EEF92 /* MemberListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemberListCell.swift; path = Member/MemberListCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -240,10 +248,12 @@
 				D77686E71C3B6296008F4564 /* Main.storyboard */,
 				D72C9BE61C3A4A0F00856494 /* MainHome */,
 				D77687221C3B72F3008F4564 /* Testing */,
+				D7FD816A1C46365000FA9E5A /* MeadClass */,
 				D77687271C3B97D9008F4564 /* Member */,
 				D72C9BEF1C3A4CCD00856494 /* PubClass */,
 				D72C9BE51C3A49C200856494 /* SysFile */,
 				D72C9BFF1C3A4D3400856494 /* image */,
+				D7FD81701C464E1500FA9E5A /* pict_testing */,
 				D72C9BF61C3A4CF900856494 /* lang */,
 			);
 			path = MeadGlobal;
@@ -372,6 +382,8 @@
 			children = (
 				42D3D3071C42A2FA002FF7B8 /* TestingUser.swift */,
 				D701449A1C449CA800813650 /* TestingUserPager.swift */,
+				D7FD81681C46070F00FA9E5A /* TestingGuestSel.swift */,
+				D7FD81661C45F6CA00FA9E5A /* TestingMemberSel.swift */,
 				D77687201C3B72DE008F4564 /* TestingMain.swift */,
 				D77687251C3B7B17008F4564 /* CellCollect.swift */,
 			);
@@ -388,6 +400,14 @@
 				D7240CB21C4359A900B1C191 /* MemberAdEdContainer.swift */,
 			);
 			name = Member;
+			sourceTree = "<group>";
+		};
+		D7FD816A1C46365000FA9E5A /* MeadClass */ = {
+			isa = PBXGroup;
+			children = (
+				D7FD816B1C46368F00FA9E5A /* MeadConfig.swift */,
+			);
+			name = MeadClass;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -512,6 +532,7 @@
 				D72C9C701C3A4D3400856494 /* menu_profile.png in Resources */,
 				D72C9C7F1C3A4D3400856494 /* user_empty01.png in Resources */,
 				D72C9C6D1C3A4D3400856494 /* menu_cert_256.png in Resources */,
+				D7FD81711C464E1500FA9E5A /* pict_testing in Resources */,
 				D72C9C531C3A4D3400856494 /* camera_shutter.png in Resources */,
 				D72C9C471C3A4D3400856494 /* arrow_right01.png in Resources */,
 				D72C9C6E1C3A4D3400856494 /* menu_member.png in Resources */,
@@ -539,6 +560,7 @@
 				D72C9BEC1C3A4A9000856494 /* AppDelegate.swift in Sources */,
 				D776872B1C3B9A40008F4564 /* MemberAdEd.swift in Sources */,
 				D776872E1C3BAF56008F4564 /* FileMang.swift in Sources */,
+				D7FD81671C45F6CA00FA9E5A /* TestingMemberSel.swift in Sources */,
 				D72C9BF51C3A4CCD00856494 /* PubClass.swift in Sources */,
 				D72C9BF41C3A4CCD00856494 /* NoDataView.swift in Sources */,
 				D701449B1C449CA800813650 /* TestingUserPager.swift in Sources */,
@@ -548,8 +570,10 @@
 				42D3D3081C42A2FA002FF7B8 /* TestingUser.swift in Sources */,
 				4256A34C1C40E5F900131142 /* JSONClass.swift in Sources */,
 				D77687211C3B72DE008F4564 /* TestingMain.swift in Sources */,
+				D7FD81691C46070F00FA9E5A /* TestingGuestSel.swift in Sources */,
 				D7240CB31C4359A900B1C191 /* MemberAdEdContainer.swift in Sources */,
 				D77687261C3B7B17008F4564 /* CellCollect.swift in Sources */,
+				D7FD816C1C46368F00FA9E5A /* MeadConfig.swift in Sources */,
 				D77687291C3B9801008F4564 /* MemberList.swift in Sources */,
 				4256A34A1C40DDCC00131142 /* MemberClass.swift in Sources */,
 				D7FFDD661C3E6497003EEF92 /* MemberListCell.swift in Sources */,

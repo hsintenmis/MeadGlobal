@@ -6,5 +6,5 @@ import Foundation
 import UIKit
 
 class CellCollect: UICollectionViewCell {
-    @IBOutlet weak var btnName: UIButton!
+    @IBOutlet weak var labName: UILabel!
 }

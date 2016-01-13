@@ -28,7 +28,7 @@ class MemberAdEd: UIViewController {
     // 其他 class
     private var mMemberAdEdContainer: MemberAdEdContainer!
     private let mFileMang = FileMang()
-    private let mMemberClass = MemberClass()
+    private var mMemberClass: MemberClass!
     
     // viewDidLoad
     override func viewDidLoad() {
@@ -37,6 +37,7 @@ class MemberAdEd: UIViewController {
         // common property
         mVCtrl = self
         pubClass = PubClass(viewControl: mVCtrl)
+        mMemberClass = MemberClass(ProjectPubClass: pubClass)
         
         // 設定頁面語系
         self.setPageLang()

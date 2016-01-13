@@ -54,7 +54,7 @@ class MainLogin: UIViewController {
      * 檢查裝置是否有指定資料庫檔案 (會員/Mead 資料檔)
      */
     private func DBCheck() {
-        let mMemberClass = MemberClass()
+        let mMemberClass = MemberClass(ProjectPubClass: pubClass)
         mMemberClass.chkData()
     }
     

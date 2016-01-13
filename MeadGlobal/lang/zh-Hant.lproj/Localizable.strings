@@ -22,3 +22,8 @@
 "member_edit" = "會員編輯";
 "member_delconfirmmsg" = "確定刪除已選擇的會員?!";
 "member_guestname" = "尊榮貴賓";
+
+"mead_body_FL" = "左足";
+"mead_body_FR" = "右足";
+"mead_body_HL" = "左腕";
+"mead_body_HR" = "右腕";
