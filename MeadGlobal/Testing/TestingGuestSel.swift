@@ -1,5 +1,5 @@
 //
-// General ViewController page
+// UIPickerView, 點取 edittext, 彈出虛擬鍵盤視窗為 PickerView
 //
 
 import UIKit
@@ -18,9 +18,6 @@ class TestingGuestSel: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     // common property
     private var mVCtrl: UIViewController!
     private var pubClass: PubClass!
-    
-    // 上層 class, pager class
-    var mTestingUserPager: TestingUserPager!
     
     // 受測者資料 array data
     var dictUser: Dictionary<String, String> = [:]
@@ -133,7 +130,7 @@ class TestingGuestSel: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         let strIdnt = segue.identifier
         
         if (strIdnt == "TestingGuestSel") {
-            let vcChild = segue.destinationViewController as! TestingMain
+            let vcChild = segue.destinationViewController as! BLEMeadMain
             vcChild.dictUser = dictUser
 
             return
@@ -151,6 +148,11 @@ class TestingGuestSel: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         dictUser["name"] = labName.text!
         dictUser["age"] = edAge.text!
         dictUser["gender"] = (swchGender.selectedSegmentIndex == 0) ? "M" : "F"
+        
+        if (dictUser["age"]!.isEmpty) {
+            pubClass.popIsee(Msg: pubClass.getLang("err_userage"))
+            return
+        }
         
         // 手動執行 Segue
         self.performSegueWithIdentifier("TestingGuestSel", sender: nil)

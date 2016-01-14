@@ -16,14 +16,34 @@
 "gender_M" = "Male";
 "gender_F" = "Female";
 "tel" = "TEL";
+"plzselmember" = "please select member!";
+"err_userage" = "Age error!";
 
 "member_id" = "Member Id";
 "member_add" = "Member add";
 "member_edit" = "Member edit";
 "member_delconfirmmsg" = "Make sure delete selected member ?!";
 "member_guestname" = "Guest";
+"member_err_birth" = "Member birthday error!";
 
 "mead_body_FL" = "L-Foot";
 "mead_body_FR" = "R-Foot";
 "mead_body_HL" = "L-Hand";
 "mead_body_HR" = "R-Hand";
+
+"err_bt_connect" = "BT device connect failure!";
+"err_connectlost" = "BT connect lost";
+"bt_founddev" = "BT device found!";
+"bt_connect_break" = "BT disconnect!";
+"bt_selectbtdevice" = "Select BT Device";
+"bt_alreadymatchdevice" = "current match BT device";
+"bt_searching" = "scanning . . .";
+"bt_cantfindbtdevice" = "Can not find BT device!";
+"bt_devicenotyetmatch" = "BT device not match!";
+"bt_devicenotsupportbt" = "Mobile not support BLE. . .";
+"bt_btdeviceconnsuccessful" = "BT connect success!";
+"bt_btdeviceready" = "BT device ready!";
+"bt_btweightok" = "BT Device ready for testing!";
+"btnotactivemsg" = "Mobile BT function is not enable!";
+"bt_bondcomplete" = "BT device bond completed!";
+"bt_plzsearchagain" = "Please scan BT device again!";

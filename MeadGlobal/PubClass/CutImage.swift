@@ -19,7 +19,6 @@ protocol ClipViewControllerDelegate {
 class CutImage: UIViewController, UIGestureRecognizerDelegate {
     var delegate: ClipViewControllerDelegate?
     
-    
     // 圖片相關參數設定, 裁剪框的frame
     var scaleRation: CGFloat = 3.0  // 图片缩放的最大倍数
     var radius: CGFloat = 120.0  //圆形裁剪框的半径

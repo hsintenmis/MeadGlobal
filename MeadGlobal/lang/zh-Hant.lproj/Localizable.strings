@@ -16,14 +16,34 @@
 "gender_M" = "男性";
 "gender_F" = "女性";
 "tel" = "TEL";
+"plzselmember" = "請選擇會員!";
+"err_userage" = "年齡錯誤!";
 
 "member_id" = "會員編號";
 "member_add" = "會員新增";
 "member_edit" = "會員編輯";
 "member_delconfirmmsg" = "確定刪除已選擇的會員?!";
 "member_guestname" = "尊榮貴賓";
+"member_err_birth" = "會員生日錯誤!";
 
 "mead_body_FL" = "左足";
 "mead_body_FR" = "右足";
 "mead_body_HL" = "左腕";
 "mead_body_HR" = "右腕";
+
+"err_bt_connect" = "系统错误:蓝牙资料连线建立失败!";
+"err_connectlost" = "蓝牙连线訊號遺失!";
+"bt_founddev" = "找到蓝牙設備!";
+"bt_connect_break" = "蓝牙连线中断!";
+"bt_selectbtdevice" = "选择蓝牙设备";
+"bt_alreadymatchdevice" = "目前已经配对的设备";
+"bt_searching" = "搜寻中. . .";
+"bt_cantfindbtdevice" = "搜寻不到蓝牙装置!";
+"bt_devicenotyetmatch" = "装置未配对";
+"bt_devicenotsupportbt" = "本机不支援蓝牙功能. . .";
+"bt_btdeviceconnsuccessful" = "蓝牙连线成功!";
+"bt_btdeviceready" = "蓝牙装置已就绪, 可以开始量测了!";
+"bt_btweightok" = "可以开始量测了!";
+"btnotactivemsg" = "行动装置的蓝牙功能未开启!";
+"bt_bondcomplete" = "蓝牙设备绑定完成!";
+"bt_plzsearchagain" = "请重新搜寻蓝牙设备. . .";

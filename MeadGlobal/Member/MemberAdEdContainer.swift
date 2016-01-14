@@ -234,7 +234,7 @@ class MemberAdEdContainer: UITableViewController, UIImagePickerControllerDelegat
     }
     
     /**
-     * #Delegate: ClipViewControllerDelegate
+     * #mark: 系統 Delegate, ClipViewControllerDelegate
      * UIImagePickerController 的 protocol (implements)
      */
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
@@ -242,7 +242,7 @@ class MemberAdEdContainer: UITableViewController, UIImagePickerControllerDelegat
     }
     
     /**
-     * #Delegate: ClipViewControllerDelegate
+     * #mark: 自訂 Delegate, ClipViewControllerDelegate
      * ClipViewControllerDelegate, 實作 method
      */
     func ClipViewController(clipViewController: CutImage, FinishClipImage editImage: UIImage) {

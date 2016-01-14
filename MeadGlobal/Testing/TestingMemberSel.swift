@@ -17,6 +17,9 @@ class TestingMemberSel: UIViewController, UITableViewDelegate, UITableViewDataSo
     private var mVCtrl: UIViewController!
     private var pubClass: PubClass!
     
+    // 受測者資料 array data
+    var dictUser: Dictionary<String, String> = [:]
+    
     // 原始的 TableView data
     private var aryAllData: Array<Dictionary<String, String>> = []
     
@@ -116,6 +119,13 @@ class TestingMemberSel: UIViewController, UITableViewDelegate, UITableViewDataSo
         return mCell
     }
     
+    /**
+     * #Mark Delegate: UITableView, Cell 點取時
+     */
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        dictUser = aryNewAllData[indexPath.row]
+    }
+    
     //********** #Delegate: 系統的 UISearchBar, Start **********//
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
@@ -138,6 +148,9 @@ class TestingMemberSel: UIViewController, UITableViewDelegate, UITableViewDataSo
      * 搜尋字元改變時
      */
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        // user 清空
+        dictUser = [:]
+        
         if (aryAllData.count < 1) {
             searchActive = false;
             return
@@ -184,12 +197,38 @@ class TestingMemberSel: UIViewController, UITableViewDelegate, UITableViewDataSo
     * Segue 跳轉頁面，StoryBoard 介面需要拖曳 pressenting segue
     */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        //let strIdentName = segue.identifier
-        searchBar.text = ""
+        let strIdnt = segue.identifier
         
-        // TODO 預設 segue 跳轉至檢測主頁面
- 
+        if (strIdnt == "TestingMemberSel") {
+            let vcChild = segue.destinationViewController as! BLEMeadMain
+            vcChild.dictUser = dictUser
+            
+            return
+        }
+        
         return
+    }
+    
+    /**
+     * Action, 點取 '開始檢測'
+     */
+    @IBAction func actSubmit(sender: UIButton) {
+        if (dictUser.count < 1) {
+            pubClass.popIsee(Msg: pubClass.getLang("plzselmember"))
+            return
+        }
+        
+        // 檢查會員資料
+        let strAge = mMemberClass.getBirthToAge(dictUser["birth"])
+        if (strAge == "") {
+            pubClass.popIsee(Msg: pubClass.getLang("member_err_birth"))
+            return
+        }
+        
+        dictUser["age"] = strAge
+        
+        // 手動執行 Segue
+        self.performSegueWithIdentifier("TestingMemberSel", sender: nil)
     }
     
     override func didReceiveMemoryWarning() {

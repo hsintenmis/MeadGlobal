@@ -260,6 +260,7 @@ class MemberClass {
     * 根據生日 YMD 取得年齡
     *
     * @param strBirth: ex. 20000131 八碼
+    * @return: if return "", means error
     */
     func getBirthToAge(strBirth: String?)->String! {
         var strAge = ""
