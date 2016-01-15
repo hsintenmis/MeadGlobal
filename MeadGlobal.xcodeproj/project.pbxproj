@@ -101,7 +101,7 @@
 		D7CF06571C475710004E8E71 /* BLEMeadMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CF06561C475710004E8E71 /* BLEMeadMain.swift */; };
 		D7FD81671C45F6CA00FA9E5A /* TestingMemberSel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FD81661C45F6CA00FA9E5A /* TestingMemberSel.swift */; };
 		D7FD81691C46070F00FA9E5A /* TestingGuestSel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FD81681C46070F00FA9E5A /* TestingGuestSel.swift */; };
-		D7FD816C1C46368F00FA9E5A /* MeadConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FD816B1C46368F00FA9E5A /* MeadConfig.swift */; };
+		D7FD816C1C46368F00FA9E5A /* MeadCFG.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FD816B1C46368F00FA9E5A /* MeadCFG.swift */; };
 		D7FD81711C464E1500FA9E5A /* pict_testing in Resources */ = {isa = PBXBuildFile; fileRef = D7FD81701C464E1500FA9E5A /* pict_testing */; };
 		D7FFDD661C3E6497003EEF92 /* MemberListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FFDD651C3E6497003EEF92 /* MemberListCell.swift */; };
 /* End PBXBuildFile section */
@@ -209,7 +209,7 @@
 		D7CF06561C475710004E8E71 /* BLEMeadMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BLEMeadMain.swift; path = BTClass/BLEMeadMain.swift; sourceTree = "<group>"; };
 		D7FD81661C45F6CA00FA9E5A /* TestingMemberSel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestingMemberSel.swift; path = Testing/TestingMemberSel.swift; sourceTree = "<group>"; };
 		D7FD81681C46070F00FA9E5A /* TestingGuestSel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestingGuestSel.swift; path = Testing/TestingGuestSel.swift; sourceTree = "<group>"; };
-		D7FD816B1C46368F00FA9E5A /* MeadConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeadConfig.swift; path = MeadClass/MeadConfig.swift; sourceTree = "<group>"; };
+		D7FD816B1C46368F00FA9E5A /* MeadCFG.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeadCFG.swift; path = MeadClass/MeadCFG.swift; sourceTree = "<group>"; };
 		D7FD81701C464E1500FA9E5A /* pict_testing */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pict_testing; sourceTree = "<group>"; };
 		D7FFDD651C3E6497003EEF92 /* MemberListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemberListCell.swift; path = Member/MemberListCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -413,7 +413,7 @@
 		D7FD816A1C46365000FA9E5A /* MeadClass */ = {
 			isa = PBXGroup;
 			children = (
-				D7FD816B1C46368F00FA9E5A /* MeadConfig.swift */,
+				D7FD816B1C46368F00FA9E5A /* MeadCFG.swift */,
 			);
 			name = MeadClass;
 			sourceTree = "<group>";
@@ -581,7 +581,7 @@
 				D7FD81691C46070F00FA9E5A /* TestingGuestSel.swift in Sources */,
 				D7240CB31C4359A900B1C191 /* MemberAdEdContainer.swift in Sources */,
 				D77687261C3B7B17008F4564 /* CellCollect.swift in Sources */,
-				D7FD816C1C46368F00FA9E5A /* MeadConfig.swift in Sources */,
+				D7FD816C1C46368F00FA9E5A /* MeadCFG.swift in Sources */,
 				D77687291C3B9801008F4564 /* MemberList.swift in Sources */,
 				4256A34A1C40DDCC00131142 /* MemberClass.swift in Sources */,
 				D7FFDD661C3E6497003EEF92 /* MemberListCell.swift in Sources */,

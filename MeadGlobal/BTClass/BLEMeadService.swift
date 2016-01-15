@@ -1,8 +1,8 @@
 //
 // 藍芽 BLE 檢測儀, 測試使用藍牙 BLE HC-08模組
-// D_DEVNAME = "HTEBT401"
-// UUID  :0000ffe0-0000-1000-8000-00805f9b34fb (Service)
-// chart :0000ffe1-0000-1000-8000-00805f9b34fb (Characteristic)
+// D_DEVNAME = "HTEBT401", "HC-08"
+// Service :0000ffe0-0000-1000-8000-00805f9b34fb
+// chart   :0000ffe1-0000-1000-8000-00805f9b34fb
 //
 // 藍牙 BLE 必填標準參數 (iOS不用處理)
 // 關閉或打開通知(Notify)的UUID, 藍牙規格固定值
@@ -23,16 +23,15 @@ protocol BLEMeadServiceDelegate {
  * 藍芽 BLE 檢測儀
  */
 class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
-    
     private let IS_DEBUG = false
     
     // protocol BLEMeadServiceDelegate
     var mBLEMeadServiceDelegate: BLEMeadServiceDelegate?
     
-    // 固定參數設定, 主 Service chanel, Character,
-    private let D_BTDEVNAME0 = "HTEBT401"
+    // 藍芽裝置名稱
+    private let aryBTNAME = ["HC-08", "HTEBT401"]
     
-    // UUID, 血壓數值主 Service, Char
+    // UUID, Service, Char
     private let UID_SERV: CBUUID = CBUUID(string: "0000ffe0-0000-1000-8000-00805f9b34fb")
     private let UID_CHAR_W: CBUUID = CBUUID(string: "00002902-0000-1000-8000-00805f9b34fb")
     private let UID_CHAR_I: CBUUID = CBUUID(string: "0000ffe1-0000-1000-8000-00805f9b34fb")
@@ -70,7 +69,7 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     }
     
     /**
-     * 開始掃描 BT 設備
+     * 開始掃描搜索 BT 設備
      */
     func StartScanDev() {
         centralManager.scanForPeripheralsWithServices(nil, options: nil)
@@ -83,6 +82,9 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         self.centralManager.stopScan()
         mTimer.invalidate()
         mTimer = nil
+        
+        // 設定 'handler': 掃描 BT 設備
+        setHandlerData(Flag: "BT_statu", Result: true, Msg: "bt_searchingstop")
     }
     
     /**
@@ -104,24 +106,43 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
      */
     func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
         
-        if (IS_DEBUG) {
-            print("Discovered: \(peripheral.name)")
+        if (IS_DEBUG) { print("Discovered: \(peripheral.name)") }
+        
+        // 設定 'handler': 掃描 BT 設備
+        setHandlerData(Flag: "BT_statu", Result: true, Msg: "bt_searching")
+        
+        // 搜索掃描時間限制 5 秒
+        mTimer = NSTimer(timeInterval: 5.0, target: self, selector: "findBTNameDev:", userInfo: peripheral, repeats: false)
+        NSRunLoop.currentRunLoop().addTimer(mTimer, forMode: NSRunLoopCommonModes)
+    }
+    
+    /**
+    * 尋找指定藍芽名稱的 Device
+    * @ param timer: Selector 的 '本體'
+    */
+    func findBTNameDev(timer: NSTimer) {
+        if (BT_ISREADYFOTESTING == true) {
+            return
         }
         
-        // TODO 需要設定搜尋時間
-        
-        // 找到指定裝置 名稱 or addr
-        if (peripheral.name == D_BTDEVNAME0) {
-            self.connectingPeripheral = peripheral
-            self.centralManager.stopScan()
-            self.centralManager.connectPeripheral(peripheral, options: nil)
-            
-            // 設定 'handler': 找到指定名稱的藍芽設備
-            setHandlerData(Flag: "BT_founddev", Result: true, Msg: "bt_founddev")
+        let peripheral = timer.userInfo as! CBPeripheral
+        for strBTName in aryBTNAME {
+            if (peripheral.name == strBTName) {
+                self.connectingPeripheral = peripheral
+                self.centralManager.stopScan()
+                self.centralManager.connectPeripheral(peripheral, options: nil)
+                
+                // 設定 'handler': 找到指定名稱的藍芽設備
+                setHandlerData(Flag: "BT_statu", Result: true, Msg: "bt_founddev")
+
+                return
+            }
         }
         
-        // 掃描時間限制 5 秒
-        mTimer = NSTimer(timeInterval: 5.0, target: self, selector: "StopScanDev", userInfo: nil, repeats: false)
+        // 設定 'handler': 找不到指定名稱的藍芽設備
+        setHandlerData(Flag: "BT_statu", Result: false, Msg: "bt_cantfindbtdevice")
+        
+        return
     }
     
     /**
@@ -132,17 +153,14 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
         self.connectingPeripheral.delegate = self
         
+        // 設定 'handler': 顯示 '藍芽設備初始'
+        setHandlerData(Flag: "BT_statu", Result: true, Msg: "bt_initing")
+        
         // 尋找指定的 Service UID
-        //self.connectingPeripheral.discoverServices([UID_SERV])
+        self.connectingPeripheral.discoverServices([UID_SERV])
         
         // 搜尋全部的 Service
-        self.connectingPeripheral.discoverServices(nil)
-        
-        //mBTBPMain.notifyBTStat("BT_MSG_foundandtestconn")
-        
-        if (IS_DEBUG) {
-            print("BT: Device found!\n")
-        }
+        //self.connectingPeripheral.discoverServices(nil)
     }
     
     /**
@@ -153,7 +171,8 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
         BT_ISREADYFOTESTING = false
         
-        //mBTBPMain.notifyBTStat("BT_MSG_noconn")
+        // 設定 Hanlder
+        setHandlerData(Flag: "BT_conn", Result: false, Msg: "bt_connect_break")
     }
     
     /**
@@ -164,27 +183,27 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         var msg = ""
         switch (central.state) {
         case .PoweredOff:
-            msg = "bt_powered_off"
+            msg = "bt_mobile_off"
             print(msg)
             BT_POWERON = false
             BT_ISREADYFOTESTING = false
             
         case .PoweredOn:
-            msg = "bt_powered_on"
+            msg = "bt_mobile_on"
             BT_POWERON = true
             self.StartScanDev()
             
         case .Resetting:
-            msg = "bt_resetting"
+            msg = "bt_mobile_resetting"
             
         case .Unauthorized:
-            msg = "bt_unauthorized"
+            msg = "bt_mobile_unauthorized"
             
         case .Unknown:
-            msg = "bt_unknown_stat"
+            msg = "bt_mobile_unknown_stat"
             
         case .Unsupported:
-            msg = "bt_ble_unsupported"
+            msg = "bt_mobile_unsupported"
         }
         
         if (IS_DEBUG) { print(msg) }
@@ -212,9 +231,7 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             if (tmpCBService.UUID == UID_SERV) {
                 self.mBTService = tmpCBService
                 
-                if (IS_DEBUG) {
-                    print("Main Serv UID: \(self.mBTService.UUID)\n")
-                }
+                if (IS_DEBUG) { print("Main Serv UID: \(self.mBTService.UUID)\n") }
             }
             
             // 指定的 Service, 查詢全部的 Chart
@@ -233,9 +250,7 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         
         // 指定的 service channel,loop charact UUID 設定 Test/Write charact
         for mChart in service.characteristics! {
-            if (IS_DEBUG) {
-                print("Char UID: \(mChart.UUID)\n")
-            }
+            if (IS_DEBUG) { print("Char UID: \(mChart.UUID)\n") }
             
             // 設定 'Indenify' Chart
             if (mChart.UUID == UID_CHAR_I) {
@@ -245,12 +260,10 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                 // NotificationStateForCharacteristic statu 更新
                 peripheral.setNotifyValue(true, forCharacteristic: mChart)
                 
-                /*
                 if (IS_DEBUG) {
-                print("SetNotify_Chart_UID:\(self.mBTCharact_W.UUID)")
-                print("Chart_IsNotify: \(self.mBTCharact_W.isNotifying)\n")
+                    print("SetNotify_Chart_UID:\(mChart.UUID)")
+                    print("Chart_IsNotify: \(mChart.isNotifying)\n")
                 }
-                */
             }
                 
                 // 設定 '寫入' Chart
@@ -259,11 +272,7 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             }
         }
         
-        /*
-        if (IS_DEBUG) {
-        peripheral.discoverDescriptorsForCharacteristic(self.mBTCharact_W)
-        }
-        */
+        //if (IS_DEBUG) { peripheral.discoverDescriptorsForCharacteristic(mChart) }
     }
     
     /**
@@ -278,12 +287,12 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             print("Notify: \(characteristic.isNotifying)\n")
         }
         
-        // 測量值主 service 的 notify chart
+        // 藍芽是否連接與初始成功，測量值主 service 的 notify chart
         if (characteristic.isNotifying == true && characteristic.UUID == UID_CHAR_I) {
-            
-            //mBTBPMain.notifyBTStat("BT_MSG_readyfortesting")
-            
             BT_ISREADYFOTESTING = true
+            
+            // 設定 hanlder
+            setHandlerData(Flag: "BT_conn", Result: true, Msg: "bt_readytesting")
             
             return
         }
@@ -308,9 +317,8 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         }
         
         // TODO
-        let mDisp: CBDescriptor = characteristic.descriptors![0]
-        
         if (IS_DEBUG) {
+            let mDisp: CBDescriptor = characteristic.descriptors![0]
             print("BTDEF_NOTIFY: \(mDisp)")
         }
     }
@@ -322,35 +330,47 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
      */
     func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
         
-        // 接收到血壓計 回傳數值
+        let mNSData = characteristic.value!
+        //print("Update MainSrv val : \(characteristic.value)\n")
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            var mIntVal = [UInt8](count:mNSData.length, repeatedValue:0)
+            mNSData.getBytes(&mIntVal, length:mNSData.length)
+            self.analyRespon(mIntVal)
+        })
+        
+        // 接收與回傳數值至 行動裝置
+        /*
         if (characteristic.value?.length > 0 && characteristic.UUID == UID_CHAR_I) {
-            if (IS_DEBUG) {
-                print("Update MainSrv val : \(characteristic.value!)\n")
-            }
+            let mNSData = characteristic.value!
+            
+            if (IS_DEBUG) { print("Update MainSrv val : \(mNSData)\n") }
             
             // 取得回傳資料，格式如: HEX: 01 00 23 A0 02 ..., [Byte] = [UInt8]
-            let mNSData = characteristic.value!
             var mIntVal = [UInt8](count:mNSData.length, repeatedValue:0)
             mNSData.getBytes(&mIntVal, length:mNSData.length)
             
-            if (IS_DEBUG) {
-                print(mIntVal)
-            }
+            if (IS_DEBUG) { print(mIntVal) }
             
-            // 通知上層 class 'BTScaleMain' 執行頁面更新
+            self.analyRespon(mIntVal)
             
             return
         }
+        */
     }
     
     /**
-     * 將傳回的 bit array 轉為可閱讀的 Dictionary<String, String>
-     * 規格參考 'didUpdateValueForCharacteristic'
+     * 將傳回的 bit array , 一個一個拆解並回傳至 hanlder
      */
-    private func getTestingResult(aryRS: Array<UInt8>)-> Dictionary<String, String> {
-        var dictRS: Dictionary<String, String> = [:]
+    private func analyRespon(aryRS: Array<UInt8>) {
+        if (aryRS.count < 1) {
+            return
+        }
         
-        return dictRS
+        for intVal in aryRS {
+            // 通知上層 class 'BTScaleMain' 執行頁面更新
+            setHandlerData(Flag: "BT_data", Result: true, Msg: String(intVal))
+        }
     }
     
     /**

@@ -11,6 +11,8 @@ import Foundation
  * 3.測量完後檢測報告 4. 儲存
  */
 class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
+    private let IS_DEBUG = false
+    
     // @IBOutlet
     @IBOutlet weak var imgUser: UIImageView!
     @IBOutlet weak var labName: UILabel!
@@ -20,28 +22,53 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
     
     @IBOutlet weak var labBTMsg: UILabel!
     @IBOutlet weak var labPointMsg: UILabel!
+    @IBOutlet weak var labPointMsg1: UILabel!
+    @IBOutlet weak var labTestVal: UILabel!
+    
+    @IBOutlet weak var labTxtExistVal: UILabel!
+    @IBOutlet weak var labExistVal: UILabel!
     
     // common property
     private var mVCtrl: UIViewController!
     private var pubClass: PubClass!
     
+    // 本頁面檢測的狀態參數設定
+    private let STATU_READY = 3001;   // 等待接收資料中, 檢測值=1
+    private let STATU_RECEIVE = 3002; // 資料接收中, 檢測值>1
+    private let STATU_FINISH = 3003;  // 單一檢測項目完成, 已達到 maxCount
+    private let STATU_STOP = 3004;    // 檢測結束(判別 positionTestItem 已到最後一筆資料)
+    private var CURR_STATU = 3004     // 目前檢測的狀態
+    
+    // 數值取樣設定
+    private let D_MAXCOUNT = 200 // 接收到的檢測數值, 計算加總的最大次數
+    private var currValCount = 0  // 目前檢測數值計算加總的次數
+    private var mapTestValCount: Dictionary<String, Int> = [:] // 檢測數值 => 出現次數, 目的取得最多次數的 val
+    
     /* public property, 由 parent segue 設定 */
     // 受測者資料，存檔至檢測數值DB, key: id, name, age, gender
     var dictUser: Dictionary<String, String> = [:]
     
-    // var 檢測數值 array data, 從 MeadConfig 初始取得
+    /** var 檢測數值 array data, 從 MeadConfig 初始取得
+     * 資料設定如下<br>
+     * id :辨識 id, ex. H1, H2 ...<br>
+     * body : 身體部位, ex. 'H' or 'F'<BR>
+     * direction : 左右, ex. L or R ...<br>
+     * val : 檢測值, 預設 0, String 型態<br>
+     * serial : 身體與方向 目前序號, 1 ~ 6<br>
+    */
     var aryTestingData: Array<Dictionary<String, String>> = []
     
     // 目前檢測資料的 position, 與 CollectionView 的 position 一樣
     var currDataPosition = 0;
     var currIndexPath = NSIndexPath(forRow: 0, inSection:0)
+    var D_TOTNUMS_TESTINGITEM = 24  // 共有 24 個檢測項目, 參考 'aryTestingData'
     
     // 顏色
-    private let dictColor = ["white":"FFFFFF", "red":"FFCCCC", "gray":"C0C0C0", "silver":"F0F0F0", "blue":"66CCFF", "black":"000000"]
+    private let dictColor = ["white":"FFFFFF", "red":"FFCCCC", "gray":"C0C0C0", "silver":"F0F0F0", "blue":"66CCFF", "black":"000000", "green":"99CC33"]
     
     // 其他 class, property
     private var mBLEMeadService: BLEMeadService!
-    private var mMeadConfig: MeadConfig! // MEAD 設定檔
+    private var mMeadCFG: MeadCFG! // MEAD 設定檔
     private let mFileMang = FileMang()
     private var strToday: String!
     
@@ -54,22 +81,23 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
         pubClass = PubClass(viewControl: mVCtrl)
         
         mBLEMeadService = BLEMeadService()
-        mMeadConfig = MeadConfig(ProjectPubClass: pubClass)
+        mBLEMeadService.mBLEMeadServiceDelegate = self
+        mMeadCFG = MeadCFG(ProjectPubClass: pubClass)
         
         // Mead, 其他 相關資料初始
+        labTxtExistVal.text = pubClass.getLang("mead_existtestingval")
         setUserView()
         
         // 檢測數值 array data 初始與產生
-        aryTestingData = mMeadConfig.getAryAllTestData()
-        
-        // 開始連接藍芽設備
-        mBLEMeadService.mBLEMeadServiceDelegate = self
-        mBLEMeadService.startUpCentralManager()
+        aryTestingData = mMeadCFG.getAryAllTestData()
     }
     
     // viewDidAppear
     override func viewDidAppear(animated: Bool) {
         viewCollect.reloadData()
+        
+        // 開始連接藍芽設備
+        mBLEMeadService.startUpCentralManager()
     }
     
     /**
@@ -113,12 +141,16 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
         // 樣式/外觀/顏色
         mCell.layer.cornerRadius = 2
         
+        var strColor = "gray"
+        
         if (indexPath == currIndexPath) {
-            mCell.backgroundColor = pubClass.ColorHEX(dictColor["blue"])
+            strColor = "blue"
         }
-        else {
-            mCell.backgroundColor = pubClass.ColorHEX(dictColor["gray"])
+        else if (dictItem["val"] != "0") {
+            strColor = "green"
         }
+        
+        mCell.backgroundColor = pubClass.ColorHEX(dictColor[strColor])
         
         return mCell
     }
@@ -128,50 +160,198 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
      */
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
-        currDataPosition = indexPath.row
-        let dictItem = aryTestingData[currDataPosition]
-        //print(dictItem)
+        // 重新改變狀態
+        CURR_STATU = STATU_FINISH
+        self.moveCollectCell(indexPath.row)
+    }
+    
+    /**
+    * CollectionView 移動到指定的 position cell
+    * 本頁面 IBOutlet 跟著變動
+    */
+    private func moveCollectCell(mRow: Int) {
+        let dictItem = aryTestingData[mRow]
+        currDataPosition = mRow
+        currIndexPath = NSIndexPath(forRow: mRow, inSection:0)
         
         // 設定穴位圖片, 圖片路徑 'pict_testing', 圖片名稱 ex. F1_R_P.jpg
         let strPict = dictItem["id"]! + "_" + dictItem["direction"]! + "_P.jpg"
         imgBody.image = UIImage(named: "pict_testing/" + strPict)
         
-        // 設定目前的 indexPath
-        currIndexPath = indexPath
+        // CollectionView 更新
+        viewCollect.scrollToItemAtIndexPath(currIndexPath, atScrollPosition: .CenteredHorizontally, animated: true)
         viewCollect.reloadData()
+        
+        // 其他 IBOutlet 更新
+        labPointMsg.text = pubClass.getLang("MERIDIAN_" + dictItem["id"]!)
+        labPointMsg1.text = pubClass.getLang("ORAGN_" + dictItem["id"]!)
+        labExistVal.text = dictItem["val"]
     }
     
     /**
-    * CollectionView 移動到指定的 position cell
+    * 解析檢測儀傳來的數值資料
+    * <P>
+    * 檢測狀態: <BR>
+    * STATU_READY: 檢測值 = 1, 探針未與任何量測點接觸<BR>
+    * STATU_RECEIVE: 檢測值 > 1, 量測點正在確認中<BR>
+    * STATU_FINISH: 到達 maxCount, 完成數值讀取，移到下一個/檢測完成(Item position = 最後一個)<BR>
+    *
+    * @param intVal
+    *            : 檢測值
     */
-    private func moveCollectCell(mRow: Int) {
-        let mIndex = NSIndexPath(forRow: mRow, inSection:0)
-        self.collectionView(viewCollect, didSelectItemAtIndexPath: mIndex)
-        viewCollect.scrollToItemAtIndexPath(mIndex, atScrollPosition: .CenteredHorizontally, animated: true)
-        viewCollect.reloadData()
+    private func analyBTData(intVal: Int) {
+        if (CURR_STATU == STATU_STOP) {
+            return
+        }
+        
+        let strVal = String(intVal)
+    
+        // STATU_READY, 檢測值 = 1, 探針未與任何量測點接觸
+        if (intVal == 1) {
+            
+            // 設定目前檢測狀態，顯示提示訊息
+            if ( CURR_STATU != STATU_READY ) {
+				CURR_STATU = STATU_READY
+                mapTestValCount = [:] // 重設 val 對應次數 dict data
+                labBTMsg.text = pubClass.getLang("mead_point_ready")
+				labTestVal.text = "0"
+            }
+            
+            // 數值計算 maxCount = 0
+            currValCount = 0
+            
+            return
+        }
+
+        // STATU_RECEIVE, 檢測值 > 1, 預設狀態為：量測點正在確認中
+        
+        // 目前狀態 = STATU_FINISH, 無動作
+        if (CURR_STATU == STATU_FINISH) {
+            return
+        }
+        
+        // 設定目前檢測狀態，顯示提示訊息
+        if (CURR_STATU != STATU_RECEIVE) {
+            CURR_STATU = STATU_RECEIVE
+            labBTMsg.text = pubClass.getLang("mead_point_recive")
+        }
+        
+        // 螢幕顯示檢測數值
+        self.labTestVal.text = String(strVal)
+        
+        // 數值資料加入 '取樣設定' dict array
+        if ( currValCount <= D_MAXCOUNT ) {
+            if let count: Int = mapTestValCount[strVal] {
+                mapTestValCount[strVal] = count + 1
+            } else {
+                mapTestValCount[strVal] = 1
+            }
+            
+            currValCount++
+            
+            return
+        }
+            
+        // 取樣程序, 已經達到最大的計算次數，該檢測項目檢測完成
+        currValCount = 0
+        
+        // 取得出現次數最多的值，將數值資料設定到 'aryTestingData'
+        var strMaxCountVal = "0" // 次數最多的檢測值
+        var currCount = 0  // 暫存比較用的 count
+        
+        // key/value loop 資料, 找出現次數最多的數值 'strMaxCountVal'
+        for (tmpVal, tmpCount) in mapTestValCount {
+            if (tmpCount > currCount) {
+                strMaxCountVal = tmpVal
+                currCount = tmpCount
+            }
+        }
+        
+        // 將出現次數最多的數值 加入 'aryTestingData'
+        aryTestingData[currDataPosition]["val"] = strMaxCountVal
+        labExistVal.text = strMaxCountVal
+        
+        // 是否已到最後一筆 檢測項目, 所有項目檢測完成，執行相關程序
+        if ( currDataPosition >= (D_TOTNUMS_TESTINGITEM - 1) ) {
+            CURR_STATU = STATU_STOP
+            labBTMsg.text = pubClass.getLang("mead_point_finish")
+            
+            return
+        }
+        
+        // 設定目前狀態為 'STATU_FINISH'
+        CURR_STATU = STATU_FINISH;
+        labBTMsg.text = pubClass.getLang("mead_point_movenext")
+        
+        // 目前檢測項目 position + 1, collectionView position 移動
+        currDataPosition++
+        moveCollectCell(currDataPosition)
+        
+        return
     }
     
     /**
      * #mark: 自訂 Delegate, BLEMeadServiceDelegate
-     * 
+     *
      * 接收藍芽設備 handler
+     * Flag: 'BT_statu', 'BT_conn', 'BT_data'
      * BLEMeadService protocol, 實作 method
      */
     func handlerBLEMeadService(mBLEMeadService: BLEMeadService, identCode: String!, result: Bool!, msgCode: String!) {
         
         switch (identCode) {
+          
+        // 一般狀態
         case "BT_statu":
-            print(identCode + ":" + msgCode)
+            labBTMsg.text = pubClass.getLang(msgCode)
             break
+            
+        // 連線狀態
+        case "BT_conn":
+            // 藍芽接續成功，準備接收資料
+            if (result == true) {
+                CURR_STATU = STATU_READY
+                self.labBTMsg.text = self.pubClass.getLang(msgCode)
+                
+                break
+            }
+            
+            // 藍芽斷線
+            CURR_STATU = STATU_STOP
+            self.labBTMsg.text = self.pubClass.getLang(msgCode)
+            
+            break
+            
+        // 資料傳輸標記
+        case "BT_data":
+            // 數值資料開始分析
+            var val = Int(msgCode)!
+            
+            if (val <= 1) {
+                val = 1
+            }
+            else {
+                // 檢查最大值/最小值
+                val = (val > mMeadCFG.D_VALUE_MAX) ? (mMeadCFG.D_VALUE_MAX - 1) : val
+                val = (val <= mMeadCFG.D_VALUE_MIN) ? (mMeadCFG.D_VALUE_MIN) : val
+            }
+ 
+            self.analyBTData(val)
+            
+            break
+    
         default:
             break
         }
+        
+        if (IS_DEBUG) { print(identCode + ":" + msgCode) }
     }
     
     /**
      * 返回前頁
      */
     @IBAction func actBack(sender: UIBarButtonItem) {
+        mBLEMeadService.BTDisconn()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     

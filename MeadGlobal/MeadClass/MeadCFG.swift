@@ -7,7 +7,19 @@ import Foundation
 /**
  * 本專案 MEAD class 設定檔
  */
-class MeadConfig {
+class MeadCFG {
+    /** 紀錄資料數值的 最小值 = 8 */
+    let D_VALUE_MIN = 8;
+    
+    /** 最大的資料數值  = 201*/
+    let D_VALUE_MAX = 201;
+    
+    /** 設備連線後,固定傳送數值 = 1*/
+    let D_DEVICE_CONNVALUE = 1;
+    
+    /** 高低值與平均數的差距值 = 15 */
+    let D_ENGVALUE_HIGHLOW_GAP = 15;
+    
     // 身體部位,方向
     let aryBody = ["H", "F"]  // 手, 腳
     let aryDirection = ["L", "R"]  // 左, 右

@@ -91,7 +91,7 @@ class TestingUserPager: UIPageViewController, UIPageViewControllerDataSource, UI
     
     func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
         
-        return pages.count
+        return (pages.count == 2) ? 0 : pages.count
     }
     
     func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
