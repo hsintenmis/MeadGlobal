@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width:550px; height:350px"></div>
+    <!-- ECharts单文件引入 -->
+    <script src="../js/dist/echarts.js"></script>
+    <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar',
+                'echarts/chart/line'
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main'));
+
+                var option = {
+legend: {
+  data:["平均","左側","右側"]
+},
+
+grid:{
+  borderColor:"#F0F0F0",
+},
+
+calculable : true,
+
+xAxis : [
+  {
+    type : 'category',
+    data : ["H1肺经","H2心包经","H3心经","H4小肠经","H5三焦经","H6大肠经","F1脾经","F2肝经","F3肾经","F4膀胱经","F5胆经","F6胃经"],
+
+    axisLabel : {
+      rotate: -45,
+      textStyle:{
+        fontSize:10,
+      },
+    },
+
+    axisLine:{
+      lineStyle:{
+        color:"#F0F0F0",
+      }
+    },
+
+    splitLine:{
+      lineStyle:{
+        color:"#F0F0F0",
+      },
+    }
+  }
+],
+
+yAxis : [
+  {
+    type : 'value',
+    min : 0,
+    max : 150,
+
+    axisLabel : {
+      show:false,
+    },
+
+    axisLine:{
+      lineStyle:{
+        color:'#F0F0F0',
+      },
+    },
+
+    splitLine:{
+      show:false,
+    }
+  }
+],
+
+series : [
+  {
+    name:'平均',
+    type:'line',
+    data:[0,0,0,0,0,0,0,0,0,0,0,0],
+    clickable: false,
+    symbol: 'none',
+
+    itemStyle:{
+      normal:{
+        color:'#606060',
+        label:{
+          show:false,
+        },
+        lineStyle:{
+          color:'#FFFFFF',
+        },
+      }
+    },
+
+    markLine:{
+      itemStyle:{
+        normal:{
+          color:'#606060',
+
+          label:{
+            show:true,
+            formatter:'{b}{c}',
+
+            textStyle:{
+              color:'#606060',
+            },
+          },
+
+          lineStyle:{
+            color:'#606060',
+            type: 'dotted'
+          },
+
+        },
+      },
+
+      data:[
+        [
+          {name:'平均', value: 85, xAxis:-1, yAxis: 85},
+          {xAxis:12, yAxis: 85}
+        ],
+      ]
+    },
+
+  },
+
+  {
+    name:'左側',
+    type:'bar',
+    data:[65,67,56,38,78,122,76,55,110,78,90,55],
+    clickable: false,
+
+    barGap: "0%",
+
+    itemStyle:{
+      normal:{
+        color:'#99DD00',
+        label:{
+          show:true,
+          textStyle:{
+            color:'#668800',
+          },
+        },
+      }
+    },
+
+    markLine:{
+      itemStyle:{
+        normal:{
+          color:'#FF0000',
+
+          label:{
+            show:true,
+            formatter:'{b}{c}',
+
+            textStyle:{
+              color:'#FF0000',
+            },
+          },
+
+          lineStyle:{
+            color:'#FF0000',
+            type: 'dotted'
+          },
+
+        },
+      },
+
+      data:[
+        [
+          {name:'高標', value: 115, xAxis:-1, yAxis: 115},
+          {xAxis:12, yAxis: 115}
+        ],
+      ]
+    },
+
+  },
+
+  {
+    name:'右側',
+    type:'bar',
+    data:[65,83,99,123,45,76,90,24,66,114,45,70],
+
+    itemStyle:{
+      normal:{
+        color:'#FFDD55',
+        label:{
+          show:true,
+          textStyle:{
+            color:'#DDAA00',
+          },
+        }
+      }
+    },
+
+    markLine:{
+      itemStyle:{
+        normal:{
+          color:'#5599FF',
+
+          label:{
+            show:true,
+            formatter:'{b}{c}',
+
+            textStyle:{
+              color:'#5599FF',
+            },
+          },
+
+          lineStyle:{
+            color:'#5599FF',
+            type: 'dotted'
+          },
+
+        },
+      },
+
+      data:[
+        [
+          {name:'低標', value: 25, xAxis:-1, yAxis: 25},
+          {xAxis:12, yAxis: 25}
+        ],
+      ]
+    },
+
+  },
+
+
+]
+
+};
+
+
+
+// 为echarts对象加载数据
+myChart.setOption(option);
+}
+);
+
+</script>
+</body>

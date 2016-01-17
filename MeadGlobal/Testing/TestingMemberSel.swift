@@ -17,6 +17,9 @@ class TestingMemberSel: UIViewController, UITableViewDelegate, UITableViewDataSo
     private var mVCtrl: UIViewController!
     private var pubClass: PubClass!
     
+    // segue 來源的 VC 辨識標記
+    private var strParentIdentName = ""
+    
     // 受測者資料 array data
     var dictUser: Dictionary<String, String> = [:]
     
@@ -53,6 +56,10 @@ class TestingMemberSel: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     // viewDidAppear
     override func viewDidAppear(animated: Bool) {
+        if let parentIdent = self.parentViewController?.restorationIdentifier {
+            strParentIdentName = parentIdent
+        }
+        
         searchBar.text = ""
         self.reloadTableData()
     }
@@ -121,9 +128,42 @@ class TestingMemberSel: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     /**
      * #Mark Delegate: UITableView, Cell 點取時
+     * 判斷來源VC, 手動執行 Segue
      */
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         dictUser = aryNewAllData[indexPath.row]
+        
+        // 取得此 Item 正確的 indexparh
+        for (var loopi = 0; loopi<aryAllData.count; loopi++) {
+            if (aryAllData[loopi]["id"] == dictUser["id"]) {
+                newIndexPath = NSIndexPath(forRow: loopi, inSection: 0)
+                
+                break
+            }
+        }
+        
+        /* segue to 檢測主頁面 */
+        if (strParentIdentName == "TestingUserPager") {
+            // 檢查會員資料
+            let strAge = mMemberClass.getBirthToAge(dictUser["birth"])
+            if (strAge == "") {
+                pubClass.popIsee(Msg: pubClass.getLang("member_err_birth"))
+                return
+            }
+            
+            dictUser["age"] = strAge
+            self.performSegueWithIdentifier("TestingMemberSel", sender: nil)
+            
+            return
+        }
+        
+        /* segue to 檢測檢測資料列表 */
+        if (strParentIdentName == "RecordMemberMain") {
+            self.performSegueWithIdentifier("RecordMemberSel", sender: nil)
+            
+            return
+        }
+        
     }
     
     //********** #Delegate: 系統的 UISearchBar, Start **********//
@@ -206,29 +246,14 @@ class TestingMemberSel: UIViewController, UITableViewDelegate, UITableViewDataSo
             return
         }
         
+        if (strIdnt == "RecordMemberSel") {
+            let vcChild = segue.destinationViewController as! RecordList
+            vcChild.dictUser = dictUser
+            
+            return
+        }
+        
         return
-    }
-    
-    /**
-     * Action, 點取 '開始檢測'
-     */
-    @IBAction func actSubmit(sender: UIButton) {
-        if (dictUser.count < 1) {
-            pubClass.popIsee(Msg: pubClass.getLang("plzselmember"))
-            return
-        }
-        
-        // 檢查會員資料
-        let strAge = mMemberClass.getBirthToAge(dictUser["birth"])
-        if (strAge == "") {
-            pubClass.popIsee(Msg: pubClass.getLang("member_err_birth"))
-            return
-        }
-        
-        dictUser["age"] = strAge
-        
-        // 手動執行 Segue
-        self.performSegueWithIdentifier("TestingMemberSel", sender: nil)
     }
     
     override func didReceiveMemoryWarning() {

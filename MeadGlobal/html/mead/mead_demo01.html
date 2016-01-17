@@ -1,0 +1,202 @@
+<head>
+<meta charset="utf-8">
+<title>ECharts</title>
+</head>
+<BODY BGCOLOR="white" leftmargin="0" topmargin="0" marginheight="0" marginwidth="0">
+    <div id="main" style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;
+      width:100%; height:400px"></div>
+    <!-- ECharts单文件引入 -->
+    <script src="../js/dist/echarts.js"></script>
+    <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: '../js/dist/'
+            }
+        });
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar',
+                'echarts/chart/line'
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main'));
+                var option = {
+
+title: {
+  text: "會員名稱 35歲男性",
+  textStyle:{
+    fontSize:16,
+  },
+
+  subtext: "檢測日期: 2015/05/01",
+  subtextStyle:{
+    fontSize:12,
+  },
+},
+
+tooltip: {
+  show: false,
+},
+
+legend: {
+  selectedMode: false,
+  data:["左側","右側"]
+},
+grid:{
+  borderColor:"#F0F0F0",
+},
+calculable : true,
+
+yAxis : [
+  {
+    type : 'category',
+
+    data : ["H1肺经","H2心包经","H3心经","H4小肠经","H5三焦经","H6大肠经","F1脾经","F2肝经","F3肾经","F4膀胱经","F5胆经","F6胃经"],
+    axisLabel : {
+      textStyle:{
+        fontSize:10,
+      },
+    },
+    axisLine:{
+      lineStyle:{
+        color:"#F0F0F0",
+      }
+    },
+    splitLine:{
+      lineStyle:{
+        color:"#F0F0F0",
+      },
+    }
+  }
+],
+
+xAxis : [
+  {
+    type : 'value',
+
+    axisLabel : {
+      show:false,
+    },
+    axisLine:{
+      lineStyle:{
+        color:'#F0F0F0',
+      },
+    },
+    splitLine:{
+      show:false,
+    }
+  }
+],
+
+series : [
+
+  {
+    name:'左側',
+    type:'bar',
+    data:[21,47,51,25,51,19,54,56,8,62,23,8],
+    clickable: false,
+    barGap: "2%",
+    barCategoryGap: "30%",
+
+    itemStyle:{
+      normal:{
+        color:'#909090',
+        label:{
+          show:true,
+          textStyle:{
+            color:'#303030',
+            fontSize:10,
+          },
+        },
+      }
+    },
+
+    markLine:{
+      itemStyle:{
+        normal:{
+          color:'#FF0000',
+          label:{
+            show:true,
+            formatter:'{b}{c}',
+            textStyle:{
+              color:'#FF0000',
+              fontSize:12,
+            },
+          },
+          lineStyle:{
+            color:'#FF0000',
+            type: 'dotted'
+          },
+        },
+      },
+      data:[
+        [
+          {name:'高標', value: 50, xAxis:50, yAxis: -1},
+          {xAxis:50, yAxis: 12}
+        ],
+
+        [
+          {name:'低標', value: 20, xAxis:20, yAxis: -1},
+          {xAxis:20, yAxis: 12}
+        ],
+      ]
+    },
+  },
+
+  {
+    name:'右側',
+    type:'bar',
+    data:[8,67,41,39,50,42,47,50,24,26,13,17],
+    barGap: "0%",
+    //barCategoryGap: "100%",
+
+    itemStyle:{
+      normal:{
+        color:'#E0E0E0',
+        label:{
+          show:true,
+          textStyle:{
+            color:'#A0A0A0',
+            fontSize:10,
+          },
+        }
+      }
+    },
+    markLine:{
+      itemStyle:{
+        normal:{
+          color:'#5599FF',
+          label:{
+            show:true,
+            formatter:'{b}{c}',
+            textStyle:{
+              color:'#5599FF',
+              fontSize:12,
+            },
+          },
+          lineStyle:{
+            color:'#5599FF',
+            type: 'dotted'
+          },
+        },
+      },
+      data:[
+        [
+          {name:'平均', value: 35, xAxis:35, yAxis: -1},
+          {xAxis:35, yAxis: 12}
+        ],
+      ]
+    },
+  },
+]
+};
+// 为echarts对象加载数据
+myChart.setOption(option);
+}
+);
+</script>
+</body>

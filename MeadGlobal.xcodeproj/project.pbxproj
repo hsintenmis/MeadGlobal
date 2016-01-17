@@ -9,7 +9,11 @@
 /* Begin PBXBuildFile section */
 		4256A34A1C40DDCC00131142 /* MemberClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4256A3491C40DDCC00131142 /* MemberClass.swift */; };
 		4256A34C1C40E5F900131142 /* JSONClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4256A34B1C40E5F900131142 /* JSONClass.swift */; };
+		42C0F3AF1C4AAAB300248FBE /* RecordMemberMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C0F3AE1C4AAAB300248FBE /* RecordMemberMain.swift */; };
+		42C0F3B11C4AB79D00248FBE /* RecordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C0F3B01C4AB79D00248FBE /* RecordList.swift */; };
 		42D3D3081C42A2FA002FF7B8 /* TestingUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D3D3071C42A2FA002FF7B8 /* TestingUser.swift */; };
+		42E38E431C4BF7FE00B04FAE /* RecordListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E38E421C4BF7FE00B04FAE /* RecordListCell.swift */; };
+		42E38E451C4BFA1F00B04FAE /* html in Resources */ = {isa = PBXBuildFile; fileRef = 42E38E441C4BFA1F00B04FAE /* html */; };
 		D701449B1C449CA800813650 /* TestingUserPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D701449A1C449CA800813650 /* TestingUserPager.swift */; };
 		D70EE3471C3CDE7100944E21 /* CutImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70EE3461C3CDE7100944E21 /* CutImage.swift */; };
 		D7240CB31C4359A900B1C191 /* MemberAdEdContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7240CB21C4359A900B1C191 /* MemberAdEdContainer.swift */; };
@@ -109,7 +113,11 @@
 /* Begin PBXFileReference section */
 		4256A3491C40DDCC00131142 /* MemberClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemberClass.swift; path = Member/MemberClass.swift; sourceTree = "<group>"; };
 		4256A34B1C40E5F900131142 /* JSONClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONClass.swift; sourceTree = "<group>"; };
+		42C0F3AE1C4AAAB300248FBE /* RecordMemberMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecordMemberMain.swift; path = Record/RecordMemberMain.swift; sourceTree = "<group>"; };
+		42C0F3B01C4AB79D00248FBE /* RecordList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecordList.swift; path = Record/RecordList.swift; sourceTree = "<group>"; };
 		42D3D3071C42A2FA002FF7B8 /* TestingUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestingUser.swift; path = Testing/TestingUser.swift; sourceTree = "<group>"; };
+		42E38E421C4BF7FE00B04FAE /* RecordListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecordListCell.swift; path = Record/RecordListCell.swift; sourceTree = "<group>"; };
+		42E38E441C4BFA1F00B04FAE /* html */ = {isa = PBXFileReference; lastKnownFileType = folder; path = html; sourceTree = "<group>"; };
 		D701449A1C449CA800813650 /* TestingUserPager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestingUserPager.swift; path = Testing/TestingUserPager.swift; sourceTree = "<group>"; };
 		D70EE3461C3CDE7100944E21 /* CutImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CutImage.swift; sourceTree = "<group>"; };
 		D7240CB21C4359A900B1C191 /* MemberAdEdContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemberAdEdContainer.swift; path = Member/MemberAdEdContainer.swift; sourceTree = "<group>"; };
@@ -225,6 +233,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		42C0F3AD1C4AAA8600248FBE /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				42C0F3AE1C4AAAB300248FBE /* RecordMemberMain.swift */,
+				42C0F3B01C4AB79D00248FBE /* RecordList.swift */,
+				42E38E421C4BF7FE00B04FAE /* RecordListCell.swift */,
+			);
+			name = Record;
+			sourceTree = "<group>";
+		};
 		D72C9BC71C3A492E00856494 = {
 			isa = PBXGroup;
 			children = (
@@ -251,11 +269,13 @@
 				D7FD816A1C46365000FA9E5A /* MeadClass */,
 				D77687271C3B97D9008F4564 /* Member */,
 				D7CF064E1C474EB9004E8E71 /* BTClass */,
+				42C0F3AD1C4AAA8600248FBE /* Record */,
 				D72C9BEF1C3A4CCD00856494 /* PubClass */,
 				D72C9BE51C3A49C200856494 /* SysFile */,
 				D72C9BFF1C3A4D3400856494 /* image */,
 				D7FD81701C464E1500FA9E5A /* pict_testing */,
 				D72C9BF61C3A4CF900856494 /* lang */,
+				42E38E441C4BFA1F00B04FAE /* html */,
 			);
 			path = MeadGlobal;
 			sourceTree = "<group>";
@@ -483,6 +503,7 @@
 				D72C9C511C3A4D3400856494 /* calendar01_128.png in Resources */,
 				D72C9C571C3A4D3400856494 /* del_128_001.png in Resources */,
 				D7CF064D1C47412C004E8E71 /* H1_L_P.jpg in Resources */,
+				42E38E451C4BFA1F00B04FAE /* html in Resources */,
 				D72C9C6F1C3A4D3400856494 /* menu_message_256.png in Resources */,
 				D72C9C711C3A4D3400856494 /* menu_testing.png in Resources */,
 				D72C9C5D1C3A4D3400856494 /* engval_down.png in Resources */,
@@ -569,6 +590,7 @@
 				D7CF06571C475710004E8E71 /* BLEMeadMain.swift in Sources */,
 				D776872E1C3BAF56008F4564 /* FileMang.swift in Sources */,
 				D7FD81671C45F6CA00FA9E5A /* TestingMemberSel.swift in Sources */,
+				42C0F3AF1C4AAAB300248FBE /* RecordMemberMain.swift in Sources */,
 				D72C9BF51C3A4CCD00856494 /* PubClass.swift in Sources */,
 				D7CF06501C474F33004E8E71 /* BLEMeadService.swift in Sources */,
 				D72C9BF41C3A4CCD00856494 /* NoDataView.swift in Sources */,
@@ -581,10 +603,12 @@
 				D7FD81691C46070F00FA9E5A /* TestingGuestSel.swift in Sources */,
 				D7240CB31C4359A900B1C191 /* MemberAdEdContainer.swift in Sources */,
 				D77687261C3B7B17008F4564 /* CellCollect.swift in Sources */,
+				42E38E431C4BF7FE00B04FAE /* RecordListCell.swift in Sources */,
 				D7FD816C1C46368F00FA9E5A /* MeadCFG.swift in Sources */,
 				D77687291C3B9801008F4564 /* MemberList.swift in Sources */,
 				4256A34A1C40DDCC00131142 /* MemberClass.swift in Sources */,
 				D7FFDD661C3E6497003EEF92 /* MemberListCell.swift in Sources */,
+				42C0F3B11C4AB79D00248FBE /* RecordList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

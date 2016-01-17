@@ -1,0 +1,212 @@
+<head>
+<meta charset="utf-8">
+<title>ECharts</title>
+</head>
+<BODY BGCOLOR="white" leftmargin="0" topmargin="0" marginheight="0" marginwidth="0">
+    <div id="main" style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;
+      width:D_CHART_WIDTH; height:D_CHART_HEIGHT"></div>
+    <!-- ECharts单文件引入 -->
+    <script src='./js/dist/echarts.js'></script>
+    <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: './js/dist'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar',
+                'echarts/chart/line'
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main'));
+                
+                var option = {
+
+title: {
+  text: "D_CHART_TITLE",
+  textStyle:{
+    fontSize:16,
+    color:"#303030",
+  },
+
+  subtext: "D_CHART_SUBTITLE",
+  subtextStyle:{
+    fontSize:12,
+    color:"#909090",
+  },
+},
+
+tooltip: {
+  show: false,
+},
+
+legend: {
+  selectedMode: false,
+  data:["左側","右側"]
+},
+
+grid:{
+  borderColor:"#F0F0F0",
+},
+
+calculable : true,
+
+yAxis : [
+  {
+    type : 'category',
+
+    data : ["胃经 F6", "胆经 F5", "膀胱经 F4", "肾经 F3", "肝经 F2", "脾经 F1", "大肠经 H6", "三焦经 H5", "小肠经 H4", "心经 H3", "心包经 H2","肺经 H1"],
+    axisLabel : {
+      textStyle:{
+        fontSize:11,
+        color:"#303030",
+      },
+    },
+    axisLine:{
+      lineStyle:{
+        color:"#A0A0A0",
+      }
+    },
+    splitLine:{
+      lineStyle:{
+        color:"#F0F0F0",
+        type: "dashed",
+      },
+    }
+  }
+],
+
+xAxis : [
+  {
+    type : 'value',
+    max: D_YAXIS_MAX,
+
+    axisLabel : {
+      show:false,
+    },
+    axisLine:{
+      lineStyle:{
+        color:'#F0F0F0',
+      },
+    },
+    splitLine:{
+      show:false,
+    }
+  }
+],
+
+series : [
+
+  {
+    name:'右側',
+    type:'bar',
+    data:[D_R_VAL],
+    barGap: "2%",
+    barCategoryGap: "30%",
+
+    itemStyle:{
+      normal:{
+        color:'#FFBB66',
+        label:{
+          show:true,
+          textStyle:{
+            color:'#AA7700',
+            fontSize:10,
+          },
+        }
+      }
+    },
+    markLine:{
+      itemStyle:{
+        normal:{
+          color:'#5599FF',
+          label:{
+            show:true,
+            formatter:'{b}{c}',
+            textStyle:{
+              color:'#5599FF',
+              fontSize:11,
+            },
+          },
+          lineStyle:{
+            color:'#5599FF',
+            type: 'dotted'
+          },
+        },
+      },
+      data:[
+        [
+          {name:'平均', value: D_AVG, xAxis:D_AVG, yAxis: -1},
+          {xAxis:D_AVG, yAxis: 12}
+        ],
+      ]
+    },
+  },
+
+  {
+    name:'左側',
+    type:'bar',
+    data:[D_L_VAL],
+    clickable: false,
+    barGap: "2%",
+    barCategoryGap: "30%",
+
+    itemStyle:{
+      normal:{
+        color:'#A0A0A0',
+        label:{
+          show:true,
+          textStyle:{
+            color:'#303030',
+            fontSize:10,
+          },
+        },
+      }
+    },
+
+    markLine:{
+      itemStyle:{
+        normal:{
+          color:'#FF0000',
+          label:{
+            show:true,
+            formatter:'{b}{c}',
+            textStyle:{
+              color:'#FF0000',
+              fontSize:11,
+            },
+          },
+          lineStyle:{
+            color:'#FF0000',
+            type: 'dotted'
+          },
+        },
+      },
+      data:[
+        [
+          {name:'高標', value: D_HI, xAxis:D_HI, yAxis: 12},
+          {xAxis:D_HI, yAxis: -1}
+        ],
+
+        [
+          {name:'低標', value: D_LOW, xAxis:D_LOW, yAxis: 12},
+          {xAxis:D_LOW, yAxis: -1}
+        ],
+      ]
+    },
+  },
+
+]
+};
+// 为echarts对象加载数据
+myChart.setOption(option);
+}
+);
+</script>
+</body>

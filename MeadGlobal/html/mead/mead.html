@@ -1,0 +1,275 @@
+<head>
+<meta charset="utf-8">
+<title>ECharts</title>
+</head>
+<BODY BGCOLOR="white" leftmargin="0" topmargin="0" marginheight="0" marginwidth="0">
+    <div id="main" style="margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;
+      width:D_CHART_WIDTH; height:D_CHART_HEIGHT"></div>
+    <!-- ECharts单文件引入 -->
+    <script src='../js/dist/echarts.js'></script>
+    <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: '../js/dist'
+            }
+        });
+
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar',
+                'echarts/chart/line'
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main'));
+
+                var option = {
+
+title: {
+  text: "D_CHART_TITLE",
+  textStyle:{
+    fontSize:16,
+  },
+
+  subtext: "D_CHART_SUBTITLE",
+  subtextStyle:{
+    fontSize:12,
+  },
+},
+
+legend: {
+  selectedMode: false,
+  data:["平均","左侧","右侧"]
+},
+
+grid:{
+  borderColor:"#F0F0F0",
+},
+
+calculable : true,
+
+xAxis : [
+  {
+    type : 'category',
+    data : ["H1肺经","H2心包经","H3心经","H4小肠经","H5三焦经","H6大肠经","F1脾经","F2肝经","F3肾经","F4膀胱经","F5胆经","F6胃经"],
+
+    axisLabel : {
+      rotate: -45,
+      textStyle:{
+        fontSize:10,
+      },
+    },
+
+    axisLine:{
+      lineStyle:{
+        color:"#F0F0F0",
+      }
+    },
+
+    splitLine:{
+      lineStyle:{
+        color:"#F0F0F0",
+      },
+    }
+  }
+],
+
+yAxis : [
+  {
+    type : 'value',
+    min : 0,
+    max : D_YAXIS_MAX,
+
+    axisLabel : {
+      show:false,
+    },
+
+    axisLine:{
+      lineStyle:{
+        color:'#F0F0F0',
+      },
+    },
+
+    splitLine:{
+      show:false,
+    }
+  }
+],
+
+series : [
+  {
+    name:'平均',
+    type:'line',
+    data:[0,0,0,0,0,0,0,0,0,0,0,0],
+    clickable: false,
+    symbol: 'none',
+
+
+
+    itemStyle:{
+      normal:{
+        color:'#606060',
+        label:{
+          show:false,
+        },
+        lineStyle:{
+          color:'#FFFFFF',
+        },
+      }
+    },
+
+    markLine:{
+      itemStyle:{
+        normal:{
+          color:'#606060',
+
+          label:{
+            show:true,
+            formatter:'{b}{c}',
+
+            textStyle:{
+              color:'#606060',
+              fontSize:12,
+            },
+          },
+
+          lineStyle:{
+            color:'#606060',
+            type: 'dotted'
+          },
+
+        },
+      },
+
+      data:[
+        [
+          {name:'平均', value: D_AVG, xAxis:12, yAxis: D_AVG},
+          {xAxis:-1, yAxis: D_AVG}
+        ],
+      ]
+    },
+
+  },
+
+  {
+    name:'左侧',
+    type:'bar',
+    data:[D_L_VAL],
+    clickable: false,
+
+    barGap: "0%",
+
+    itemStyle:{
+      normal:{
+        color:'#99DD00',
+        label:{
+          show:true,
+          textStyle:{
+            color:'#668800',
+            fontSize:10,
+          },
+        },
+      }
+    },
+
+    markLine:{
+      itemStyle:{
+        normal:{
+          color:'#FF0000',
+
+          label:{
+            show:true,
+            formatter:'{b}{c}',
+
+            textStyle:{
+              color:'#FF0000',
+              fontSize:12,
+            },
+          },
+
+          lineStyle:{
+            color:'#FF0000',
+            type: 'dotted'
+          },
+
+        },
+      },
+
+      data:[
+        [
+          {name:'高标', value: D_HI, xAxis:12, yAxis: D_HI},
+          {xAxis:-1, yAxis: D_HI}
+        ],
+      ]
+    },
+
+  },
+
+  {
+    name:'右侧',
+    type:'bar',
+    data:[D_R_VAL],
+
+    itemStyle:{
+      normal:{
+        color:'#FFDD55',
+        label:{
+          show:true,
+          textStyle:{
+            color:'#DDAA00',
+            fontSize:10,
+          },
+        }
+      }
+    },
+
+    markLine:{
+      itemStyle:{
+        normal:{
+          color:'#5599FF',
+
+          label:{
+            show:true,
+            formatter:'{b}{c}',
+
+            textStyle:{
+              color:'#5599FF',
+              fontSize:12,
+            },
+          },
+
+          lineStyle:{
+            color:'#5599FF',
+            type: 'dotted'
+          },
+
+        },
+      },
+
+      data:[
+        [
+          {name:'低标', value: D_LOW, xAxis:12, yAxis: D_LOW},
+          {xAxis:-1, yAxis: D_LOW}
+        ],
+      ]
+    },
+
+  },
+
+
+]
+
+};
+
+
+
+// 为echarts对象加载数据
+myChart.setOption(option);
+}
+);
+
+</script>
+</body>
