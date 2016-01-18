@@ -41,6 +41,9 @@ class MainLogin: UIViewController {
         
         // 檢查裝置是否有指定檔案(會員/Mead 資料檔)
         self.DBCheck()
+        
+        // 設定 Mead Db
+        pubClass.setMeadDB()
     }
 
     /**
@@ -51,11 +54,14 @@ class MainLogin: UIViewController {
     }
     
     /**
-     * 檢查裝置是否有指定資料庫檔案 (會員/Mead 資料檔)
+     * 檢查裝置是否有指定資料庫檔案 (會員/Mead記錄 資料檔)
      */
     private func DBCheck() {
         let mMemberClass = MemberClass(ProjectPubClass: pubClass)
         mMemberClass.chkData()
+        
+        let mRecordClass = RecordClass(ProjectPubClass: pubClass)
+        mRecordClass.chkData()
     }
     
     /**
@@ -73,6 +79,9 @@ class MainLogin: UIViewController {
 
         pubClass.setAppDelgVal("V_LANGCODE", withVal: langCode)
         self.setPageLang()
+        
+        // 設定 Mead Db
+        pubClass.setMeadDB()
     }
     
     override func didReceiveMemoryWarning() {

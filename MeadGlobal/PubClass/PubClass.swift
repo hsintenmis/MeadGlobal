@@ -14,12 +14,6 @@ class PubClass {
     /** 伺服器/網站 URL: http://pub.mysoqi.com/store_cn/001/ */
     let D_WEBURL = "http://pub.mysoqi.com/store_cn/001/"
     
-    /** 會員資料檔 JSON string, 檔名: member.txt */
-    let D_FILE_MEMBER = "member.txt"
-    
-    /** 會員資料，唯一識別碼前置字串，ex. 'MEAD' + '000001' */
-    let D_STR_IDHEAD = "MEAD"
-    
     // AppDelegate
     var AppDelg: AppDelegate!
     
@@ -47,6 +41,13 @@ class PubClass {
      */
     func setAppDelgVal(strKey: String, withVal mVal: AnyObject) {
         AppDelg.setValue(mVal, forKey: strKey)
+    }
+    
+    /**
+     * 設定 AppDelegate 全域變數的 value
+     */
+    func getAppDelgVal(strKey: String)->AnyObject {
+        return AppDelg.valueForKey(strKey)!
     }
     
     /**
@@ -411,82 +412,28 @@ class PubClass {
         
         return strRS
     }
-
-    /**
-     * Keyboard 相關, 使用全域 NSNotificationCenter
-     * 宣告 NSNotificationCenter, Keyboard show/hide 使用
-     * <BR>
-     * 需要實作: <BR>
-     *   keyboardWillShow(note: NSNotification)<BR>
-     *   keyboardWillHide(note: NSNotification)<BR>
-     *
-     */
-    func setKeyboardNotify() {
-        NSNotificationCenter.defaultCenter().addObserver(
-            mVCtrl,
-            selector: "keyboardWillShow:",
-            name: UIKeyboardWillShowNotification,
-            object: nil)
-        
-        NSNotificationCenter.defaultCenter().addObserver(
-            mVCtrl,
-            selector: "keyboardWillHide:",
-            name: UIKeyboardWillHideNotification,
-            object: nil)
-        
-        // 設定點取 view 空白處，執行鍵盤關閉程序
-        let mTap = UITapGestureRecognizer(target: mVCtrl, action: "keyboardHide:")
-        mTap.cancelsTouchesInView = false
-        mVCtrl.view.addGestureRecognizer(mTap)
-    }
-    
-    /**
-     * Keyboard 相關<BR>
-     * 虛擬鍵盤將要 [開啟] 時執行相關程序，view 往上提升
-     */
-    func KBShowProc(note: NSNotification) {
-        let keyboardAnimationDetail = note.userInfo as! [String: AnyObject]
-        let duration = NSTimeInterval(keyboardAnimationDetail[UIKeyboardAnimationDurationUserInfoKey]! as! NSNumber)
-        
-        // 偵測虛擬鍵盤高度
-        //let keyboardFrameValue = keyboardAnimationDetail[UIKeyboardFrameBeginUserInfoKey]! as! NSValue
-        //let keyboardFrame = keyboardFrameValue.CGRectValue()
-        //let hight_keyboard = -keyboardFrame.size.height
-        
-        // 使用固定高度
-        let hight_fix: CGFloat = -40.0
-        
-        UIView.animateWithDuration(duration, animations: { () -> Void in
-            self.mVCtrl.view.frame = CGRectOffset(self.mVCtrl.view.frame, 0, hight_fix)
-        })
-    }
-    
-    /**
-     * Keyboard 相關<BR>
-     * 虛擬鍵盤將要 [關閉] 時執行相關程序, ，view 往下
-     */
-    func KBHideProc(note: NSNotification) {
-        let keyboardAnimationDetail = note.userInfo as! [String: AnyObject]
-        let duration = NSTimeInterval(keyboardAnimationDetail[UIKeyboardAnimationDurationUserInfoKey]! as! NSNumber)
-        UIView.animateWithDuration(duration, animations: { () -> Void in
-            self.mVCtrl.view.frame = CGRectOffset(self.mVCtrl.view.frame, 0, -(self.mVCtrl.view.frame.origin.y))
-        })
-    }
-    
-    /**
-     * 設定 UIViewControler 的背景
-     */
-    func setVCBackgroundImg(strFilename: String) {
-        UIGraphicsBeginImageContext(mVCtrl.view.frame.size);
-        (UIImage(named: strFilename))?.drawInRect(mVCtrl.view.bounds)
-        let mImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext();
-        mVCtrl.view.backgroundColor = UIColor(patternImage: mImage)
-    }
     
     // ********** 以下為本專案使用 ********** //
     
+    /**
+    * 取得對應語系 Mead DB JSON data, 設定到 appdelege
+    */
+    func setMeadDB() {
+        let mJSONClass = JSONClass()
+        let mFile = "meaddb_" + (self.getPrefData("lang") as! String)
 
+        do {
+            let fileRoot = NSBundle.mainBundle().pathForResource(mFile, ofType: "txt")
+            let strJSON = try String(contentsOfFile: fileRoot!, encoding: NSUTF8StringEncoding)
+            let dictData = mJSONClass.JSONStrToDict(strJSON) as Dictionary<String, AnyObject>
+            
+            setAppDelgVal("V_DICTMEADDB", withVal: dictData)
+        }
+        catch {
+        }
+        
+        return
+    }
     
     
 }

@@ -423,6 +423,12 @@
                                                 <action selector="actBack:" destination="5Hn-9H-luS" id="4sq-j8-9RC"/>
                                             </connections>
                                         </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="重新檢測" id="JAk-ku-uVi">
+                                            <color key="tintColor" red="1" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="actReset:" destination="5Hn-9H-luS" id="wO7-r9-7NS"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -566,9 +572,17 @@
                                     <constraint firstAttribute="height" constant="44" id="pqY-dJ-vXd"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem title="檢測報告" id="pyZ-K2-0h8"/>
+                                    <barButtonItem title="檢測報告" id="pyZ-K2-0h8">
+                                        <connections>
+                                            <action selector="actReport:" destination="5Hn-9H-luS" id="Z2U-Qj-jfN"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="VxR-dN-53i"/>
-                                    <barButtonItem title="資料存檔" id="w31-gh-YJH"/>
+                                    <barButtonItem title="資料存檔" id="w31-gh-YJH">
+                                        <connections>
+                                            <action selector="actSave:" destination="5Hn-9H-luS" id="BSZ-2m-AZx"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>

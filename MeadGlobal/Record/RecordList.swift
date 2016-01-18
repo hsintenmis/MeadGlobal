@@ -21,6 +21,10 @@ class RecordList: UIViewController {
     // 指定會員檢測資料 ary data
     private var aryMeadData: Array<Dictionary<String, AnyObject>> = []
     
+    // 其他 class, property
+    private var mRecordClass: RecordClass!
+    private var strToday: String!
+    
     // viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,21 +32,15 @@ class RecordList: UIViewController {
         // common property
         mVCtrl = self
         pubClass = PubClass(viewControl: mVCtrl)
+        mRecordClass = RecordClass(ProjectPubClass: pubClass)
         
-        print(dictUser)
+        aryMeadData = mRecordClass.getDataWithMemberId(dictUser["id"])
+        
         
         //取得指定 user 的檢測資料，設定到 'aryMeadData'
         self.getMeadData()
     }
-    
-    /**
-    *  讀取 Mead 資料檔，取得指定 user 的檢測資料，設定到 'aryMeadData'
-    */
-    private func getMeadData() {
-        // 讀取檔案, 轉為 JSON 資料格式
-        
-        //
-    }
+
     
     // viewDidAppear
     override func viewDidAppear(animated: Bool) {

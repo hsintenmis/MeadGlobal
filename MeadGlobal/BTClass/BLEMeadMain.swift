@@ -54,7 +54,7 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
      * body : 身體部位, ex. 'H' or 'F'<BR>
      * direction : 左右, ex. L or R ...<br>
      * val : 檢測值, 預設 0, String 型態<br>
-     * serial : 身體與方向 目前序號, 1 ~ 6<br>
+     * serial : 身體與方向對應序號, 1 ~ 6<br>
     */
     var aryTestingData: Array<Dictionary<String, String>> = []
     
@@ -69,8 +69,12 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
     // 其他 class, property
     private var mBLEMeadService: BLEMeadService!
     private var mMeadCFG: MeadCFG! // MEAD 設定檔
+    private var mMeadClass: MeadClass!  // MEAD 主 class
     private let mFileMang = FileMang()
+    private var mRecordClass: RecordClass!
     private var strToday: String!
+    
+    private var strDate: String!  // 目前時間
     
     // viewDidLoad
     override func viewDidLoad() {
@@ -83,10 +87,13 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
         mBLEMeadService = BLEMeadService()
         mBLEMeadService.mBLEMeadServiceDelegate = self
         mMeadCFG = MeadCFG(ProjectPubClass: pubClass)
+        mMeadClass = MeadClass(ProjectPubClass: pubClass)
+        mRecordClass = RecordClass(ProjectPubClass: pubClass)
         
         // Mead, 其他 相關資料初始
         labTxtExistVal.text = pubClass.getLang("mead_existtestingval")
         setUserView()
+        strDate = pubClass.getDevToday()
         
         // 檢測數值 array data 初始與產生
         aryTestingData = mMeadCFG.getAryAllTestData()
@@ -348,7 +355,116 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
     }
     
     /**
-     * 返回前頁
+    * 檢查檢測數值資料 array, '資料存檔'與'檢測報告'使用
+    * @return boolean
+    */
+    private func chkTestingData()->Bool {
+        for (var i=0; i<24; i++) {
+            var dictItem = aryTestingData[i]
+            if (dictItem["val"] == "0") {
+                // 數值資料 "0" 為錯誤
+                self.moveCollectCell(i)
+                pubClass.popIsee(Msg: pubClass.getLang("mead_errval"))
+                
+                return false
+            }
+        }
+        
+        return true
+    }
+    
+    /**
+     * act 資料重設
+     */
+    @IBAction func actReset(sender: UIBarButtonItem) {
+        let mAlert = UIAlertController(title: pubClass.getLang("sysprompt"), message: pubClass.getLang("mead_resetmsg"), preferredStyle:UIAlertControllerStyle.Alert)
+        
+        // btn 'Yes', 執行重設資料程序
+        mAlert.addAction(UIAlertAction(title:pubClass.getLang("confirm_yes"), style:UIAlertActionStyle.Default, handler:{
+            (action: UIAlertAction!) in
+            
+            self.strDate = self.pubClass.getDevToday()  // 日期時間重新取得
+            self.currValCount = 0  // 目前檢測數值計算加總的次數
+            self.mapTestValCount = [:] // 檢測數值 => 出現次數, 目的取得最多次數的 val
+            self.aryTestingData = self.mMeadCFG.getAryAllTestData()
+            self.moveCollectCell(0)
+        }))
+        
+        // btn ' No', 取消，關閉 popWindow
+        mAlert.addAction(UIAlertAction(title:pubClass.getLang("confirm_no"), style:UIAlertActionStyle.Cancel, handler:nil ))
+        
+        // 顯示本彈出視窗
+        dispatch_async(dispatch_get_main_queue(), {
+            self.mVCtrl.presentViewController(mAlert, animated: true, completion: nil)
+        })
+    }
+    
+    /**
+    * act, 顯示檢測報告
+    */
+    @IBAction func actReport(sender: UIBarButtonItem) {
+        if (!self.chkTestingData()) {
+            return
+        }
+    }
+    
+    /**
+     * act, 資料存檔
+     */
+    @IBAction func actSave(sender: UIBarButtonItem) {
+        if (!self.chkTestingData()) { return }
+        
+        // 取得整理好準備存檔的 檢測資料
+        let dictRs = mRecordClass.add(self.getPreSaveData(aryTestingData))
+        let strMsg = (dictRs["rs"] as! Bool == true) ? "mead_recordaddcomplete" : "mead_recordaddfailure"
+        
+        pubClass.popIsee(Msg: pubClass.getLang(strMsg))
+        return
+    }
+    
+    /**
+     * 將已檢測完的數值資料，整理成為 存檔用的 Dict data
+     *   格式如下：
+     *  'sdate': 14碼, 作為唯一識別 key
+     *  'memberid': ex. MD000001
+     *  'membername': 會員姓名
+     *  'age': ex. "35"
+     *  'gender': ex. "M"
+     *  'avg', 'avgH', 'avgL'
+     *  'val': ex. "27,12,33,56,34,67,..."
+     *  'problem': 超出高低標的檢測項目, ex. "F220,H101,H420,..." or ""
+     */
+    private func getPreSaveData(aryData: Array<Dictionary<String, String>>)->Dictionary<String, String>! {
+        var dictRS: Dictionary<String, String> = [:]
+        
+        dictRS["sdate"] = strDate
+        dictRS["memberid"] = dictUser["id"]
+        dictRS["membername"] = dictUser["name"]
+        dictRS["age"] = dictUser["age"]
+        dictRS["gender"] = dictUser["gender"]
+        
+        // 已檢測的數值
+        dictRS["val"] = ""
+        for (var i=0; i < mMeadCFG.D_TOTDATANUMS; i++) {
+            dictRS["val"] = dictRS["val"]! + aryData[i]["val"]!
+            
+            if (i < (mMeadCFG.D_TOTDATANUMS - 1)) { dictRS["val"]! += "," }
+        }
+        
+        // 平均值, 高低標
+        let dictAvg = mMeadClass.GetAvgValue(aryTestingData)
+        dictRS["avg"] = String(dictAvg["avg"])
+        dictRS["avgH"] = String(dictAvg["avgH"])
+        dictRS["avgL"] = String(dictAvg["avgL"])
+        
+        // 有問題的檢測項目
+        dictRS["problem"] = mMeadClass.GetProblemItem(aryTestingData)
+
+        return dictRS
+    }
+    
+    /**
+     * act 返回前頁
      */
     @IBAction func actBack(sender: UIBarButtonItem) {
         mBLEMeadService.BTDisconn()

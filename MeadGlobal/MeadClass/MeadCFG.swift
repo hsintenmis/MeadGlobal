@@ -20,6 +20,15 @@ class MeadCFG {
     /** 高低值與平均數的差距值 = 15 */
     let D_ENGVALUE_HIGHLOW_GAP = 15;
     
+    /** [分析]報告最多取得n筆項目 */
+    let D_REPORT_ANALY_MAXNUMS = 4;
+    
+    /** [商品]報告最多取得n筆項目 */
+    let D_REPORT_PD_MAXNUMS = 1;
+    
+    /** 檢測儀的檢測項目總數 */
+    let D_TOTDATANUMS = 24;
+    
     // 身體部位,方向
     let aryBody = ["H", "F"]  // 手, 腳
     let aryDirection = ["L", "R"]  // 左, 右
@@ -27,6 +36,9 @@ class MeadCFG {
     
     /** 穴位固定顯示的順序格式, ex. {H1, H2, H3, ...., F5, F6} */
     let D_ARY_POINTCODE = ["H1", "H2", "H3", "H4", "H5", "H6", "F1", "F2", "F3", "F4", "F5", "F6"]
+    
+    /** MEAD 資料, 檢測項目的 id code 順序 */
+    let D_ARY_MEADDBID = "H1L,H2L,H3L,H4L,H5L,H6L,H1R,H2R,H3R,H4R,H5R,H6R,F1L,F2L,F3L,F4L,F5L,F6L,F1R,F2R,F3R,F4R,F5R,F6R"
 
     // 其他 class
     private var pubClass: PubClass!

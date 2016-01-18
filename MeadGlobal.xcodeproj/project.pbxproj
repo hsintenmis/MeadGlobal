@@ -93,6 +93,12 @@
 		D72C9C871C3A58EB00856494 /* heart_monitor_128.png in Resources */ = {isa = PBXBuildFile; fileRef = D72C9C841C3A58EB00856494 /* heart_monitor_128.png */; };
 		D72C9C881C3A58EB00856494 /* settings_128.png in Resources */ = {isa = PBXBuildFile; fileRef = D72C9C851C3A58EB00856494 /* settings_128.png */; };
 		D72C9C891C3A58EB00856494 /* user_group_128.png in Resources */ = {isa = PBXBuildFile; fileRef = D72C9C861C3A58EB00856494 /* user_group_128.png */; };
+		D72EF2F81C4C7F6100E97237 /* meaddb_Base.txt in Resources */ = {isa = PBXBuildFile; fileRef = D72EF2F41C4C7F6100E97237 /* meaddb_Base.txt */; };
+		D72EF2F91C4C7F6100E97237 /* meaddb_es.txt in Resources */ = {isa = PBXBuildFile; fileRef = D72EF2F51C4C7F6100E97237 /* meaddb_es.txt */; };
+		D72EF2FA1C4C7F6100E97237 /* meaddb_zh-Hans.txt in Resources */ = {isa = PBXBuildFile; fileRef = D72EF2F61C4C7F6100E97237 /* meaddb_zh-Hans.txt */; };
+		D72EF2FB1C4C7F6100E97237 /* meaddb_zh-Hant.txt in Resources */ = {isa = PBXBuildFile; fileRef = D72EF2F71C4C7F6100E97237 /* meaddb_zh-Hant.txt */; };
+		D72EF2FD1C4C905800E97237 /* MeadClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EF2FC1C4C905800E97237 /* MeadClass.swift */; };
+		D72EF2FF1C4CDDC500E97237 /* RecordClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EF2FE1C4CDDC500E97237 /* RecordClass.swift */; };
 		D77686E81C3B6296008F4564 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D77686E71C3B6296008F4564 /* Main.storyboard */; };
 		D77687181C3B6DB4008F4564 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D77687131C3B6CE0008F4564 /* Localizable.strings */; };
 		D776871B1C3B7059008F4564 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D776871D1C3B7059008F4564 /* InfoPlist.strings */; };
@@ -198,6 +204,12 @@
 		D72C9C841C3A58EB00856494 /* heart_monitor_128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart_monitor_128.png; sourceTree = "<group>"; };
 		D72C9C851C3A58EB00856494 /* settings_128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_128.png; sourceTree = "<group>"; };
 		D72C9C861C3A58EB00856494 /* user_group_128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_group_128.png; sourceTree = "<group>"; };
+		D72EF2F41C4C7F6100E97237 /* meaddb_Base.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = meaddb_Base.txt; sourceTree = "<group>"; };
+		D72EF2F51C4C7F6100E97237 /* meaddb_es.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = meaddb_es.txt; sourceTree = "<group>"; };
+		D72EF2F61C4C7F6100E97237 /* meaddb_zh-Hans.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "meaddb_zh-Hans.txt"; sourceTree = "<group>"; };
+		D72EF2F71C4C7F6100E97237 /* meaddb_zh-Hant.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "meaddb_zh-Hant.txt"; sourceTree = "<group>"; };
+		D72EF2FC1C4C905800E97237 /* MeadClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeadClass.swift; path = MeadClass/MeadClass.swift; sourceTree = "<group>"; };
+		D72EF2FE1C4CDDC500E97237 /* RecordClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecordClass.swift; path = Record/RecordClass.swift; sourceTree = "<group>"; };
 		D77686E71C3B6296008F4564 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		D77686FA1C3B655A008F4564 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D77687121C3B6CE0008F4564 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -236,6 +248,7 @@
 		42C0F3AD1C4AAA8600248FBE /* Record */ = {
 			isa = PBXGroup;
 			children = (
+				D72EF2FE1C4CDDC500E97237 /* RecordClass.swift */,
 				42C0F3AE1C4AAAB300248FBE /* RecordMemberMain.swift */,
 				42C0F3B01C4AB79D00248FBE /* RecordList.swift */,
 				42E38E421C4BF7FE00B04FAE /* RecordListCell.swift */,
@@ -284,6 +297,10 @@
 			isa = PBXGroup;
 			children = (
 				D72C9BEB1C3A4A9000856494 /* AppDelegate.swift */,
+				D72EF2F41C4C7F6100E97237 /* meaddb_Base.txt */,
+				D72EF2F51C4C7F6100E97237 /* meaddb_es.txt */,
+				D72EF2F61C4C7F6100E97237 /* meaddb_zh-Hans.txt */,
+				D72EF2F71C4C7F6100E97237 /* meaddb_zh-Hant.txt */,
 				D72C9BFB1C3A4D1100856494 /* digt001.ttf */,
 				D72C9BFC1C3A4D1100856494 /* digt002.ttf */,
 				D72C9BDA1C3A492F00856494 /* Assets.xcassets */,
@@ -434,6 +451,7 @@
 			isa = PBXGroup;
 			children = (
 				D7FD816B1C46368F00FA9E5A /* MeadCFG.swift */,
+				D72EF2FC1C4C905800E97237 /* MeadClass.swift */,
 			);
 			name = MeadClass;
 			sourceTree = "<group>";
@@ -527,6 +545,7 @@
 				D72C9C441C3A4D3400856494 /* arrow_down03.png in Resources */,
 				D72C9C741C3A4D3400856494 /* menu_train_256.png in Resources */,
 				D72C9C421C3A4D3400856494 /* appicon02.png in Resources */,
+				D72EF2F91C4C7F6100E97237 /* meaddb_es.txt in Resources */,
 				D72C9C4E1C3A4D3400856494 /* bg_txt01.png in Resources */,
 				D776871B1C3B7059008F4564 /* InfoPlist.strings in Resources */,
 				D72C9C751C3A4D3400856494 /* menu_upload.png in Resources */,
@@ -556,6 +575,7 @@
 				D72C9C721C3A4D3400856494 /* menu_testint01_256.png in Resources */,
 				D72C9C501C3A4D3400856494 /* calculator_256.png in Resources */,
 				D72C9C481C3A4D3400856494 /* arrow_right02.png in Resources */,
+				D72EF2F81C4C7F6100E97237 /* meaddb_Base.txt in Resources */,
 				D72C9C4B1C3A4D3400856494 /* back001.png in Resources */,
 				D72C9C551C3A4D3400856494 /* config_256.png in Resources */,
 				D72C9C701C3A4D3400856494 /* menu_profile.png in Resources */,
@@ -565,6 +585,7 @@
 				D72C9C531C3A4D3400856494 /* camera_shutter.png in Resources */,
 				D72C9C471C3A4D3400856494 /* arrow_right01.png in Resources */,
 				D72C9C6E1C3A4D3400856494 /* menu_member.png in Resources */,
+				D72EF2FA1C4C7F6100E97237 /* meaddb_zh-Hans.txt in Resources */,
 				D72C9C7B1C3A4D3400856494 /* save_128.png in Resources */,
 				D72C9C771C3A4D3400856494 /* msgicon_line.png in Resources */,
 				D72C9C401C3A4D3400856494 /* akregator_256.png in Resources */,
@@ -575,6 +596,7 @@
 				D72C9C791C3A4D3400856494 /* msgicon_wechat.png in Resources */,
 				D72C9C761C3A4D3400856494 /* msgicon_fb.png in Resources */,
 				D72C9C7C1C3A4D3400856494 /* search01_128.png in Resources */,
+				D72EF2FB1C4C7F6100E97237 /* meaddb_zh-Hant.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -602,6 +624,8 @@
 				4256A34C1C40E5F900131142 /* JSONClass.swift in Sources */,
 				D7FD81691C46070F00FA9E5A /* TestingGuestSel.swift in Sources */,
 				D7240CB31C4359A900B1C191 /* MemberAdEdContainer.swift in Sources */,
+				D72EF2FF1C4CDDC500E97237 /* RecordClass.swift in Sources */,
+				D72EF2FD1C4C905800E97237 /* MeadClass.swift in Sources */,
 				D77687261C3B7B17008F4564 /* CellCollect.swift in Sources */,
 				42E38E431C4BF7FE00B04FAE /* RecordListCell.swift in Sources */,
 				D7FD816C1C46368F00FA9E5A /* MeadCFG.swift in Sources */,
