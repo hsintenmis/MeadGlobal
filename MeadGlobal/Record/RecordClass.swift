@@ -154,7 +154,7 @@ class RecordClass {
      * 取得指定會員的記錄資料 array data
      *
      * @param strId: 會員編號
-     * @return nil or array Array<Dictionary<String, AnyObject>>
+     * @return [] or array Array<Dictionary<String, AnyObject>>
      */
     func getDataWithMemberId(strId: String!)->Array<Dictionary<String, String>> {
         var aryRS: Array<Dictionary<String, String>> = []

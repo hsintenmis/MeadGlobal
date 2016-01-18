@@ -10,6 +10,7 @@
 "confirm_no" = "否";
 "cancel" = "取消";
 "btnact_done" = "完成";
+"nodata" = "目前沒有資料...";
 
 "age" = "年齡";
 "gender" = "性別";

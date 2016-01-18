@@ -19,7 +19,7 @@ class RecordList: UIViewController {
     var dictUser: Dictionary<String, String> = [:]
     
     // 指定會員檢測資料 ary data
-    private var aryMeadData: Array<Dictionary<String, AnyObject>> = []
+    private var aryMeadData: Array<Dictionary<String, String>> = []
     
     // 其他 class, property
     private var mRecordClass: RecordClass!
@@ -34,17 +34,18 @@ class RecordList: UIViewController {
         pubClass = PubClass(viewControl: mVCtrl)
         mRecordClass = RecordClass(ProjectPubClass: pubClass)
         
-        aryMeadData = mRecordClass.getDataWithMemberId(dictUser["id"])
-        
-        
         //取得指定 user 的檢測資料，設定到 'aryMeadData'
-        self.getMeadData()
+        aryMeadData = mRecordClass.getDataWithMemberId(dictUser["id"])
     }
 
-    
     // viewDidAppear
     override func viewDidAppear(animated: Bool) {
-        
+        //  沒有檢測資料跳離
+        if (aryMeadData.count < 1) {
+            pubClass.popIsee(Msg: pubClass.getLang("nodata"), withHandler: {self.dismissViewControllerAnimated(true, completion: nil)})
+            
+            return
+        }
     }
     
     /**

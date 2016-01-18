@@ -10,6 +10,7 @@
 "confirm_no" = "No";
 "cancel" = "Cancel";
 "btnact_done" = "Done";
+"nodata" = "No data ...";
 
 "age" = "age";
 "gender" = "gender";
