@@ -57,7 +57,7 @@ class MemberClass {
         // 檢查 '流水號記錄檔'
         if (!mFileMang.isFilePath(D_FILE_MEMBER_SERIAL)) {
             let bolRS1 = mFileMang.write(D_FILE_MEMBER_SERIAL, strData: "1")
-            if (isDebug) {print("create file \(D_FILE_MEMBER): \(bolRS1)")}
+            if (isDebug) {print("create file \(D_FILE_MEMBER_SERIAL): \(bolRS1)")}
             
             if (!bolRS1) {
                 return false

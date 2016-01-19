@@ -407,9 +407,7 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         mBTCharact_I = nil
         mBTService = nil
         
-        if (IS_DEBUG) {
-            print("BT disconnect...")
-        }
+        if (IS_DEBUG) {print("BT disconnect...")}
     }
     
     /**

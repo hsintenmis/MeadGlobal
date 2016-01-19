@@ -44,7 +44,18 @@ class MainLogin: UIViewController {
         
         // 設定 Mead Db
         pubClass.setMeadDB()
+        
+        // test
+        //let mFileMang = FileMang()
+        //print(mFileMang.aryAppPath)
+        //print(mFileMang.createDir("pict"))
+        //print(mFileMang.isFilePath("pict"))
+        //print(mFileMang.isFilePath("pict.zip"))
+        
+        //mFileMang.ZipAddDir("pict/", strZipName: "pict.zip")
+
     }
+
 
     /**
     * 設定頁面語系

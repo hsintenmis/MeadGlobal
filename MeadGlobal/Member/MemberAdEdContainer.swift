@@ -307,6 +307,7 @@ class MemberAdEdContainer: UITableViewController, UIImagePickerControllerDelegat
         // 圖片儲存
         if (self.isNewPict == true) {
             mFileMang.write(strMemberID + ".png", withUIImage: imgTarget.image)
+            //mFileMang.write("pict/" + strMemberID + ".png", withUIImage: imgTarget.image)
         }
         
         return true

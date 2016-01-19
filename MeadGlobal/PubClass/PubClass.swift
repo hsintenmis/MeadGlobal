@@ -156,6 +156,33 @@ class PubClass {
     }
     
     /**
+     * 確認[是/否] 彈出視窗, with 'handler'
+     *
+     * @param aryMsg: ex. ary[0]=title, ary[1]=msg
+     * @param withHandlerYes, withHandlerNo: 點取 Y,N 執行程序
+     */
+    func popConfirm(aryMsg: Array<String>!, withHandlerYes mHandlerYes:()->Void, withHandlerNo mHandlerNo:()->Void) {
+        let strTitle = (aryMsg[0] == "") ? getLang("sysprompt") : aryMsg[0]
+        let mAlert = UIAlertController(title: strTitle, message: aryMsg[1], preferredStyle:UIAlertControllerStyle.Alert)
+        
+        // btn 'Yes', 跳離本頁
+        mAlert.addAction(UIAlertAction(title:self.getLang("confirm_yes"), style:UIAlertActionStyle.Default, handler:{
+            (action: UIAlertAction!) in
+            mHandlerYes()
+        }))
+        
+        // btn ' No', 取消，關閉 popWindow
+        mAlert.addAction(UIAlertAction(title:self.getLang("confirm_no"), style:UIAlertActionStyle.Cancel, handler:{
+            (action: UIAlertAction!) in
+            mHandlerNo()
+        }))
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.mVCtrl.presentViewController(mAlert, animated: true, completion: nil)
+        })
+    }
+    
+    /**
     * 產生 UIAlertController (popWindow 資料傳送中)
     */
     func getPopLoading(msg: String?) -> UIAlertController {

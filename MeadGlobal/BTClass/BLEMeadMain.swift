@@ -61,7 +61,6 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
     // 目前檢測資料的 position, 與 CollectionView 的 position 一樣
     var currDataPosition = 0;
     var currIndexPath = NSIndexPath(forRow: 0, inSection:0)
-    var D_TOTNUMS_TESTINGITEM = 24  // 共有 24 個檢測項目, 參考 'aryTestingData'
     
     // 顏色
     private let dictColor = ["white":"FFFFFF", "red":"FFCCCC", "gray":"C0C0C0", "silver":"F0F0F0", "blue":"66CCFF", "black":"000000", "green":"99CC33"]
@@ -73,8 +72,9 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
     private let mFileMang = FileMang()
     private var mRecordClass: RecordClass!
     private var strToday: String!
-    
     private var strDate: String!  // 目前時間
+    private var isDataSave = false  // 檢測資料是否已存檔
+    
     
     // viewDidLoad
     override func viewDidLoad() {
@@ -193,6 +193,9 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
         labPointMsg.text = pubClass.getLang("MERIDIAN_" + dictItem["id"]!)
         labPointMsg1.text = pubClass.getLang("ORAGN_" + dictItem["id"]!)
         labExistVal.text = dictItem["val"]
+        
+        // 重新改變狀態
+        CURR_STATU = STATU_FINISH;
     }
     
     /**
@@ -279,7 +282,7 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
         labExistVal.text = strMaxCountVal
         
         // 是否已到最後一筆 檢測項目, 所有項目檢測完成，執行相關程序
-        if ( currDataPosition >= (D_TOTNUMS_TESTINGITEM - 1) ) {
+        if ( currDataPosition >= (mMeadCFG.D_TOTDATANUMS - 1) ) {
             CURR_STATU = STATU_STOP
             labBTMsg.text = pubClass.getLang("mead_point_finish")
             
@@ -356,15 +359,20 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
     
     /**
     * 檢查檢測數值資料 array, '資料存檔'與'檢測報告'使用
+    *
+    * @param showPopMsg: 是否顯示彈出視窗
     * @return boolean
     */
-    private func chkTestingData()->Bool {
+    private func chkTestingData(showPopMsg isShow: Bool)->Bool {
         for (var i=0; i<24; i++) {
             var dictItem = aryTestingData[i]
             if (dictItem["val"] == "0") {
                 // 數值資料 "0" 為錯誤
                 self.moveCollectCell(i)
-                pubClass.popIsee(Msg: pubClass.getLang("mead_errval"))
+                
+                if (isShow) {
+                    pubClass.popIsee(Msg: pubClass.getLang("mead_errval"))
+                }
                 
                 return false
             }
@@ -377,33 +385,23 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
      * act 資料重設
      */
     @IBAction func actReset(sender: UIBarButtonItem) {
-        let mAlert = UIAlertController(title: pubClass.getLang("sysprompt"), message: pubClass.getLang("mead_resetmsg"), preferredStyle:UIAlertControllerStyle.Alert)
-        
-        // btn 'Yes', 執行重設資料程序
-        mAlert.addAction(UIAlertAction(title:pubClass.getLang("confirm_yes"), style:UIAlertActionStyle.Default, handler:{
-            (action: UIAlertAction!) in
-            
+        pubClass.popConfirm(["", pubClass.getLang("mead_resetmsg")], withHandlerYes: {
+            // 需要重設的 property
             self.strDate = self.pubClass.getDevToday()  // 日期時間重新取得
             self.currValCount = 0  // 目前檢測數值計算加總的次數
             self.mapTestValCount = [:] // 檢測數值 => 出現次數, 目的取得最多次數的 val
             self.aryTestingData = self.mMeadCFG.getAryAllTestData()
             self.moveCollectCell(0)
-        }))
+            self.isDataSave = false}, withHandlerNo: {})
         
-        // btn ' No', 取消，關閉 popWindow
-        mAlert.addAction(UIAlertAction(title:pubClass.getLang("confirm_no"), style:UIAlertActionStyle.Cancel, handler:nil ))
-        
-        // 顯示本彈出視窗
-        dispatch_async(dispatch_get_main_queue(), {
-            self.mVCtrl.presentViewController(mAlert, animated: true, completion: nil)
-        })
+        return
     }
     
     /**
     * act, 顯示檢測報告
     */
     @IBAction func actReport(sender: UIBarButtonItem) {
-        if (!self.chkTestingData()) {
+        if (!self.chkTestingData(showPopMsg: true)) {
             return
         }
     }
@@ -412,13 +410,24 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
      * act, 資料存檔
      */
     @IBAction func actSave(sender: UIBarButtonItem) {
-        if (!self.chkTestingData()) { return }
+        if (!self.chkTestingData(showPopMsg: true) || self.isDataSave == true) { return }
         
-        // 取得整理好準備存檔的 檢測資料
-        let dictRs = mRecordClass.add(self.getPreSaveData(aryTestingData))
-        let strMsg = (dictRs["rs"] as! Bool == true) ? "mead_recordaddcomplete" : "mead_recordaddfailure"
+        if (dictUser["id"] == "") {
+            pubClass.popIsee(Msg: pubClass.getLang("mead_guestcantsave"))
+            return
+        }
+        
+        // 取得整理好準備存檔的 '檢測資料'
+        let saveRS = mRecordClass.add(self.getPreSaveData(aryTestingData))
+        var strMsg = "mead_recordaddfailure"
+        
+        if (saveRS["rs"] as! Bool == true) {
+            isDataSave = true
+            strMsg = "mead_recordaddcomplete"
+        }
         
         pubClass.popIsee(Msg: pubClass.getLang(strMsg))
+        
         return
     }
     
@@ -453,13 +462,13 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
         
         // 平均值, 高低標
         let dictAvg = mMeadClass.GetAvgValue(aryTestingData)
-        dictRS["avg"] = String(dictAvg["avg"])
-        dictRS["avgH"] = String(dictAvg["avgH"])
-        dictRS["avgL"] = String(dictAvg["avgL"])
+        dictRS["avg"] = "\(dictAvg["avg"]!)"
+        dictRS["avgH"] = "\(dictAvg["avgH"]!)"
+        dictRS["avgL"] = "\(dictAvg["avgL"]!)"
         
         // 有問題的檢測項目
         dictRS["problem"] = mMeadClass.GetProblemItem(aryTestingData)
-
+        
         return dictRS
     }
     
@@ -467,8 +476,21 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
      * act 返回前頁
      */
     @IBAction func actBack(sender: UIBarButtonItem) {
-        mBLEMeadService.BTDisconn()
-        self.dismissViewControllerAnimated(true, completion: nil)
+        // 檢測完成尚未存檔, 顯示確認視窗
+        if (self.chkTestingData(showPopMsg: false) && !isDataSave) {
+            pubClass.popConfirm(["", pubClass.getLang("mead_notsaveinfomsg")], withHandlerYes: {
+                self.mBLEMeadService.BTDisconn()
+                self.dismissViewControllerAnimated(true, completion: {})
+                }, withHandlerNo: {})
+            
+            return
+        }
+        
+        // 跳離
+        self.mBLEMeadService.BTDisconn()
+        self.dismissViewControllerAnimated(true, completion: {})
+        
+        return
     }
     
     override func didReceiveMemoryWarning() {

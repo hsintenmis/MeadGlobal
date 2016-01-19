@@ -1,7 +1,7 @@
 "app_name" = "Mead system";
 "version" = "ver";
 "sysprompt" = "System prompt";
-"syswarring" = "!! Warring !!";
+"syswarring" = "Warring !!";
 "back" = "Back";
 "save" = "Save";
 "datasavecomplete" = "Save completed !!";
@@ -11,6 +11,8 @@
 "cancel" = "Cancel";
 "btnact_done" = "Done";
 "nodata" = "No data ...";
+"delselconfrimmsg" = "Are you sure to delete the selected data?!";'
+"err_delfailure" = "Delete failure!";
 
 "age" = "age";
 "gender" = "gender";
@@ -24,6 +26,7 @@
 "err_memberclass_datanotexists" = "err: Member data not exists!";
 "err_recordclass_datanotexists" = "err: Record data not exists!";
 
+"member_name" = "Member name";
 "member_id" = "Member Id";
 "member_add" = "Member add";
 "member_edit" = "Member edit";
@@ -67,6 +70,9 @@
 "mead_errval" = "檢測數值錯誤, 請重新測量!";
 "mead_recordaddcomplete" = "檢測資料存檔完成!";
 "mead_recordaddfailure" = "檢測資料存檔錯誤!";
+"mead_notsaveinfomsg" = "資料尚未存檔, 確定直接離開本頁面嗎?";
+"mead_guestcantsave" = "訪客資料不能儲存!";
+"mead_testingdate" = "檢測日期";
 
 "mead_body_FL" = "左足";
 "mead_body_FR" = "右足";
@@ -98,4 +104,23 @@
 "MERIDIAN_F4" = "膀胱经";
 "MERIDIAN_F5" = "胆经";
 "MERIDIAN_F6" = "胃经";
+
+"engval_avg" = "能量平均值";
+"engval_avgshort" = "平均";
+"engval_high" = "高标";
+"engval_low" = "低标";
+"meadreport_east" = "东方学理";
+"meadreport_west" = "西方学理";
+"meadreport_analy" = "分析";
+"meadreport_pdsuggest" = "调理建议";
+"direct_L" = "左";
+"direct_R" = "右";
+"BODY_F_L" = "左足";
+"BODY_F_R" = "右足";
+"BODY_H_L" = "左腕";
+"BODY_H_R" = "右腕";
+"TESTINGVAL_L" = "左侧数值";
+"TESTINGVAL_R" = "右侧数值";
+"meadreport_analy" = "分析";
+"meadreport_pdsuggest" = "调理建议";
 

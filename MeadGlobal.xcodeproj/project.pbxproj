@@ -16,6 +16,27 @@
 		42E38E451C4BFA1F00B04FAE /* html in Resources */ = {isa = PBXBuildFile; fileRef = 42E38E441C4BFA1F00B04FAE /* html */; };
 		D701449B1C449CA800813650 /* TestingUserPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D701449A1C449CA800813650 /* TestingUserPager.swift */; };
 		D70EE3471C3CDE7100944E21 /* CutImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70EE3461C3CDE7100944E21 /* CutImage.swift */; };
+		D72021BF1C4DE3E300741D14 /* RecordDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72021BE1C4DE3E300741D14 /* RecordDetailCell.swift */; };
+		D72021C11C4DE43B00741D14 /* RecordDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72021C01C4DE43B00741D14 /* RecordDetail.swift */; };
+		D72021C31C4DE92400741D14 /* RecordDetailTxt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72021C21C4DE92400741D14 /* RecordDetailTxt.swift */; };
+		D72021F31C4E121500741D14 /* aescrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = D72021D11C4E121500741D14 /* aescrypt.c */; };
+		D72021F41C4E121500741D14 /* aeskey.c in Sources */ = {isa = PBXBuildFile; fileRef = D72021D21C4E121500741D14 /* aeskey.c */; };
+		D72021F51C4E121500741D14 /* aestab.c in Sources */ = {isa = PBXBuildFile; fileRef = D72021D41C4E121500741D14 /* aestab.c */; };
+		D72021F61C4E121500741D14 /* entropy.c in Sources */ = {isa = PBXBuildFile; fileRef = D72021D81C4E121500741D14 /* entropy.c */; };
+		D72021F71C4E121500741D14 /* fileenc.c in Sources */ = {isa = PBXBuildFile; fileRef = D72021DA1C4E121500741D14 /* fileenc.c */; };
+		D72021F81C4E121500741D14 /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = D72021DC1C4E121500741D14 /* hmac.c */; };
+		D72021F91C4E121500741D14 /* prng.c in Sources */ = {isa = PBXBuildFile; fileRef = D72021DE1C4E121500741D14 /* prng.c */; };
+		D72021FA1C4E121500741D14 /* pwd2key.c in Sources */ = {isa = PBXBuildFile; fileRef = D72021E01C4E121500741D14 /* pwd2key.c */; };
+		D72021FB1C4E121500741D14 /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = D72021E21C4E121500741D14 /* sha1.c */; };
+		D72021FC1C4E121500741D14 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D72021E51C4E121500741D14 /* Info.plist */; };
+		D72021FD1C4E121500741D14 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = D72021E81C4E121500741D14 /* ioapi.c */; };
+		D72021FE1C4E121500741D14 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = D72021EA1C4E121500741D14 /* mztools.c */; };
+		D72021FF1C4E121500741D14 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = D72021EC1C4E121500741D14 /* unzip.c */; };
+		D72022001C4E121500741D14 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = D72021EE1C4E121500741D14 /* zip.c */; };
+		D72022011C4E121500741D14 /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = D72021F11C4E121500741D14 /* SSZipArchive.m */; };
+		D72022061C4E1B3F00741D14 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D72022051C4E1B3F00741D14 /* libz.tbd */; };
+		D72022091C4E2B1600741D14 /* SysConfigMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72022081C4E2B1600741D14 /* SysConfigMain.swift */; };
+		D720220C1C4E357600741D14 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D720220B1C4E357600741D14 /* CloudKit.framework */; };
 		D7240CB31C4359A900B1C191 /* MemberAdEdContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7240CB21C4359A900B1C191 /* MemberAdEdContainer.swift */; };
 		D72C9BDB1C3A492F00856494 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D72C9BDA1C3A492F00856494 /* Assets.xcassets */; };
 		D72C9BE81C3A4A6B00856494 /* MainLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72C9BE71C3A4A6B00856494 /* MainLogin.swift */; };
@@ -126,6 +147,49 @@
 		42E38E441C4BFA1F00B04FAE /* html */ = {isa = PBXFileReference; lastKnownFileType = folder; path = html; sourceTree = "<group>"; };
 		D701449A1C449CA800813650 /* TestingUserPager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestingUserPager.swift; path = Testing/TestingUserPager.swift; sourceTree = "<group>"; };
 		D70EE3461C3CDE7100944E21 /* CutImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CutImage.swift; sourceTree = "<group>"; };
+		D72021BE1C4DE3E300741D14 /* RecordDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecordDetailCell.swift; path = Record/RecordDetailCell.swift; sourceTree = "<group>"; };
+		D72021C01C4DE43B00741D14 /* RecordDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecordDetail.swift; path = Record/RecordDetail.swift; sourceTree = "<group>"; };
+		D72021C21C4DE92400741D14 /* RecordDetailTxt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecordDetailTxt.swift; path = Record/RecordDetailTxt.swift; sourceTree = "<group>"; };
+		D72021CF1C4E121500741D14 /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
+		D72021D01C4E121500741D14 /* aes_via_ace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes_via_ace.h; sourceTree = "<group>"; };
+		D72021D11C4E121500741D14 /* aescrypt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aescrypt.c; sourceTree = "<group>"; };
+		D72021D21C4E121500741D14 /* aeskey.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aeskey.c; sourceTree = "<group>"; };
+		D72021D31C4E121500741D14 /* aesopt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aesopt.h; sourceTree = "<group>"; };
+		D72021D41C4E121500741D14 /* aestab.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aestab.c; sourceTree = "<group>"; };
+		D72021D51C4E121500741D14 /* aestab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aestab.h; sourceTree = "<group>"; };
+		D72021D61C4E121500741D14 /* brg_endian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = brg_endian.h; sourceTree = "<group>"; };
+		D72021D71C4E121500741D14 /* brg_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = brg_types.h; sourceTree = "<group>"; };
+		D72021D81C4E121500741D14 /* entropy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = entropy.c; sourceTree = "<group>"; };
+		D72021D91C4E121500741D14 /* entropy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = entropy.h; sourceTree = "<group>"; };
+		D72021DA1C4E121500741D14 /* fileenc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fileenc.c; sourceTree = "<group>"; };
+		D72021DB1C4E121500741D14 /* fileenc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fileenc.h; sourceTree = "<group>"; };
+		D72021DC1C4E121500741D14 /* hmac.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hmac.c; sourceTree = "<group>"; };
+		D72021DD1C4E121500741D14 /* hmac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hmac.h; sourceTree = "<group>"; };
+		D72021DE1C4E121500741D14 /* prng.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = prng.c; sourceTree = "<group>"; };
+		D72021DF1C4E121500741D14 /* prng.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = prng.h; sourceTree = "<group>"; };
+		D72021E01C4E121500741D14 /* pwd2key.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pwd2key.c; sourceTree = "<group>"; };
+		D72021E11C4E121500741D14 /* pwd2key.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pwd2key.h; sourceTree = "<group>"; };
+		D72021E21C4E121500741D14 /* sha1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sha1.c; sourceTree = "<group>"; };
+		D72021E31C4E121500741D14 /* sha1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sha1.h; sourceTree = "<group>"; };
+		D72021E41C4E121500741D14 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		D72021E51C4E121500741D14 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D72021E71C4E121500741D14 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
+		D72021E81C4E121500741D14 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
+		D72021E91C4E121500741D14 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
+		D72021EA1C4E121500741D14 /* mztools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mztools.c; sourceTree = "<group>"; };
+		D72021EB1C4E121500741D14 /* mztools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mztools.h; sourceTree = "<group>"; };
+		D72021EC1C4E121500741D14 /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
+		D72021ED1C4E121500741D14 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
+		D72021EE1C4E121500741D14 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
+		D72021EF1C4E121500741D14 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
+		D72021F01C4E121500741D14 /* SSZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipArchive.h; sourceTree = "<group>"; };
+		D72021F11C4E121500741D14 /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
+		D72021F21C4E121500741D14 /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
+		D72022021C4E1A5B00741D14 /* MeadGlobal-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MeadGlobal-Bridging-Header.h"; sourceTree = "<group>"; };
+		D72022051C4E1B3F00741D14 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		D72022081C4E2B1600741D14 /* SysConfigMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SysConfigMain.swift; path = SysConfig/SysConfigMain.swift; sourceTree = "<group>"; };
+		D720220A1C4E355F00741D14 /* MeadGlobal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MeadGlobal.entitlements; sourceTree = "<group>"; };
+		D720220B1C4E357600741D14 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		D7240CB21C4359A900B1C191 /* MemberAdEdContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemberAdEdContainer.swift; path = Member/MemberAdEdContainer.swift; sourceTree = "<group>"; };
 		D72C9BD01C3A492E00856494 /* MeadGlobal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeadGlobal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D72C9BDA1C3A492F00856494 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../Assets.xcassets; sourceTree = "<group>"; };
@@ -239,6 +303,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D72022061C4E1B3F00741D14 /* libz.tbd in Frameworks */,
+				D720220C1C4E357600741D14 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,13 +318,83 @@
 				42C0F3AE1C4AAAB300248FBE /* RecordMemberMain.swift */,
 				42C0F3B01C4AB79D00248FBE /* RecordList.swift */,
 				42E38E421C4BF7FE00B04FAE /* RecordListCell.swift */,
+				D72021C01C4DE43B00741D14 /* RecordDetail.swift */,
+				D72021C21C4DE92400741D14 /* RecordDetailTxt.swift */,
+				D72021BE1C4DE3E300741D14 /* RecordDetailCell.swift */,
 			);
 			name = Record;
+			sourceTree = "<group>";
+		};
+		D72021CD1C4E121500741D14 /* SSZipArchive */ = {
+			isa = PBXGroup;
+			children = (
+				D72021CE1C4E121500741D14 /* aes */,
+				D72021E41C4E121500741D14 /* Common.h */,
+				D72021E51C4E121500741D14 /* Info.plist */,
+				D72021E61C4E121500741D14 /* minizip */,
+				D72021F01C4E121500741D14 /* SSZipArchive.h */,
+				D72021F11C4E121500741D14 /* SSZipArchive.m */,
+				D72021F21C4E121500741D14 /* ZipArchive.h */,
+			);
+			path = SSZipArchive;
+			sourceTree = "<group>";
+		};
+		D72021CE1C4E121500741D14 /* aes */ = {
+			isa = PBXGroup;
+			children = (
+				D72021CF1C4E121500741D14 /* aes.h */,
+				D72021D01C4E121500741D14 /* aes_via_ace.h */,
+				D72021D11C4E121500741D14 /* aescrypt.c */,
+				D72021D21C4E121500741D14 /* aeskey.c */,
+				D72021D31C4E121500741D14 /* aesopt.h */,
+				D72021D41C4E121500741D14 /* aestab.c */,
+				D72021D51C4E121500741D14 /* aestab.h */,
+				D72021D61C4E121500741D14 /* brg_endian.h */,
+				D72021D71C4E121500741D14 /* brg_types.h */,
+				D72021D81C4E121500741D14 /* entropy.c */,
+				D72021D91C4E121500741D14 /* entropy.h */,
+				D72021DA1C4E121500741D14 /* fileenc.c */,
+				D72021DB1C4E121500741D14 /* fileenc.h */,
+				D72021DC1C4E121500741D14 /* hmac.c */,
+				D72021DD1C4E121500741D14 /* hmac.h */,
+				D72021DE1C4E121500741D14 /* prng.c */,
+				D72021DF1C4E121500741D14 /* prng.h */,
+				D72021E01C4E121500741D14 /* pwd2key.c */,
+				D72021E11C4E121500741D14 /* pwd2key.h */,
+				D72021E21C4E121500741D14 /* sha1.c */,
+				D72021E31C4E121500741D14 /* sha1.h */,
+			);
+			path = aes;
+			sourceTree = "<group>";
+		};
+		D72021E61C4E121500741D14 /* minizip */ = {
+			isa = PBXGroup;
+			children = (
+				D72021E71C4E121500741D14 /* crypt.h */,
+				D72021E81C4E121500741D14 /* ioapi.c */,
+				D72021E91C4E121500741D14 /* ioapi.h */,
+				D72021EA1C4E121500741D14 /* mztools.c */,
+				D72021EB1C4E121500741D14 /* mztools.h */,
+				D72021EC1C4E121500741D14 /* unzip.c */,
+				D72021ED1C4E121500741D14 /* unzip.h */,
+				D72021EE1C4E121500741D14 /* zip.c */,
+				D72021EF1C4E121500741D14 /* zip.h */,
+			);
+			path = minizip;
+			sourceTree = "<group>";
+		};
+		D72022071C4E2AD100741D14 /* SysConfig */ = {
+			isa = PBXGroup;
+			children = (
+				D72022081C4E2B1600741D14 /* SysConfigMain.swift */,
+			);
+			name = SysConfig;
 			sourceTree = "<group>";
 		};
 		D72C9BC71C3A492E00856494 = {
 			isa = PBXGroup;
 			children = (
+				D720220B1C4E357600741D14 /* CloudKit.framework */,
 				D72C9BD21C3A492E00856494 /* MeadGlobal */,
 				D72C9BD11C3A492E00856494 /* Products */,
 			);
@@ -275,6 +411,7 @@
 		D72C9BD21C3A492E00856494 /* MeadGlobal */ = {
 			isa = PBXGroup;
 			children = (
+				D720220A1C4E355F00741D14 /* MeadGlobal.entitlements */,
 				D77686FA1C3B655A008F4564 /* Info.plist */,
 				D77686E71C3B6296008F4564 /* Main.storyboard */,
 				D72C9BE61C3A4A0F00856494 /* MainHome */,
@@ -283,12 +420,16 @@
 				D77687271C3B97D9008F4564 /* Member */,
 				D7CF064E1C474EB9004E8E71 /* BTClass */,
 				42C0F3AD1C4AAA8600248FBE /* Record */,
+				D72022071C4E2AD100741D14 /* SysConfig */,
 				D72C9BEF1C3A4CCD00856494 /* PubClass */,
 				D72C9BE51C3A49C200856494 /* SysFile */,
 				D72C9BFF1C3A4D3400856494 /* image */,
 				D7FD81701C464E1500FA9E5A /* pict_testing */,
 				D72C9BF61C3A4CF900856494 /* lang */,
 				42E38E441C4BFA1F00B04FAE /* html */,
+				D72021CD1C4E121500741D14 /* SSZipArchive */,
+				D72022051C4E1B3F00741D14 /* libz.tbd */,
+				D72022021C4E1A5B00741D14 /* MeadGlobal-Bridging-Header.h */,
 			);
 			path = MeadGlobal;
 			sourceTree = "<group>";
@@ -488,6 +629,12 @@
 				TargetAttributes = {
 					D72C9BCF1C3A492E00856494 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = BCAW9WJ9JR;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -570,6 +717,7 @@
 				D72C9C621C3A4D3400856494 /* homelogo001.png in Resources */,
 				D72C9C601C3A4D3400856494 /* heart_icon48.png in Resources */,
 				D72C9C6A1C3A4D3400856494 /* menu_calendar01_256.png in Resources */,
+				D72021FC1C4E121500741D14 /* Info.plist in Resources */,
 				D72C9C651C3A4D3400856494 /* invoice01_128.png in Resources */,
 				D72C9BDB1C3A492F00856494 /* Assets.xcassets in Resources */,
 				D72C9C721C3A4D3400856494 /* menu_testint01_256.png in Resources */,
@@ -607,31 +755,49 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D72021F71C4E121500741D14 /* fileenc.c in Sources */,
 				D72C9BEC1C3A4A9000856494 /* AppDelegate.swift in Sources */,
 				D776872B1C3B9A40008F4564 /* MemberAdEd.swift in Sources */,
 				D7CF06571C475710004E8E71 /* BLEMeadMain.swift in Sources */,
+				D72021C31C4DE92400741D14 /* RecordDetailTxt.swift in Sources */,
 				D776872E1C3BAF56008F4564 /* FileMang.swift in Sources */,
+				D72021FF1C4E121500741D14 /* unzip.c in Sources */,
 				D7FD81671C45F6CA00FA9E5A /* TestingMemberSel.swift in Sources */,
 				42C0F3AF1C4AAAB300248FBE /* RecordMemberMain.swift in Sources */,
+				D72021F41C4E121500741D14 /* aeskey.c in Sources */,
 				D72C9BF51C3A4CCD00856494 /* PubClass.swift in Sources */,
+				D72021F51C4E121500741D14 /* aestab.c in Sources */,
+				D72021FA1C4E121500741D14 /* pwd2key.c in Sources */,
+				D72021FB1C4E121500741D14 /* sha1.c in Sources */,
 				D7CF06501C474F33004E8E71 /* BLEMeadService.swift in Sources */,
 				D72C9BF41C3A4CCD00856494 /* NoDataView.swift in Sources */,
 				D701449B1C449CA800813650 /* TestingUserPager.swift in Sources */,
 				D70EE3471C3CDE7100944E21 /* CutImage.swift in Sources */,
+				D72021F81C4E121500741D14 /* hmac.c in Sources */,
 				D72C9BE81C3A4A6B00856494 /* MainLogin.swift in Sources */,
 				D72C9BF31C3A4CCD00856494 /* ImageClass.swift in Sources */,
+				D72021F91C4E121500741D14 /* prng.c in Sources */,
 				42D3D3081C42A2FA002FF7B8 /* TestingUser.swift in Sources */,
+				D72021BF1C4DE3E300741D14 /* RecordDetailCell.swift in Sources */,
 				4256A34C1C40E5F900131142 /* JSONClass.swift in Sources */,
 				D7FD81691C46070F00FA9E5A /* TestingGuestSel.swift in Sources */,
+				D72021F61C4E121500741D14 /* entropy.c in Sources */,
 				D7240CB31C4359A900B1C191 /* MemberAdEdContainer.swift in Sources */,
+				D72022091C4E2B1600741D14 /* SysConfigMain.swift in Sources */,
+				D72021FD1C4E121500741D14 /* ioapi.c in Sources */,
 				D72EF2FF1C4CDDC500E97237 /* RecordClass.swift in Sources */,
+				D72022011C4E121500741D14 /* SSZipArchive.m in Sources */,
+				D72021C11C4DE43B00741D14 /* RecordDetail.swift in Sources */,
 				D72EF2FD1C4C905800E97237 /* MeadClass.swift in Sources */,
 				D77687261C3B7B17008F4564 /* CellCollect.swift in Sources */,
 				42E38E431C4BF7FE00B04FAE /* RecordListCell.swift in Sources */,
 				D7FD816C1C46368F00FA9E5A /* MeadCFG.swift in Sources */,
+				D72021FE1C4E121500741D14 /* mztools.c in Sources */,
 				D77687291C3B9801008F4564 /* MemberList.swift in Sources */,
 				4256A34A1C40DDCC00131142 /* MemberClass.swift in Sources */,
 				D7FFDD661C3E6497003EEF92 /* MemberListCell.swift in Sources */,
+				D72022001C4E121500741D14 /* zip.c in Sources */,
+				D72021F31C4E121500741D14 /* aescrypt.c in Sources */,
 				42C0F3B11C4AB79D00248FBE /* RecordList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -751,10 +917,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MeadGlobal/MeadGlobal.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MeadGlobal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mysoqi.com.MeadGlobal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "MeadGlobal/MeadGlobal-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -763,10 +934,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MeadGlobal/MeadGlobal.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MeadGlobal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mysoqi.com.MeadGlobal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "MeadGlobal/MeadGlobal-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

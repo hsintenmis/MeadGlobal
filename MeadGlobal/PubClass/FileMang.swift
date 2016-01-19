@@ -1,5 +1,6 @@
 //
-// FileManage, Add / Write / Read, 目錄為 app 的 Documents
+// FileManage, Add / Write / Read
+// 僅適用於 app 目錄 'Documents'
 //
 
 import Foundation
@@ -10,14 +11,17 @@ import UIKit
  */
 class FileMang {
     var isDebug = true;
-    let mDocPath: String!  // 取得 documentsPath 路徑
+    var mDocPath: String!  // 取得 documentsPath 路徑, 含'/'
+    var aryAppPath: Array<String>!
+    
     let mFileMgr = NSFileManager.defaultManager()
     
     /**
      * init
      */
     init() {
-        mDocPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] + "/"
+        aryAppPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        mDocPath = aryAppPath[0] + "/"
     }
     
     /**
@@ -95,6 +99,33 @@ class FileMang {
     }
 
     
+    /**
+     * 讀取檔案資料
+     * @return: String or ""
+     */
+    func createDir(strName: String!)->Bool {
+        let objDocPath = aryAppPath[0]
+        let dataPath = objDocPath + "/" + strName
+
+        do {
+            try NSFileManager.defaultManager().createDirectoryAtPath(dataPath, withIntermediateDirectories: false, attributes: nil)
+            
+            return true
+        } catch let error as NSError {
+            if (isDebug) { print(error.localizedDescription) }
+            
+            return false
+        }
+    }
+    
+    /**
+     * 解壓縮：加入檔案壓縮, 來源檔(完整路徑+檔名), 壓縮檔名稱
+     *
+     * @param strDirname: 來源目錄, ex. pict/
+     * @param strZipName: ex. "myzip"
+     */
+    func ZipAddDir(strDirname: String, strZipName: String) {
+        SSZipArchive.createZipFileAtPath((mDocPath + strZipName), withContentsOfDirectory: strDirname)
+    }
+    
 }
-
-
