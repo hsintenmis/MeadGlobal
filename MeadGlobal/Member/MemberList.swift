@@ -129,51 +129,30 @@ class MemberList: UIViewController, UISearchBarDelegate {
         if editingStyle == UITableViewCellEditingStyle.Delete {
             
             // 彈出 confirm 視窗, 點取 'OK' 執行實際刪除資料程序
-            popConfirmDelData(indexPath)
+            pubClass.popConfirm([pubClass.getLang("syswarring"), pubClass.getLang("member_delconfirmmsg")], withHandlerYes:
+                {
+                    // 資料庫檔案刪除資料
+                    let strId = self.aryNewAllData[indexPath.row]["id"]!
+                    let dictRS = self.mMemberClass.del(strId)
+                    if (dictRS["rs"] as! Bool != true) {
+                        // 顯示刪除失敗訊息
+                        self.pubClass.popIsee(Msg: "err_member_delfailure")
+                        
+                        return
+                    }
+                    
+                    // TableView data source 資料移除
+                    self.aryNewAllData.removeAtIndex(indexPath.row)
+                    self.aryAllData = self.mMemberClass.getAll(isSortASC: false)
+                    self.tableData.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+                    
+                    // 刪除會員圖片
+                    self.mFileMang.delete(strId + ".png")
+                    
+                    // TODO 刪除 mead 檢測資料
+                    
+                }, withHandlerNo: {})
         }
-    }
-    
-    /**
-     * 彈出視窗，button 'Yes' 'No', 確認是否刪除資料
-     
-     * @param mIndexPath : TableView cell indexPath
-     */
-    private func popConfirmDelData(mIndexPath: NSIndexPath) {
-        let mAlert = UIAlertController(title: pubClass.getLang("syswarring"), message: pubClass.getLang("member_delconfirmmsg"), preferredStyle:UIAlertControllerStyle.Alert)
-        
-        // btn 'Yes', 執行刪除資料程序
-        mAlert.addAction(UIAlertAction(title:pubClass.getLang("confirm_yes"), style:UIAlertActionStyle.Default, handler:{
-            (action: UIAlertAction!) in
-            
-            // 資料庫檔案刪除資料
-            let strId = self.aryNewAllData[mIndexPath.row]["id"]!
-            let dictRS = self.mMemberClass.del(strId)
-            if (dictRS["rs"] as! Bool != true) {
-                // 顯示刪除失敗訊息
-                self.pubClass.popIsee(Msg: "err_member_delfailure")
-                
-                return
-            }
-            
-            // TableView data source 資料移除
-            self.aryNewAllData.removeAtIndex(mIndexPath.row)
-            self.aryAllData = self.mMemberClass.getAll(isSortASC: false)
-            self.tableData.deleteRowsAtIndexPaths([mIndexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
-            
-            // 刪除會員圖片
-            self.mFileMang.delete(strId + ".png")
-            
-            // TODO 刪除 mead 檢測資料
-            
-        }))
-        
-        // btn ' No', 取消，關閉 popWindow
-        mAlert.addAction(UIAlertAction(title:pubClass.getLang("confirm_no"), style:UIAlertActionStyle.Cancel, handler:nil ))
-        
-        // 顯示本彈出視窗
-        dispatch_async(dispatch_get_main_queue(), {
-            self.mVCtrl.presentViewController(mAlert, animated: true, completion: nil)
-        })
     }
     
     //********** #Delegate: 系統的 UISearchBar, Start **********//

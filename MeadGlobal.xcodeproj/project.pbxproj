@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42345A0A1C4F3A3B00D76BAA /* SysConfigList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42345A091C4F3A3B00D76BAA /* SysConfigList.swift */; };
+		42345A0C1C4F3F9A00D76BAA /* FileiCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42345A0B1C4F3F9A00D76BAA /* FileiCloud.swift */; };
 		4256A34A1C40DDCC00131142 /* MemberClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4256A3491C40DDCC00131142 /* MemberClass.swift */; };
 		4256A34C1C40E5F900131142 /* JSONClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4256A34B1C40E5F900131142 /* JSONClass.swift */; };
 		42C0F3AF1C4AAAB300248FBE /* RecordMemberMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C0F3AE1C4AAAB300248FBE /* RecordMemberMain.swift */; };
@@ -138,6 +140,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		42345A091C4F3A3B00D76BAA /* SysConfigList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SysConfigList.swift; path = SysConfig/SysConfigList.swift; sourceTree = "<group>"; };
+		42345A0B1C4F3F9A00D76BAA /* FileiCloud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileiCloud.swift; path = SysConfig/FileiCloud.swift; sourceTree = "<group>"; };
 		4256A3491C40DDCC00131142 /* MemberClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemberClass.swift; path = Member/MemberClass.swift; sourceTree = "<group>"; };
 		4256A34B1C40E5F900131142 /* JSONClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONClass.swift; sourceTree = "<group>"; };
 		42C0F3AE1C4AAAB300248FBE /* RecordMemberMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecordMemberMain.swift; path = Record/RecordMemberMain.swift; sourceTree = "<group>"; };
@@ -387,6 +391,8 @@
 			isa = PBXGroup;
 			children = (
 				D72022081C4E2B1600741D14 /* SysConfigMain.swift */,
+				42345A091C4F3A3B00D76BAA /* SysConfigList.swift */,
+				42345A0B1C4F3F9A00D76BAA /* FileiCloud.swift */,
 			);
 			name = SysConfig;
 			sourceTree = "<group>";
@@ -394,8 +400,8 @@
 		D72C9BC71C3A492E00856494 = {
 			isa = PBXGroup;
 			children = (
-				D720220B1C4E357600741D14 /* CloudKit.framework */,
 				D72C9BD21C3A492E00856494 /* MeadGlobal */,
+				D720220B1C4E357600741D14 /* CloudKit.framework */,
 				D72C9BD11C3A492E00856494 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -771,6 +777,7 @@
 				D72021FB1C4E121500741D14 /* sha1.c in Sources */,
 				D7CF06501C474F33004E8E71 /* BLEMeadService.swift in Sources */,
 				D72C9BF41C3A4CCD00856494 /* NoDataView.swift in Sources */,
+				42345A0A1C4F3A3B00D76BAA /* SysConfigList.swift in Sources */,
 				D701449B1C449CA800813650 /* TestingUserPager.swift in Sources */,
 				D70EE3471C3CDE7100944E21 /* CutImage.swift in Sources */,
 				D72021F81C4E121500741D14 /* hmac.c in Sources */,
@@ -797,6 +804,7 @@
 				4256A34A1C40DDCC00131142 /* MemberClass.swift in Sources */,
 				D7FFDD661C3E6497003EEF92 /* MemberListCell.swift in Sources */,
 				D72022001C4E121500741D14 /* zip.c in Sources */,
+				42345A0C1C4F3F9A00D76BAA /* FileiCloud.swift in Sources */,
 				D72021F31C4E121500741D14 /* aescrypt.c in Sources */,
 				42C0F3B11C4AB79D00248FBE /* RecordList.swift in Sources */,
 			);
