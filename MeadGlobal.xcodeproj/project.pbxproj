@@ -122,6 +122,7 @@
 		D72EF2FB1C4C7F6100E97237 /* meaddb_zh-Hant.txt in Resources */ = {isa = PBXBuildFile; fileRef = D72EF2F71C4C7F6100E97237 /* meaddb_zh-Hant.txt */; };
 		D72EF2FD1C4C905800E97237 /* MeadClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EF2FC1C4C905800E97237 /* MeadClass.swift */; };
 		D72EF2FF1C4CDDC500E97237 /* RecordClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EF2FE1C4CDDC500E97237 /* RecordClass.swift */; };
+		D74EA6731C52229000F3233A /* ICloudFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74EA6721C52229000F3233A /* ICloudFile.swift */; };
 		D77686E81C3B6296008F4564 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D77686E71C3B6296008F4564 /* Main.storyboard */; };
 		D77687181C3B6DB4008F4564 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D77687131C3B6CE0008F4564 /* Localizable.strings */; };
 		D776871B1C3B7059008F4564 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D776871D1C3B7059008F4564 /* InfoPlist.strings */; };
@@ -278,6 +279,7 @@
 		D72EF2F71C4C7F6100E97237 /* meaddb_zh-Hant.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "meaddb_zh-Hant.txt"; sourceTree = "<group>"; };
 		D72EF2FC1C4C905800E97237 /* MeadClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeadClass.swift; path = MeadClass/MeadClass.swift; sourceTree = "<group>"; };
 		D72EF2FE1C4CDDC500E97237 /* RecordClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecordClass.swift; path = Record/RecordClass.swift; sourceTree = "<group>"; };
+		D74EA6721C52229000F3233A /* ICloudFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ICloudFile.swift; path = SysConfig/ICloudFile.swift; sourceTree = "<group>"; };
 		D77686E71C3B6296008F4564 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		D77686FA1C3B655A008F4564 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D77687121C3B6CE0008F4564 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 			children = (
 				D72022081C4E2B1600741D14 /* SysConfigMain.swift */,
 				42345A091C4F3A3B00D76BAA /* SysConfigList.swift */,
+				D74EA6721C52229000F3233A /* ICloudFile.swift */,
 				42345A0B1C4F3F9A00D76BAA /* FileiCloud.swift */,
 			);
 			name = SysConfig;
@@ -801,6 +804,7 @@
 				D7FD816C1C46368F00FA9E5A /* MeadCFG.swift in Sources */,
 				D72021FE1C4E121500741D14 /* mztools.c in Sources */,
 				D77687291C3B9801008F4564 /* MemberList.swift in Sources */,
+				D74EA6731C52229000F3233A /* ICloudFile.swift in Sources */,
 				4256A34A1C40DDCC00131142 /* MemberClass.swift in Sources */,
 				D7FFDD661C3E6497003EEF92 /* MemberListCell.swift in Sources */,
 				D72022001C4E121500741D14 /* zip.c in Sources */,

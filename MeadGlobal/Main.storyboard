@@ -270,7 +270,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jjt-yc-73S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="709" y="1693"/>
+            <point key="canvasLocation" x="236" y="1895"/>
         </scene>
         <!--設定項目列表-->
         <scene sceneID="8nK-xh-Lvj">
@@ -299,6 +299,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="oVe-RZ-qsn" kind="show" id="m1y-pZ-c4Y"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cellFileRestore" textLabel="SSo-Jl-oZO" rowHeight="55" style="IBUITableViewCellStyleDefault" id="dL0-dc-M5a" userLabel="cellFileRestore">
                                         <rect key="frame" x="0.0" y="105" width="324" height="55"/>
@@ -359,7 +362,26 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cMy-Cu-sOT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1144" y="1693"/>
+            <point key="canvasLocation" x="709" y="1863"/>
+        </scene>
+        <!--iCloud File-->
+        <scene sceneID="ocV-Wj-7k9">
+            <objects>
+                <viewController id="oVe-RZ-qsn" customClass="ICloudFile" customModule="MeadGlobal" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yge-D7-wX3"/>
+                        <viewControllerLayoutGuide type="bottom" id="xPb-gn-53v"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="adN-1p-ib7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lSS-QX-0t8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1167" y="1895"/>
         </scene>
         <!--檢測資料-選擇會員-->
         <scene sceneID="bGs-IY-gIS">

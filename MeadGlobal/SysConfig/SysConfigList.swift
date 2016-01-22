@@ -5,7 +5,6 @@
 import Foundation
 import UIKit
 
-
 /**
  * 會員資料編輯與儲存
  */
@@ -29,33 +28,20 @@ class SysConfigList: UITableViewController {
     override func viewDidAppear(animated: Bool) {
 
     }
-    
+    /*
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // get cell identify name
-        let strIdent = tableList.cellForRowAtIndexPath(indexPath)?.reuseIdentifier
+        //let strIdent = tableList.cellForRowAtIndexPath(indexPath)?.reuseIdentifier
+    }
+    */
+    
+    /**
+     * Segue 跳轉頁面，StoryBoard 介面需要拖曳 pressenting segue
+     */
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let strIdentName = segue.identifier
         
-        if (strIdent == "cellFileUpload") {
-            print(strIdent)
-            
-            let mFileMgr = NSFileManager.defaultManager()
-            let mSaveFileName = "member.txt"
-            
-            var ubiquityURL: NSURL?
-            var metaDataQuery: NSMetadataQuery?
-            metaDataQuery = NSMetadataQuery()
-            
-            ubiquityURL = mFileMgr.URLForUbiquityContainerIdentifier(nil)!.URLByAppendingPathComponent("Documents")
-            ubiquityURL = ubiquityURL!.URLByAppendingPathComponent(mSaveFileName)
-            
-            
-            metaDataQuery?.predicate = NSPredicate(format: "%K like '\(mSaveFileName)'", NSMetadataItemFSNameKey)
-            metaDataQuery?.searchScopes = [NSMetadataQueryUbiquitousDocumentsScope]
-            
-            /*
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "metadataQueryDidFinishGathering:", name: NSMetadataQueryDidFinishGatheringNotification, object: metaDataQuery!)
-            */
-            metaDataQuery!.startQuery()
-        }
+        print(strIdentName)
     }
     
     /**
