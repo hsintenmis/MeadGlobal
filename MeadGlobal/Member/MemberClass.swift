@@ -1,5 +1,8 @@
 //
 // 會員公用程式
+// 目錄說明：
+// 會員資料檔: 'data/'
+// 會員圖片檔: 'data/pict'
 //
 // 專案進入頁面，必須使用 'chkData' 檢查是否有會員與初始資料
 // 流水號記錄檔 max 六碼，1 ~ 999999
@@ -7,6 +10,7 @@
 //
 
 import Foundation
+import UIKit
 
 /**
  * 本專案會員的設定檔與公用 method
@@ -14,11 +18,20 @@ import Foundation
 class MemberClass {
     private let isDebug = true
     
+    /** 根目錄參考 'FileMang class', 沒有 '/' */
+    private var D_ROOT_PATH: String!
+    
     /** 會員資料檔 JSON string, 檔名: member.txt */
-    let D_FILE_MEMBER = "member.txt"
+    var D_FILE_MEMBER = "member.txt"
     
     /** 會員編號 流水號記錄檔 */
-    let D_FILE_MEMBER_SERIAL = "member_serial.txt"
+    var D_FILE_MEMBER_SERIAL = "member_serial.txt"
+    
+    /** 會員圖片目錄 */
+    var D_PATH_MEMBER_PICT = "pict"
+    
+    /** 沒圖片的大頭照 */
+    let D_DEFPICTUSER = "user_empty01.png"
     
     /** 會員資料，唯一識別碼前置字串，ex. 'MD' + '000001' */
     let D_IDHEAD = "MD"
@@ -36,6 +49,11 @@ class MemberClass {
     init(ProjectPubClass mPubClass: PubClass) {
         pubClass = mPubClass
         strToday = pubClass.getDevToday()
+        
+        D_ROOT_PATH = mFileMang.D_ROOT_PATH
+        D_FILE_MEMBER = D_ROOT_PATH + "/" + D_FILE_MEMBER
+        D_FILE_MEMBER_SERIAL = D_ROOT_PATH + "/" + D_FILE_MEMBER_SERIAL
+        D_PATH_MEMBER_PICT = D_ROOT_PATH + "/" + D_PATH_MEMBER_PICT
     }
     
     /**
@@ -44,24 +62,34 @@ class MemberClass {
      * @return Boolean
      */
     func chkData()->Bool {
+        var bolRS = false;
+        
+        // 檢查根目錄
+        if (!mFileMang.isFilePath(D_ROOT_PATH)) {
+            bolRS = mFileMang.createDir(D_ROOT_PATH)
+            if (isDebug) {print("create Root directory: \(D_ROOT_PATH) \(bolRS)")}
+            if (!bolRS) { return false }
+        }
+        
+        // 建立圖片目錄
+        if (!mFileMang.isFilePath(D_PATH_MEMBER_PICT)) {
+            bolRS = mFileMang.createDir(D_PATH_MEMBER_PICT)
+            if (isDebug) {print("create pict directory: \(D_PATH_MEMBER_PICT) \(bolRS)")}
+            if (!bolRS) { return false }
+        }
+        
         // 檢查 '會員資料檔'
         if (!mFileMang.isFilePath(D_FILE_MEMBER)) {
-            let bolRS0 = mFileMang.write(D_FILE_MEMBER, strData: "")
-            if (isDebug) {print("create file \(D_FILE_MEMBER): \(bolRS0)")}
-            
-            if (!bolRS0) {
-                return false
-            }
+            bolRS = mFileMang.write(D_FILE_MEMBER, strData: "")
+            if (isDebug) {print("create file \(D_FILE_MEMBER): \(bolRS)")}
+            if (!bolRS) { return false }
         }
         
         // 檢查 '流水號記錄檔'
         if (!mFileMang.isFilePath(D_FILE_MEMBER_SERIAL)) {
-            let bolRS1 = mFileMang.write(D_FILE_MEMBER_SERIAL, strData: "1")
-            if (isDebug) {print("create file \(D_FILE_MEMBER_SERIAL): \(bolRS1)")}
-            
-            if (!bolRS1) {
-                return false
-            }
+            bolRS = mFileMang.write(D_FILE_MEMBER_SERIAL, strData: "1")
+            if (isDebug) {print("create file \(D_FILE_MEMBER_SERIAL): \(bolRS)")}
+            if (!bolRS) { return false }
         }
         
         return true
@@ -275,4 +303,21 @@ class MemberClass {
         return strAge
     }
     
+    /**
+     * 取得會員大頭照
+     *
+     * @param strId: 會員 ID
+     * @return: UIImage
+     */
+    func getMemberPict(strId: String!)->UIImage {
+        let imgFileName = D_PATH_MEMBER_PICT + "/" + strId + ".png"
+        
+        if (mFileMang.isFilePath(imgFileName)) {
+            return UIImage(contentsOfFile: self.mFileMang.mDocPath + imgFileName)!
+        }
+        else {
+            return UIImage(named: D_DEFPICTUSER )!
+        }
+    }
+
 }

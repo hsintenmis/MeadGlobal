@@ -178,12 +178,8 @@ class MemberAdEdContainer: UITableViewController, UIImagePickerControllerDelegat
         edName.text = dictMember["name"]
         edTel.text = dictMember["tel"]
         swchGender.selectedSegmentIndex = (dictMember["gender"] == "M") ? 0 : 1
-        
-        let imgFileName = dictMember["id"]! + ".png"
-        if (mFileMang.isFilePath(imgFileName)) {
-            imgTarget.image = UIImage(contentsOfFile: mFileMang.mDocPath + imgFileName)
-        }
-        
+        imgTarget.image = mMemberClass.getMemberPict(dictMember["id"]!)
+
         // 'birth' 文字處理
         strBirth = dictMember["birth"]!
         let mDate = dateFmt_YMD.dateFromString(strBirth)!
@@ -306,8 +302,8 @@ class MemberAdEdContainer: UITableViewController, UIImagePickerControllerDelegat
         
         // 圖片儲存
         if (self.isNewPict == true) {
-            mFileMang.write(strMemberID + ".png", withUIImage: imgTarget.image)
-            //mFileMang.write("pict/" + strMemberID + ".png", withUIImage: imgTarget.image)
+            //mFileMang.write(strMemberID + ".png", withUIImage: imgTarget.image)
+            mFileMang.write(mMemberClass.D_PATH_MEMBER_PICT + "/" + strMemberID + ".png", withUIImage: imgTarget.image)
         }
         
         return true

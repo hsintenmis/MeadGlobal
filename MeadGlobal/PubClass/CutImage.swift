@@ -19,6 +19,9 @@ protocol ClipViewControllerDelegate {
 class CutImage: UIViewController, UIGestureRecognizerDelegate {
     var delegate: ClipViewControllerDelegate?
     
+    /** 顯示'裁剪' 字串 */
+    var D_CUTTRANLANG = "OK"
+    
     // 圖片相關參數設定, 裁剪框的frame
     var scaleRation: CGFloat = 3.0  // 图片缩放的最大倍数
     var radius: CGFloat = 120.0  //圆形裁剪框的半径
@@ -94,12 +97,12 @@ class CutImage: UIViewController, UIGestureRecognizerDelegate {
         clipBtn.backgroundColor = UIColor.blueColor()
         
         // Button .Selected
-        let mySelectedAttributedTitle = NSAttributedString(string: "裁剪",
+        let mySelectedAttributedTitle = NSAttributedString(string: D_CUTTRANLANG,
             attributes: [NSForegroundColorAttributeName : UIColor.grayColor()])
         clipBtn.setAttributedTitle(mySelectedAttributedTitle, forState: .Selected)
         
         // Button .Normal
-        let myNormalAttributedTitle = NSAttributedString(string: "裁剪",
+        let myNormalAttributedTitle = NSAttributedString(string: D_CUTTRANLANG,
             attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
         clipBtn.setAttributedTitle(myNormalAttributedTitle, forState: .Normal)
         

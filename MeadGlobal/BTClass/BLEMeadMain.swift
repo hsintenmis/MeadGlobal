@@ -116,9 +116,14 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
         labGender.text = pubClass.getLang("gender") + ": " + strGender + ", " + pubClass.getLang("age") + ": \(dictUser["age"]! as String)"
         
         // user 圖片
+        let mMemberClass = MemberClass(ProjectPubClass: pubClass)
+        imgUser.image = mMemberClass.getMemberPict(dictUser["id"]!)
+        
+        /*
         let imgFileName = dictUser["id"]! + ".png"
         let mImg = (mFileMang.isFilePath(imgFileName)) ? UIImage(contentsOfFile: self.mFileMang.mDocPath + imgFileName) : UIImage(named: pubClass.D_DEFPICTUSER )
         imgUser.image = mImg
+        */
     }
     
     /**

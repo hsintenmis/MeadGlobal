@@ -123,3 +123,7 @@
 "TESTINGVAL_R" = "右侧数值";
 "meadreport_analy" = "分析";
 "meadreport_pdsuggest" = "调理建议";
+
+"sysconfig_backupcompleted" = "備份完成!";
+"sysconfig_restorecompleted" = "資料還原完成!";
+

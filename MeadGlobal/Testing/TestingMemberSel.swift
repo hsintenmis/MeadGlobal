@@ -115,13 +115,7 @@ class TestingMemberSel: UIViewController, UITableViewDelegate, UITableViewDataSo
         mCell.labGender.text = pubClass.getLang("gender") + ": " + strGender + ", " + pubClass.getLang("age") + ": " + strAge
         
         // 圖片設定
-        let imgFileName = (ditItem["id"] as! String) + ".png"
-        if (mFileMang.isFilePath(imgFileName)) {
-            mCell.imgPict.image = UIImage(contentsOfFile: self.mFileMang.mDocPath + imgFileName)
-        }
-        else {
-            mCell.imgPict.image = UIImage(named: pubClass.D_DEFPICTUSER )
-        }
+        mCell.imgPict.image = mMemberClass.getMemberPict(ditItem["id"] as! String)
         
         return mCell
     }

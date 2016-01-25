@@ -14,11 +14,14 @@ import Foundation
 class RecordClass {
     private let isDebug = true
     
+    /** 根目錄參考 'FileMang class', 沒有 '/' */
+    private var D_ROOT_PATH: String!
+    
     /** 會員資料檔 JSON string, 檔名: member.txt */
-    let D_FILE_REPORT = "record.txt"
+    var D_FILE_REPORT = "record.txt"
     
     /** 會員編號 流水號記錄檔 */
-    let D_FILE_REPORT_SERIAL = "record_serial.txt"
+    var D_FILE_REPORT_SERIAL = "record_serial.txt"
     
     /** 會員資料，唯一識別碼前置字串，ex. 'R' + '000001' */
     let D_IDHEAD = "R"
@@ -36,6 +39,10 @@ class RecordClass {
     init(ProjectPubClass mPubClass: PubClass) {
         pubClass = mPubClass
         strToday = pubClass.getDevToday()
+        
+        D_ROOT_PATH = mFileMang.D_ROOT_PATH
+        D_FILE_REPORT = D_ROOT_PATH + "/" + D_FILE_REPORT
+        D_FILE_REPORT_SERIAL = D_ROOT_PATH + "/" + D_FILE_REPORT_SERIAL
     }
     
     /**
@@ -44,24 +51,20 @@ class RecordClass {
      * @return Boolean
      */
     func chkData()->Bool {
+        var bolRS = false
+        
         // 檢查 '資料檔'
         if (!mFileMang.isFilePath(D_FILE_REPORT)) {
-            let bolRS0 = mFileMang.write(D_FILE_REPORT, strData: "")
-            if (isDebug) {print("create file \(D_FILE_REPORT): \(bolRS0)")}
-            
-            if (!bolRS0) {
-                return false
-            }
+            bolRS = mFileMang.write(D_FILE_REPORT, strData: "")
+            if (isDebug) {print("create file \(D_FILE_REPORT): \(bolRS)")}
+            if (!bolRS) {return false}
         }
         
         // 檢查 '流水號記錄檔'
         if (!mFileMang.isFilePath(D_FILE_REPORT_SERIAL)) {
-            let bolRS1 = mFileMang.write(D_FILE_REPORT_SERIAL, strData: "1")
-            if (isDebug) {print("create file \(D_FILE_REPORT_SERIAL): \(bolRS1)")}
-            
-            if (!bolRS1) {
-                return false
-            }
+            bolRS = mFileMang.write(D_FILE_REPORT_SERIAL, strData: "1")
+            if (isDebug) {print("create file \(D_FILE_REPORT_SERIAL): \(bolRS)")}
+            if (!bolRS) {return false}
         }
         
         return true

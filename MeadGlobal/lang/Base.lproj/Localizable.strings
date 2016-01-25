@@ -124,3 +124,5 @@
 "meadreport_analy" = "分析";
 "meadreport_pdsuggest" = "调理建议";
 
+"sysconfig_backupcompleted" = "Backup completed!";
+"sysconfig_restorecompleted" = "Data restore completed!";

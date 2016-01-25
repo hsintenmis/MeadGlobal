@@ -10,6 +10,10 @@ import UIKit
  * 檔案增刪修寫讀處理
  */
 class FileMang {
+    /** 本專案所有資料的根目錄設定為 'dbdata', 沒有 '/' */
+    let D_ROOT_PATH = "dbdata"
+    
+    // 其他設定
     var isDebug = true;
     var mDocPath: String!  // 取得 documentsPath 路徑, 含'/'
     var aryAppPath: Array<String>!
@@ -51,6 +55,31 @@ class FileMang {
     }
     
     /**
+     * 檔案寫資料 / 建立檔案 (String 寫入)
+     *
+     * @param strData : string or ""
+     * @return Boolean
+     */
+    func createDir(strPath: String)->Bool {
+        let mPath = mDocPath + strPath
+        
+        // 目錄已存在，return false
+        if (self.isFilePath(mPath)) {
+            if (isDebug) { print("err: directory exists: " + strPath) }
+            return false
+        }
+        
+        // 建立目錄程序
+        do {
+            try self.mFileMgr.createDirectoryAtPath(mPath, withIntermediateDirectories: false, attributes: nil)
+            return true
+        } catch let error as NSError {
+            if (isDebug) { print("err: create directory failure!\n\(error)") }
+            return false
+        }
+    }
+    
+    /**
     * 檔案寫資料 / 建立檔案 (String 寫入)
     *
     * @param strData : string or ""
@@ -71,7 +100,7 @@ class FileMang {
      * @return Boolean
      */
     func write(strFileName: String!, withUIImage mImg: UIImage!)->Bool {
-        if let data = UIImageJPEGRepresentation(mImg, 0.8) {
+        if let data = UIImageJPEGRepresentation(mImg, 0.7) {
             let mFile = self.mDocPath + strFileName
             return data.writeToFile(mFile, atomically: true)
         }
@@ -119,13 +148,16 @@ class FileMang {
     }
     
     /**
-     * 解壓縮：加入檔案壓縮, 來源檔(完整路徑+檔名), 壓縮檔名稱
+     * 解壓縮：加入單一檔案壓縮, 來源檔(完整路徑+檔名), 壓縮檔名稱
      *
-     * @param strDirname: 來源目錄, ex. pict/
+     * @param strDirname: 來源目錄, ex. 'pict'
      * @param strZipName: ex. "myzip"
      */
     func ZipAddDir(strDirname: String, strZipName: String) {
-        SSZipArchive.createZipFileAtPath((mDocPath + strZipName), withContentsOfDirectory: strDirname)
+        let sampleDataPath = mDocPath + strDirname
+        let zipPath = mDocPath + strZipName
+        
+        SSZipArchive.createZipFileAtPath(zipPath, withContentsOfDirectory: sampleDataPath)
     }
     
 }
