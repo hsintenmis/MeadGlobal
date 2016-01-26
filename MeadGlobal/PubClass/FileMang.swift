@@ -148,7 +148,22 @@ class FileMang {
     }
     
     /**
+    * 檔案或目錄更名
+    */
+    func rename(SourceName strSource: String, TargetName strTarget: String)->Bool {
+        do {
+            try mFileMgr.moveItemAtPath(strSource, toPath: strTarget)
+                return true
+        } catch let error as NSError {
+            if (isDebug) { print(error.localizedDescription) }
+            
+            return false
+        }
+    }
+    
+    /**
      * 解壓縮：加入單一檔案壓縮, 來源檔(完整路徑+檔名), 壓縮檔名稱
+     * 需要 import 第三方 class 'SSZipArchive'
      *
      * @param strDirname: 來源目錄, ex. 'pict'
      * @param strZipName: ex. "myzip"

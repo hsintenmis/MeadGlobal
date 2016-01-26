@@ -16,7 +16,7 @@ import UIKit
  * 本專案會員的設定檔與公用 method
  */
 class MemberClass {
-    private let isDebug = true
+    private let isDebug = false
     
     /** 根目錄參考 'FileMang class', 沒有 '/' */
     private var D_ROOT_PATH: String!

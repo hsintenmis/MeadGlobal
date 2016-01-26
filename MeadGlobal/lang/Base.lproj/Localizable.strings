@@ -13,6 +13,7 @@
 "nodata" = "No data ...";
 "delselconfrimmsg" = "Are you sure to delete the selected data?!";'
 "err_delfailure" = "Delete failure!";
+"err_data" = "Data error!";
 
 "age" = "age";
 "gender" = "gender";

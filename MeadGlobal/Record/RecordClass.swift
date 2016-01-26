@@ -17,10 +17,10 @@ class RecordClass {
     /** 根目錄參考 'FileMang class', 沒有 '/' */
     private var D_ROOT_PATH: String!
     
-    /** 會員資料檔 JSON string, 檔名: member.txt */
+    /** 會員檢測數值的資料檔 JSON string, 檔名: member.txt */
     var D_FILE_REPORT = "record.txt"
     
-    /** 會員編號 流水號記錄檔 */
+    /** 會員會員檢測數值記錄檔 流水號 */
     var D_FILE_REPORT_SERIAL = "record_serial.txt"
     
     /** 會員資料，唯一識別碼前置字串，ex. 'R' + '000001' */

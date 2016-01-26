@@ -8,7 +8,7 @@ import Foundation
 /**
  * 會員新增/編輯, 文字/圖片 資料儲存
  */
-class MemberAdEdContainer: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ClipViewControllerDelegate {
+class MemberAdEdContainer: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, ClipViewControllerDelegate {
     
     // @IBOutlet
     @IBOutlet weak var imgTarget: UIImageView!
@@ -48,6 +48,9 @@ class MemberAdEdContainer: UITableViewController, UIImagePickerControllerDelegat
     
     private let datePickerView:UIDatePicker = UIDatePicker()
     
+    // textView array 與 val 值對應的 array data
+    private var aryTxtView: Array<UITextField> = []
+    
     // 其他 class
     private let mFileMang = FileMang()
     private var mMemberClass: MemberClass!
@@ -82,6 +85,16 @@ class MemberAdEdContainer: UITableViewController, UIImagePickerControllerDelegat
     
     // View did Appear
     override func viewDidAppear(animated: Bool) {
+        initViewField()
+    }
+    
+    /**
+     * 設定頁面內容
+     */
+    private func initViewField() {
+        // text 輸入欄位設定
+        edName.delegate = self
+        edTel.delegate = self
     }
     
     /**
@@ -247,6 +260,23 @@ class MemberAdEdContainer: UITableViewController, UIImagePickerControllerDelegat
             self.isNewPict = true
             self.imgTarget.image = editImage
         })
+    }
+    
+    /**
+     * #mark: 系統 Delegate, UITextFieldDelegate<BR>
+     * 虛擬鍵盤: 'Return' key 型態與動作
+     */
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if (textField == edName) {
+            edTel.becomeFirstResponder()
+            return true
+        }
+        if textField == edTel {
+            edBirth.becomeFirstResponder()
+            return true
+        }
+        
+        return true
     }
     
     /**

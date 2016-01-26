@@ -9,7 +9,10 @@ import UIKit
 /**
  * 會員資料編輯與儲存
  */
-class SysConfigList: UITableViewController, UIDocumentPickerDelegate {
+class SysConfigList: UITableViewController, UIDocumentPickerDelegate, SSZipArchiveDelegate {
+    
+    private let isDebug = false
+    
     /** 備份檔案名稱: 'backup.zip' */
     private let D_ZIPFILENAME  = "backup.zip"
     
@@ -19,8 +22,10 @@ class SysConfigList: UITableViewController, UIDocumentPickerDelegate {
     // common property
     private var mVCtrl: UIViewController!
     private var pubClass: PubClass!
-    private var mMemberClass: MemberClass!
+    
     private let mFileMang = FileMang()
+    private var mMemberClass: MemberClass!
+    private var mRecordClass: RecordClass!
     
     // View load
     override func viewDidLoad() {
@@ -30,6 +35,7 @@ class SysConfigList: UITableViewController, UIDocumentPickerDelegate {
         mVCtrl = self
         pubClass = PubClass(viewControl: mVCtrl)
         mMemberClass = MemberClass(ProjectPubClass: pubClass)
+        mRecordClass = RecordClass(ProjectPubClass: pubClass)
     }
     
     // View did Appear
@@ -80,9 +86,8 @@ class SysConfigList: UITableViewController, UIDocumentPickerDelegate {
         if (strIdent == "cellRestore") {
             // 設定 'DocumentPicker' 並顯示 ("public.archive")
             let aryMime = ["public.data"]
-            //let aryMime = [D_ZIPFILENAME]
-            
             let mDocumentPicker = UIDocumentPickerViewController(documentTypes: aryMime, inMode: UIDocumentPickerMode.Import)
+            
             mDocumentPicker.delegate = self
             mDocumentPicker.modalPresentationStyle = UIModalPresentationStyle.FormSheet
             
@@ -98,6 +103,8 @@ class SysConfigList: UITableViewController, UIDocumentPickerDelegate {
      */
     func documentPicker(controller: UIDocumentPickerViewController, didPickDocumentAtURL url: NSURL) {
         
+        var strMsg = ""
+        
         // Mode = 'ExportToService', 上傳完成
         if (controller.documentPickerMode == UIDocumentPickerMode.ExportToService) {
             // 刪除壓縮檔
@@ -105,26 +112,81 @@ class SysConfigList: UITableViewController, UIDocumentPickerDelegate {
                 mFileMang.delete(D_ZIPFILENAME)
             }
             
-            pubClass.popIsee(Msg: pubClass.getLang("sysconfig_backupcompleted"))
+            strMsg = "sysconfig_backupcompleted"
+            pubClass.popIsee(Msg: pubClass.getLang(strMsg))
 
             return
         }
         
         // Mode = "Import"
         if (controller.documentPickerMode == UIDocumentPickerMode.Import) {
-            print("file download: \(url)")
-            
-            // 檢查檔案是否已下載
-            if (mFileMang.isFilePath(D_ZIPFILENAME)) {
-                
-            }
-            
-            // 解開下載檔案，檢查資料正確性
-            
-            pubClass.popIsee(Msg: pubClass.getLang("sysconfig_restorecompleted"))
-            
-            return
+            // 資料回復程序
+            strMsg = (self.procRestore(url)) ? "sysconfig_restorecompleted" : "err_data"
+            pubClass.popIsee(Msg: pubClass.getLang(strMsg))
         }
+    }
+    
+    /**
+     * 資料回復程序
+     * 1. 下載取得 .zip 檔案, 2. 解開壓縮檔比對資料正確性
+     * 3. 解開的目錄更名為正式的目錄名稱
+     *
+     * @param NSURL: 由 'UIDocumentPickerViewController' 傳入
+     */
+    private func procRestore(url: NSURL)->Bool {
+        var bolRS = false
+        
+        // 下載的檔案複製到指定目錄
+        let strFixZipFileName = "dbdata.zip"
+        let strDLFilePath = mFileMang.mDocPath + strFixZipFileName
+        mFileMang.delete(strFixZipFileName)
+        
+        do {
+            try mFileMang.mFileMgr.moveItemAtURL(url, toURL: NSURL(fileURLWithPath: strDLFilePath))
+        }
+        catch {
+            if (isDebug) {print("err: 下載的檔案複製到指定目錄")}
+            return false
+        }
+        
+        // 設定解壓縮暫存目錄
+        let strTmpDir = "ziptmp"
+        let strTmpDirPath = mFileMang.mDocPath + strTmpDir
+        mFileMang.delete(strTmpDir)
+        mFileMang.createDir(strTmpDir)
+        
+        // 解壓縮檔案至暫存目錄, 解開目錄將成為 ziptmp/dedata/...
+        bolRS = SSZipArchive.unzipFileAtPath(strDLFilePath, toDestination: strTmpDirPath)
+        do {
+            try mFileMang.mFileMgr.removeItemAtURL(url)
+        } catch {
+        }
+        
+        // 刪除下載的檔案
+        mFileMang.delete(strFixZipFileName)
+        
+        // 解壓縮錯誤，跳離
+        if (!bolRS) {
+            if (isDebug) {print("err: 解壓縮錯誤")}
+            return false
+        }
+        
+        // 檢查解壓縮的資料, ex. D_FILE_MEMBER = dbdata/member.txt
+        let aryChkFile = [mMemberClass.D_FILE_MEMBER, mMemberClass.D_FILE_MEMBER_SERIAL, mRecordClass.D_FILE_REPORT, mRecordClass.D_FILE_REPORT_SERIAL]
+        
+        for strFilename in aryChkFile {
+            if (!(mFileMang.isFilePath(strTmpDir + "/" + strFilename))) {
+                if (isDebug) {print("err: 解壓縮的資料錯誤")}
+                return false
+            }
+        }
+        
+        // 解開的目錄，直接更名, ex. ziptmp/dbdata => dbdata
+        let targetPath = mFileMang.mDocPath + mFileMang.D_ROOT_PATH
+        mFileMang.delete(mFileMang.D_ROOT_PATH)
+        mFileMang.rename(SourceName: strTmpDirPath + "/" + mFileMang.D_ROOT_PATH, TargetName: targetPath)
+        
+        return true
     }
 
     /*
