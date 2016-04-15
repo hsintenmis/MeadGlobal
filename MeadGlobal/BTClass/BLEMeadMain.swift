@@ -209,7 +209,8 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
     * 檢測狀態: <BR>
     * STATU_READY: 檢測值 = 1, 探針未與任何量測點接觸<BR>
     * STATU_RECEIVE: 檢測值 > 1, 量測點正在確認中<BR>
-    * STATU_FINISH: 到達 maxCount, 完成數值讀取，移到下一個/檢測完成(Item position = 最後一個)<BR>
+    * STATU_FINISH: 到達 maxCount, 完成數值讀取，
+    *   移到下一個/檢測完成(Item position = 最後一個)<BR>
     *
     * @param intVal
     *            : 檢測值

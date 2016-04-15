@@ -29,7 +29,7 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     var mBLEMeadServiceDelegate: BLEMeadServiceDelegate?
     
     // 藍芽裝置名稱
-    private let aryBTNAME = ["HC-08", "HTEBT401"]
+    private let aryBTNAME = ["HC-08", "HTEBT401", "=EMD00401"]
     
     // UUID, Service, Char
     private let UID_SERV: CBUUID = CBUUID(string: "0000ffe0-0000-1000-8000-00805f9b34fb")
