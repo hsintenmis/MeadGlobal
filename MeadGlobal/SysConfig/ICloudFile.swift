@@ -8,21 +8,16 @@ import UIKit
 class ICloudFile: UIViewController, UIDocumentPickerDelegate {
     // @IBOutlet
     
-    // common property
-    private var mVCtrl: UIViewController!
-    private var pubClass: PubClass!
+    private var pubClass = PubClass()
     
     // viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // common property
-        mVCtrl = self
-        pubClass = PubClass(viewControl: mVCtrl)
-        
-
     }
     
+    /**
+     * viewDidAppear
+     */
     override func viewDidAppear(animated: Bool) {
         let mDocumentPicker = UIDocumentPickerViewController(documentTypes: ["public.text", "public.image"], inMode: UIDocumentPickerMode.Import)
         mDocumentPicker.delegate = self
@@ -31,6 +26,9 @@ class ICloudFile: UIViewController, UIDocumentPickerDelegate {
         self.presentViewController(mDocumentPicker, animated: true, completion: {})
     }
     
+    /**
+     * #mark: UIDocumentPickerDelegate
+     */
     func documentPicker(controller: UIDocumentPickerViewController, didPickDocumentAtURL url: NSURL) {
         print(url)
     }

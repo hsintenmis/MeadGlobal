@@ -7,38 +7,57 @@ import Foundation
 import UIKit
 
 /**
+ * protocol, PubClass Delegate
+ */
+@objc protocol PubClassDelegate {
+    /**
+     * PubClassDelegate, 設定上層 class page 是否需要 reload
+     */
+    optional func PageNeedReload(needReload: Bool)
+    
+    /**
+     * PubClassDelegate, 設定上層 class page 是否需要 reload
+     * arg0, 辨識參數
+     */
+    optional func PageNeedReload(needReload: Bool, arg0: String?)
+}
+
+/**
+ * 自訂色彩型別
+ */
+enum myColor: String {
+    /** #FFFFFF */
+    case White = "FFFFFF"
+    case Red = "FFCCCC"
+    case Gray = "C0C0C0"
+    case Sliver = "F0F0F0"
+}
+
+/**
 * 本專案所有的設定檔與公用 method
 */
 class PubClass {
-    // public
-    /** 伺服器/網站 URL: http://pub.mysoqi.com/store_cn/001/ */
-    let D_WEBURL = "http://pub.mysoqi.com/store_cn/001/"
-    
-    // AppDelegate
-    var AppDelg: AppDelegate!
-    
-    // 本專案 其他 public property
+    /** 語系代碼<BR>"Base", "zh-Hans", "zh-Hant", "es" */
     var aryLangCode = ["Base", "zh-Hans", "zh-Hant", "es"]  // 語系相關
-    
-    // private property
-    private let mVCtrl: UIViewController!
-    
-    // pop Window 相關
-    var isPopWindowShow = false; // 頁面是否有 popWindow 顯示中
-    var mPopLoading: UIAlertController? // 目前產生 pop Loading 視窗的 'ViewControler'
     
     /**
     * init
     */
-    init(viewControl: UIViewController) {
-        mVCtrl = viewControl;
-        AppDelg = UIApplication.sharedApplication().delegate! as! AppDelegate
+    init() {
+    }
+    
+    /**
+     * 取得 'AppDelegate'
+     */
+    func getAppDelg()->AppDelegate! {
+        return UIApplication.sharedApplication().delegate! as! AppDelegate
     }
     
     /**
      * 設定 AppDelegate 全域變數的 value
      */
     func setAppDelgVal(strKey: String, withVal mVal: AnyObject) {
+        let AppDelg = self.getAppDelg()
         AppDelg.setValue(mVal, forKey: strKey)
     }
     
@@ -46,6 +65,7 @@ class PubClass {
      * 設定 AppDelegate 全域變數的 value
      */
     func getAppDelgVal(strKey: String)->AnyObject {
+        let AppDelg = self.getAppDelg()
         return AppDelg.valueForKey(strKey)!
     }
     
@@ -92,65 +112,61 @@ class PubClass {
     }
     
     /**
-    * 輸入字串轉換為指定語系文字, 點取 'Localizable' 語系檔查看'?'
-    */
+     * 輸入字串轉換為指定語系文字, 點取 'Localizable' 語系檔查看'?'
+     */
     func getLang(strCode: String!)->String {
+        let AppDelg = self.getAppDelg()
         let strLang = AppDelg.V_LANGCODE + ".lproj/Localizable"
         
         return NSLocalizedString(strCode, tableName: strLang, bundle:NSBundle.mainBundle(), value: "", comment: "")
     }
     
     /**
-    * SubString
-    */
-    func subStr(mStr: String, strFrom: Int, strEnd: Int)->String {
-        return mStr.substringWithRange(Range<String.Index>(start: mStr.startIndex.advancedBy(strFrom), end: mStr.startIndex.advancedBy(strEnd)))
-    }
-    
-    /**
-    * 取得 prefer 的 user data, ex. acc, psd ...
-    */
-    func getUserData()->[String : String] {
-        var aryUser = Dictionary<String, String>()
-        aryUser["acc"] = "kevin"
-        aryUser["psd"] = "12345"
-        
-        return aryUser
+     * SubString
+     */
+    func subStr(mStr: String!, strFrom: Int, strEnd: Int)->String {
+        let nsStr = mStr as NSString
+        return nsStr.substringWithRange(NSRange(location: strFrom, length: (strEnd - strFrom))) as String
     }
     
     /**
      * [我知道了] 彈出視窗
      */
-    func popIsee(var Title strTitle: String? = nil, Msg strMsg: String!) {
-        if strTitle == nil {
-            strTitle = getLang("sysprompt")
+    func popIsee(mVC: UIViewController, Title strTitle: String? = nil, Msg strMsg: String!) {
+        var title = getLang("sysprompt")
+        
+        if strTitle != nil {
+            title = strTitle!
         }
         
-        let mAlert = UIAlertController(title: strTitle, message: strMsg, preferredStyle:UIAlertControllerStyle.Alert)
+        let mAlert = UIAlertController(title: title, message: strMsg, preferredStyle:UIAlertControllerStyle.Alert)
         
         mAlert.addAction(UIAlertAction(title:getLang("i_see"), style: UIAlertActionStyle.Default, handler:nil))
         
         dispatch_async(dispatch_get_main_queue(), {
-            self.mVCtrl.presentViewController(mAlert, animated: true, completion: nil)
+            mVC.presentViewController(mAlert, animated: true, completion: nil)
         })
     }
     
     /**
      * [我知道了] 彈出視窗, with 'handler'
      */
-    func popIsee(var Title strTitle: String? = nil, Msg strMsg: String!, withHandler mHandler:()->Void) {
-        if strTitle == nil {
-            strTitle = getLang("sysprompt")
+    func popIsee(mVC: UIViewController, Title strTitle: String? = nil, Msg strMsg: String!, withHandler mHandler:()->Void) {
+        
+        var title = getLang("sysprompt")
+        
+        if strTitle != nil {
+            title = strTitle!
         }
         
-        let mAlert = UIAlertController(title: strTitle, message: strMsg, preferredStyle:UIAlertControllerStyle.Alert)
+        let mAlert = UIAlertController(title: title, message: strMsg, preferredStyle:UIAlertControllerStyle.Alert)
         
         mAlert.addAction(UIAlertAction(title:getLang("i_see"), style: UIAlertActionStyle.Default, handler:
             {(action: UIAlertAction!) in mHandler()}
-        ))
+            ))
         
         dispatch_async(dispatch_get_main_queue(), {
-            self.mVCtrl.presentViewController(mAlert, animated: true, completion: nil)
+            mVC.presentViewController(mAlert, animated: true, completion: nil)
         })
     }
     
@@ -160,11 +176,11 @@ class PubClass {
      * @param aryMsg: ex. ary[0]=title, ary[1]=msg
      * @param withHandlerYes, withHandlerNo: 點取 Y,N 執行程序
      */
-    func popConfirm(aryMsg: Array<String>!, withHandlerYes mHandlerYes:()->Void, withHandlerNo mHandlerNo:()->Void) {
+    func popConfirm(mVC: UIViewController, aryMsg: Array<String>!, withHandlerYes mHandlerYes:()->Void, withHandlerNo mHandlerNo:()->Void) {
         let strTitle = (aryMsg[0] == "") ? getLang("sysprompt") : aryMsg[0]
         let mAlert = UIAlertController(title: strTitle, message: aryMsg[1], preferredStyle:UIAlertControllerStyle.Alert)
         
-        // btn 'Yes', 跳離本頁
+        // btn 'Yes', 執行 執行程序
         mAlert.addAction(UIAlertAction(title:self.getLang("confirm_yes"), style:UIAlertActionStyle.Default, handler:{
             (action: UIAlertAction!) in
             mHandlerYes()
@@ -177,13 +193,13 @@ class PubClass {
         }))
         
         dispatch_async(dispatch_get_main_queue(), {
-            self.mVCtrl.presentViewController(mAlert, animated: true, completion: nil)
+            mVC.presentViewController(mAlert, animated: true, completion: nil)
         })
     }
-    
+
     /**
-    * 產生 UIAlertController (popWindow 資料傳送中)
-    */
+     * 產生 UIAlertController (popWindow 資料傳送中)
+     */
     func getPopLoading(msg: String?) -> UIAlertController {
         var mPopLoading: UIAlertController
         let strMsg = (msg == nil) ? self.getLang("datatranplzwait") : msg
@@ -196,61 +212,66 @@ class PubClass {
     }
     
     /**
-    * HTTP 連線, 使用 post 方式, 'callBack' 需要實作<BR>
-    * callBack 參數為 JSON data
-    */
-    func startHTTPConn(dictParm: Dictionary<String, String>!, callBack: (Dictionary<String, AnyObject>)->Void ) {
+     * HTTP 連線, 開啟 'PopLoading' AlertView
+     * 帶入自訂的 URL
+     */
+    func HTTPConnWithURL(mVC: UIViewController, withURL strURL: String!, ConnParm dictParm: Dictionary<String, String>, callBack: (Dictionary<String, AnyObject>)->Void) {
         
+        let vcPopLoading = self.getPopLoading(nil)
+        mVC.presentViewController(vcPopLoading, animated: true, completion:{
+            self.taskHTTPConn(dictParm, mURL: strURL, AlertVC: vcPopLoading, callBack: callBack, VC: mVC)
+        })
+    }
+    
+    /**
+     * HTTP 連線, 使用 post 方式, 產生 'task' 使用閉包
+     */
+    private func taskHTTPConn(dictParm: Dictionary<String, String>!, mURL: String!, AlertVC vcPopLoading: UIAlertController, callBack: (Dictionary<String, AnyObject>)->Void, VC mVC: UIViewController) {
         // 將 dict 參數轉為 string
         var strConnParm: String = "";
         var loopi = 0
         
         for (strKey, strVal) in dictParm {
             strConnParm += "\(strKey)=\(strVal)"
-            loopi++
+            loopi += 1
             
             if loopi != dictParm.count {
                 strConnParm += "&"
             }
         }
+        // 產生 http Request
+        let mRequest = NSMutableURLRequest(URL: NSURL(string: mURL)!)
+        mRequest.HTTPBody = strConnParm.dataUsingEncoding(NSUTF8StringEncoding)
+        mRequest.HTTPMethod = "POST"
+        mRequest.timeoutInterval = 30
+        mRequest.HTTPShouldHandleCookies = false
         
-        // 產生 popWindow
-        let mPop = self.getPopLoading(nil)
-        
-        self.mVCtrl.presentViewController(mPop, animated: false, completion:{
-            // 產生 http Request
-            let mRequest = NSMutableURLRequest(URL: NSURL(string: self.D_WEBURL)!)
-            mRequest.HTTPBody = strConnParm.dataUsingEncoding(NSUTF8StringEncoding)
-            mRequest.HTTPMethod = "POST"
-            mRequest.timeoutInterval = 60
-            mRequest.HTTPShouldHandleCookies = false
+        // 產生 'task' 使用閉包
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(mRequest) {
+            (data, response, error) -> Void in
+            var dictRS = Dictionary<String, AnyObject>();
             
-            // 產生 'task' 使用閉包
-            let task = NSURLSession.sharedSession().dataTaskWithRequest(mRequest) {
-                data, response, error in
-                
-                var dictRS = Dictionary<String, AnyObject>();
-                
-                if error != nil {
-                    dictRS = self.getHTTPJSONData(nil)
-                } else {
-                    dictRS = self.getHTTPJSONData(data!)
-                }
-                
-                // 關閉 popWindow
-                mPop.dismissViewControllerAnimated(false, completion:nil)
-                
-                callBack(dictRS)
+            if error != nil {
+                dictRS = self.getHTTPJSONData(nil)
+            } else {
+                dictRS = self.getHTTPJSONData(data!)
             }
             
-            task.resume()
-        })
+            // 關閉 'vcPopLoading'
+            dispatch_async(dispatch_get_main_queue(), {
+                vcPopLoading.dismissViewControllerAnimated(true, completion: {
+                    callBack(dictRS)
+                })
+            })
+        }
+        
+        task.resume()
     }
     
     /**
-    * HTTP 連線, 連線取得 NSData 解析並回傳 JSON data<BR>
-    * 回傳資料如: 'result' => bool, 'msg' => 錯誤訊息 or nil, 'data' => Dictionary
-    */
+     * HTTP 連線, 連線取得 NSData 解析並回傳 JSON data<BR>
+     * 回傳資料如: 'result' => bool, 'msg' => 錯誤訊息 or nil, 'data' => Dictionary
+     */
     private func getHTTPJSONData(mData: NSData?)->Dictionary<String, AnyObject> {
         var dictRS = Dictionary<String, AnyObject>()
         dictRS["result"] = false
@@ -267,12 +288,20 @@ class PubClass {
             let jobjRoot = try NSJSONSerialization.JSONObjectWithData(mData!, options:NSJSONReadingOptions(rawValue: 0))
             
             guard let dictRespon = jobjRoot as? Dictionary<String, AnyObject> else {
-                dictRS["msg"] = "資料解析錯誤 (JSON data error)！"
+                dictRS["msg"] = "err_data"
                 return dictRS
             }
             
             if ( dictRespon["result"] as! Bool != true) {
-                dictRS["msg"] = "回傳結果失敗！"
+                dictRS["msg"] = "err_data"
+                
+                // 檢查 content ['msg'] 是否有訊息
+                if let errTmp = dictRespon["content"]?["msg"] as? String {
+                    if (errTmp.characters.count > 0) {
+                        dictRS["msg"] = errTmp
+                    }
+                }
+                
                 return dictRS
             }
             
@@ -283,11 +312,14 @@ class PubClass {
             
             return dictRS
         }
-        catch let errJson as NSError {
-            dictRS["msg"] = "資料解析錯誤!\n\(errJson)"
+        catch _ as NSError {
+            dictRS["msg"] = "err_data"
+            //print(err)
             return dictRS
         }
     }
+
+    
     
     /**
     * Color 使用 HEX code, ex. #FFFFFF, 回傳 UIColor
@@ -332,11 +364,12 @@ class PubClass {
             return strDate
         }
         
+        let nsStrDate = strDate as NSString
         var strYY: String, strMM: String, strDD: String
-
-        strYY = strDate.substringWithRange(Range<String.Index>(start: strDate.startIndex.advancedBy(0), end: strDate.startIndex.advancedBy(4)))
-        strMM = strDate.substringWithRange(Range<String.Index>(start: strDate.startIndex.advancedBy(4), end: strDate.startIndex.advancedBy(6)))
-        strDD = strDate.substringWithRange(Range<String.Index>(start: strDate.startIndex.advancedBy(6), end: strDate.startIndex.advancedBy(8)))
+        
+        strYY = nsStrDate.substringWithRange(NSRange(location: 0, length: 4))
+        strMM = nsStrDate.substringWithRange(NSRange(location: 4, length: 2))
+        strDD = nsStrDate.substringWithRange(NSRange(location: 6, length: 2))
         
         if (type == 8) {
             return "\(strYY)年\(Int(strMM)!)月\(Int(strDD)!)日"
@@ -345,8 +378,8 @@ class PubClass {
         if (type > 8) {
             var strHH: String, strMin: String
             
-            strHH = strDate.substringWithRange(Range<String.Index>(start: strDate.startIndex.advancedBy(8), end: strDate.startIndex.advancedBy(10)))
-            strMin = strDate.substringWithRange(Range<String.Index>(start: strDate.startIndex.advancedBy(10), end: strDate.startIndex.advancedBy(12)))
+            strHH = nsStrDate.substringWithRange(NSRange(location: 8, length: 2))
+            strMin = nsStrDate.substringWithRange(NSRange(location: 10, length: 2))
             
             return "\(strYY)年\(strMM)月\(strDD)日 \(strHH):\(strMin)"
         }
@@ -359,15 +392,16 @@ class PubClass {
      * @param type: 8s or 14s (String)
      */
     func formatDateWithStr(strDate: String!, type: String?)->String {
-        if ( strDate.characters.count < 8) {
+        if (strDate.characters.count < 8) {
             return strDate
         }
         
+        let nsStrDate = strDate as NSString
         var strYY: String, strMM: String, strDD: String
         
-        strYY = strDate.substringWithRange(Range<String.Index>(start: strDate.startIndex.advancedBy(0), end: strDate.startIndex.advancedBy(4)))
-        strMM = strDate.substringWithRange(Range<String.Index>(start: strDate.startIndex.advancedBy(4), end: strDate.startIndex.advancedBy(6)))
-        strDD = strDate.substringWithRange(Range<String.Index>(start: strDate.startIndex.advancedBy(6), end: strDate.startIndex.advancedBy(8)))
+        strYY = nsStrDate.substringWithRange(NSRange(location: 0, length: 4))
+        strMM = nsStrDate.substringWithRange(NSRange(location: 4, length: 2))
+        strDD = nsStrDate.substringWithRange(NSRange(location: 6, length: 2))
         
         if (type == "8s") {
             return "\(strYY)/\(strMM)/\(strDD)"
@@ -376,19 +410,19 @@ class PubClass {
         if (type == "14s") {
             var strHH: String, strMin: String
             
-            strHH = strDate.substringWithRange(Range<String.Index>(start: strDate.startIndex.advancedBy(8), end: strDate.startIndex.advancedBy(10)))
-            strMin = strDate.substringWithRange(Range<String.Index>(start: strDate.startIndex.advancedBy(10), end: strDate.startIndex.advancedBy(12)))
+            strHH = nsStrDate.substringWithRange(NSRange(location: 8, length: 2))
+            strMin = nsStrDate.substringWithRange(NSRange(location: 10, length: 2))
             
             return "\(strYY)/\(strMM)/\(strDD) \(strHH):\(strMin)"
         }
         
         return strDate
     }
-    
+
     /**
-    * 計算動態 View 的 CGFloat 長,寬
-    * @return dict: ex. dict["h"], dict["w"]
-    */
+     * 計算動態 View 的 CGFloat 長,寬
+     * @return dict: ex. dict["h"], dict["w"]
+     */
     func getUIViewSize(mView: UIView)->Dictionary<String, CGFloat> {
         let mSize = mView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
         var dictData = Dictionary<String, CGFloat>()
@@ -401,7 +435,7 @@ class PubClass {
     /**
      * 根據輸入的 width 重新調整 Imgae 尺寸
      */
-    func resizeImageWithWidth(sourceImage: UIImage, imgWidth: CGFloat)->UIImage {
+    func resizeImageWithWidth(sourceImage: UIImage!, imgWidth: CGFloat)->UIImage! {
         // 若 width <= 輸入的 width, 直接回傳原 image
         let oldWidth: CGFloat = sourceImage.size.width
         if (imgWidth >= oldWidth) {
@@ -442,8 +476,27 @@ class PubClass {
     // ********** 以下為本專案使用 ********** //
     
     /**
-    * 取得對應語系 Mead DB JSON data, 設定到 appdelege
-    */
+     * 取得對應語系 Mead DB JSON data, 檔案來源為本機存檔
+     * 檔名對應如: meaddb_Base, meaddb_zh-Hans ...
+     */
+    func getMeadDB()->Dictionary<String, AnyObject>! {
+        let mJSONClass = JSONClass()
+        let mFile = "meaddb_" + (self.getPrefData("lang") as! String)
+        
+        do {
+            let fileRoot = NSBundle.mainBundle().pathForResource(mFile, ofType: "txt")
+            let strJSON = try String(contentsOfFile: fileRoot!, encoding: NSUTF8StringEncoding)
+            return mJSONClass.JSONStrToDict(strJSON) as Dictionary<String, AnyObject>
+        } catch {
+            return [:]
+        }
+    }
+    
+    /**
+     * DISABLE
+     * 取得對應語系 Mead DB JSON data, 直接設定到 appdelege
+     * 檔名對應如: meaddb_Base, meaddb_zh-Hans ...
+     */
     func setMeadDB() {
         let mJSONClass = JSONClass()
         let mFile = "meaddb_" + (self.getPrefData("lang") as! String)
@@ -454,12 +507,10 @@ class PubClass {
             let dictData = mJSONClass.JSONStrToDict(strJSON) as Dictionary<String, AnyObject>
             
             setAppDelgVal("V_DICTMEADDB", withVal: dictData)
-        }
-        catch {
+        } catch {
         }
         
         return
     }
-    
     
 }

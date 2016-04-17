@@ -27,7 +27,7 @@ class RecordClass {
     let D_IDHEAD = "R"
     
     // 其他 class
-    private var pubClass: PubClass!
+    private var pubClass = PubClass()
     private var mFileMang = FileMang()
     private var mJSONClass = JSONClass()
     private var strToday: String!
@@ -36,10 +36,8 @@ class RecordClass {
      * init
      * @today: ex. YMD hms 14碼
      */
-    init(ProjectPubClass mPubClass: PubClass) {
-        pubClass = mPubClass
+    init() {
         strToday = pubClass.getDevToday()
-        
         D_ROOT_PATH = mFileMang.D_ROOT_PATH
         D_FILE_REPORT = D_ROOT_PATH + "/" + D_FILE_REPORT
         D_FILE_REPORT_SERIAL = D_ROOT_PATH + "/" + D_FILE_REPORT_SERIAL
@@ -116,7 +114,8 @@ class RecordClass {
             
             // 資料反向整理，新資料在前
             if (!isASC) {
-                for (var loopi = (tmpAllData.count - 1); loopi >= 0; loopi--) {
+                // for (var loopi = (tmpAllData.count - 1); loopi >= 0; loopi--) {
+                for loopi in (0..<tmpAllData.count).reverse() {
                     aryAllData.append(tmpAllData[loopi])
                 }
             }
@@ -195,15 +194,16 @@ class RecordClass {
      
      * @return Dict: 'rs'=Bool, 'err'='' or error msg, 'id'= serial text or ''
      */
-    func add(var dictData: Dictionary<String, String>!)->Dictionary<String, AnyObject> {
+    func add(dictData: Dictionary<String, String>!)->Dictionary<String, AnyObject> {
+        var dictNewData = dictData
         var dictRS: Dictionary<String, AnyObject> = ["rs": false, "err": "", "id": ""]
         var aryAllData = self.getAll(isSortASC: true)
         
         // 產生 ID, dict data 轉為 JSON string 寫入檔案
-        dictData["id"] = D_IDHEAD + self.getSerial()
-        dictRS["id"] = dictData["id"]
+        dictNewData["id"] = D_IDHEAD + self.getSerial()
+        dictRS["id"] = dictNewData["id"]
         
-        aryAllData.append(dictData)
+        aryAllData.append(dictNewData)
         //aryAllData.insert(dictData, atIndex: aryAllData.count)
         
         dictRS["rs"] = mFileMang.write(D_FILE_REPORT, strData: mJSONClass.DictAryToJSONStr(aryAllData))

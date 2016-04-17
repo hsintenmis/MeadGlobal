@@ -7,17 +7,20 @@ import Foundation
 import CoreGraphics
 
 /**
-* protocol (Abstract)
-*/
-protocol ClipViewControllerDelegate {
-    func ClipViewController(clipViewController: CutImage, FinishClipImage editImage: UIImage)
+ * protocol
+ */
+protocol CutImageDelegate {
+    /**
+     * 選擇的圖片裁切完成
+     */
+    func imageCutDone(vcCutImage: CutImage, FinishCutImage editImage: UIImage)
 }
 
 /**
  * Class, 裁切圖片，指定方形/圓形，指定固定長寬
  */
 class CutImage: UIViewController, UIGestureRecognizerDelegate {
-    var delegate: ClipViewControllerDelegate?
+    var delegate = CutImageDelegate?()
     
     /** 顯示'裁剪' 字串 */
     var D_CUTTRANLANG = "OK"
@@ -38,7 +41,7 @@ class CutImage: UIViewController, UIGestureRecognizerDelegate {
     // View load
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         //self.CreatUI()
         //self.addAllGesture()
     }
@@ -52,8 +55,8 @@ class CutImage: UIViewController, UIGestureRecognizerDelegate {
     }
     
     /**
-    * 取得並設定 從圖庫選擇的圖片
-    */
+     * 取得並設定 從圖庫選擇的圖片
+     */
     func initWithImage(img: UIImage) {
         self._image = self.fixOrientation(img)
         
@@ -62,8 +65,8 @@ class CutImage: UIViewController, UIGestureRecognizerDelegate {
     }
     
     /**
-    * 建立 ViewControler UI
-    */
+     * 建立 ViewControler UI
+     */
     private func CreatUI() {
         self.view.backgroundColor = UIColor.whiteColor()
         
@@ -79,17 +82,17 @@ class CutImage: UIViewController, UIGestureRecognizerDelegate {
         _imageView.image = _image
         _imageView.contentMode = UIViewContentMode.ScaleAspectFill
         _imageView.center = self.view.center
-
+        
         self.OriginalFrame = _imageView.frame;
         self.view.addSubview(_imageView)
-
+        
         //覆盖层
         _overView = UIView(frame: CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height))
         _overView.backgroundColor = UIColor.clearColor()
         _overView.opaque = false
         
         self.view.addSubview(_overView)
-
+        
         // 設定 Button
         let clipBtn = UIButton(type: UIButtonType.RoundedRect)
         
@@ -98,34 +101,34 @@ class CutImage: UIViewController, UIGestureRecognizerDelegate {
         
         // Button .Selected
         let mySelectedAttributedTitle = NSAttributedString(string: D_CUTTRANLANG,
-            attributes: [NSForegroundColorAttributeName : UIColor.grayColor()])
+                                                           attributes: [NSForegroundColorAttributeName : UIColor.grayColor()])
         clipBtn.setAttributedTitle(mySelectedAttributedTitle, forState: .Selected)
         
         // Button .Normal
         let myNormalAttributedTitle = NSAttributedString(string: D_CUTTRANLANG,
-            attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
+                                                         attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
         clipBtn.setAttributedTitle(myNormalAttributedTitle, forState: .Normal)
         
         // Button add click event
-        clipBtn.addTarget(self, action: "clipBtnSelected", forControlEvents: UIControlEvents.TouchUpInside)
-
+        clipBtn.addTarget(self, action: #selector(CutImage.clipBtnSelected), forControlEvents: UIControlEvents.TouchUpInside)
+        
         self.view.addSubview(clipBtn)
-
+        
         // 绘制裁剪框
         self.drawClipPath(self.clipType)
         self.MakeImageViewFrameAdaptClipFrame()
     }
     
     /**
-    * Button '裁剪' 點取, 取得裁剪的圖片，本 VC 結束
-    */
+     * Button '裁剪' 點取, 取得裁剪的圖片，本 VC 結束
+     */
     func clipBtnSelected() {
-        delegate?.ClipViewController(self, FinishClipImage: self.getSmallImage())
+        delegate?.imageCutDone(self, FinishCutImage: self.getSmallImage())
     }
     
     /**
-    * 方形裁剪
-    */
+     * 方形裁剪
+     */
     private func getSmallImage() ->UIImage {
         let width: CGFloat = _imageView.frame.size.width
         let rationScale: CGFloat = (width / _image.size.width)
@@ -138,7 +141,7 @@ class CutImage: UIViewController, UIGestureRecognizerDelegate {
         
         let myRect: CGRect = CGRectMake(origX, origY, oriWidth, oriHeight)
         let imageRef: CGImageRef = CGImageCreateWithImageInRect(_image.CGImage, myRect)!
-
+        
         UIGraphicsBeginImageContext(myRect.size)
         let context: CGContextRef = UIGraphicsGetCurrentContext()!
         CGContextDrawImage(context, myRect, imageRef)
@@ -155,8 +158,8 @@ class CutImage: UIViewController, UIGestureRecognizerDelegate {
     }
     
     /**
-    * 圆形图片
-    */
+     * 圆形图片
+     */
     private func CircularClipImage(image: UIImage) -> UIImage {
         let arcCenterX: CGFloat = image.size.width / 2
         let arcCenterY: CGFloat = image.size.height / 2
@@ -216,7 +219,7 @@ class CutImage: UIViewController, UIGestureRecognizerDelegate {
     private func MakeImageViewFrameAdaptClipFrame() {
         var width: CGFloat = _imageView.frame.size.width
         var height: CGFloat = _imageView.frame.size.height
-
+        
         if (height < self.circularFrame!.size.height) {
             width = (width / height) * self.circularFrame!.size.height
             height = self.circularFrame!.size.height
@@ -228,27 +231,27 @@ class CutImage: UIViewController, UIGestureRecognizerDelegate {
     }
     
     /**
-    * ViewControler 加入手勢設定
-    */
+     * ViewControler 加入手勢設定
+     */
     func addAllGesture() {
         // 捏合手势
         //let pinGesture: UIPinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: "handlePinGesture")
-        let pinGesture: UIPinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: Selector("handlePinGesture:"))
-
+        let pinGesture: UIPinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(CutImage.handlePinGesture(_:)))
+        
         pinGesture.delegate = self
         self.view.addGestureRecognizer(pinGesture)
-
+        
         // 拖动手势
         //let panGesture: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: "handlePanGesture")
-        let panGesture: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: Selector("handlePanGesture:"))
+        let panGesture: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(CutImage.handlePanGesture(_:)))
         
         panGesture.delegate = self
         self.view.addGestureRecognizer(panGesture)
     }
     
     /**
-    * 手勢設定: 捏合手势
-    */
+     * 手勢設定: 捏合手势
+     */
     func handlePinGesture(pinGesture: UIPinchGestureRecognizer) {
         let mView: UIView = _imageView
         
@@ -320,10 +323,10 @@ class CutImage: UIViewController, UIGestureRecognizerDelegate {
             //[UIView animateWithDuration:0.05 animations:^{[view setFrame:currentFrame];}];
         }
     }
-
+    
     /**
-    * 修正圖片方向
-    */
+     * 修正圖片方向
+     */
     private func fixOrientation(image: UIImage!) -> UIImage {
         //return image.imageWithRenderingMode(.AlwaysOriginal)
         
@@ -333,9 +336,9 @@ class CutImage: UIViewController, UIGestureRecognizerDelegate {
         
         //var transform: CGAffineTransform = CGAffineTransformIdentity
         let transform = self._getTransform(image)
-
+        
         //let ctx: CGContextRef = CGBitmapContextCreate(nil, Int(image.size.width), Int(image.size.height), CGImageGetBitsPerComponent(image.CGImage), 0, CGImageGetColorSpace(image.CGImage), UInt32(CGImageGetBitmapInfo(image.CGImage).rawValue))!
-
+        
         let size = image.size
         let cgImage = image.CGImage
         let width = CGImageGetWidth(cgImage)
@@ -382,8 +385,8 @@ class CutImage: UIViewController, UIGestureRecognizerDelegate {
     }
     
     /**
-    * 修正圖片方向，回傳 'CGAffineTransform'
-    */
+     * 修正圖片方向，回傳 'CGAffineTransform'
+     */
     private func _getTransform(image: UIImage!)->CGAffineTransform {
         var transform: CGAffineTransform = CGAffineTransformIdentity
         
@@ -429,5 +432,5 @@ class CutImage: UIViewController, UIGestureRecognizerDelegate {
         
         return transform
     }
-
+    
 }

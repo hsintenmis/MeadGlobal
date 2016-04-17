@@ -10,11 +10,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    // 全域參數
-    var V_USRACC: String?, V_USRPSD: String?
+    // 全域變數
+    var V_USRACC: String?
+    var V_USRPSD: String?
     var V_LANGCODE: String = "Base"
-    var V_DICTMEADDB: Dictionary<String, AnyObject> = [:]  // Mead DB dict data
-
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -43,6 +42,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
 }
-

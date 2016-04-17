@@ -7,7 +7,7 @@ import Foundation
 import UIKit
 
 /**
- * 會員資料編輯與儲存
+ * 設定項目列表
  */
 class SysConfigList: UITableViewController, UIDocumentPickerDelegate, SSZipArchiveDelegate {
     
@@ -19,43 +19,25 @@ class SysConfigList: UITableViewController, UIDocumentPickerDelegate, SSZipArchi
     // @IBOutlet
     @IBOutlet var tableList: UITableView!
     
-    // common property
-    private var mVCtrl: UIViewController!
-    private var pubClass: PubClass!
-    
+    // property
+    private var pubClass = PubClass()
     private let mFileMang = FileMang()
-    private var mMemberClass: MemberClass!
-    private var mRecordClass: RecordClass!
+    private var mMemberClass = MemberClass()
+    private var mRecordClass = RecordClass()
     
-    // View load
+    /**
+     * View load
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // 固定初始參數
-        mVCtrl = self
-        pubClass = PubClass(viewControl: mVCtrl)
-        mMemberClass = MemberClass(ProjectPubClass: pubClass)
-        mRecordClass = RecordClass(ProjectPubClass: pubClass)
-    }
-    
-    // View did Appear
-    override func viewDidAppear(animated: Bool) {
-
     }
     
     /**
-     * 設定頁面內容
+     * #mark: TableView VC delegate
+     * table view Item 點取
      */
-    private func initViewField() {
-        
-    }
-
-    /**
-    * #Mark UITableViewController: Cell 點取執行 prepareForSegue
-    */
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // DocumentPicker
-        
         
         // get cell identify name
         let strIdent = tableList.cellForRowAtIndexPath(indexPath)?.reuseIdentifier
@@ -65,9 +47,9 @@ class SysConfigList: UITableViewController, UIDocumentPickerDelegate, SSZipArchi
             // 檔案壓縮程序
             let zipPath = mFileMang.mDocPath + D_ZIPFILENAME
             let sampleDataPath = mFileMang.mDocPath + mFileMang.D_ROOT_PATH
-
+            
             SSZipArchive.createZipFileAtPath(zipPath, withContentsOfDirectory: sampleDataPath, keepParentDirectory: true)
-
+            
             // 設定 'DocumentPicker' 並顯示
             let localDocumentsURL = mFileMang.mFileMgr.URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: .UserDomainMask).last
             let myLocalFile = localDocumentsURL!.URLByAppendingPathComponent(D_ZIPFILENAME)
@@ -78,7 +60,7 @@ class SysConfigList: UITableViewController, UIDocumentPickerDelegate, SSZipArchi
             mDocumentPicker.modalPresentationStyle = UIModalPresentationStyle.FormSheet
             
             self.presentViewController(mDocumentPicker, animated: true, completion: {})
-        
+            
             return
         }
         
@@ -98,31 +80,28 @@ class SysConfigList: UITableViewController, UIDocumentPickerDelegate, SSZipArchi
     }
     
     /**
-     * #mark UIDocumentPickerViewController
+     * #mark: UIDocumentPickerViewController
      * 'presentViewController' 使用
      */
     func documentPicker(controller: UIDocumentPickerViewController, didPickDocumentAtURL url: NSURL) {
-        
-        var strMsg = ""
-        
         // Mode = 'ExportToService', 上傳完成
         if (controller.documentPickerMode == UIDocumentPickerMode.ExportToService) {
             // 刪除壓縮檔
             if (mFileMang.isFilePath(D_ZIPFILENAME)) {
                 mFileMang.delete(D_ZIPFILENAME)
             }
+            pubClass.popIsee(self, Msg: pubClass.getLang("sysconfig_backupcompleted"))
             
-            strMsg = "sysconfig_backupcompleted"
-            pubClass.popIsee(Msg: pubClass.getLang(strMsg))
-
             return
         }
         
         // Mode = "Import"
         if (controller.documentPickerMode == UIDocumentPickerMode.Import) {
             // 資料回復程序
-            strMsg = (self.procRestore(url)) ? "sysconfig_restorecompleted" : "err_data"
-            pubClass.popIsee(Msg: pubClass.getLang(strMsg))
+            let strMsg = (self.procRestore(url)) ? "sysconfig_restorecompleted" : "err_data"
+            pubClass.popIsee(self, Msg: pubClass.getLang(strMsg))
+            
+            return
         }
     }
     
@@ -188,10 +167,10 @@ class SysConfigList: UITableViewController, UIDocumentPickerDelegate, SSZipArchi
         
         return true
     }
-
+    
     /*
-    * #mark UIDocumentPickerViewController, Cancl
-    */
+     * #mark UIDocumentPickerViewController, Cancl
+     */
     func documentPickerWasCancelled(controller: UIDocumentPickerViewController) {
         return
     }
@@ -208,4 +187,5 @@ class SysConfigList: UITableViewController, UIDocumentPickerDelegate, SSZipArchi
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
 }

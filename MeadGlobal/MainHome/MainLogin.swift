@@ -12,23 +12,20 @@ class MainLogin: UIViewController {
     @IBOutlet weak var swchLang: UISegmentedControl!
     @IBOutlet weak var labTitle: UILabel!
     
-    // public property
-    var mVCtrl: UIViewController!
-    var pubClass: PubClass!
+    // common property
+    private var pubClass = PubClass()
     
-    // viewDidLoad
+    /**
+     * viewDidLoad
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // 固定初始參數
-        mVCtrl = self
-        pubClass = PubClass(viewControl: mVCtrl)
         
         // 語系 switch 預設
         let langCode = pubClass.getPrefData("lang") as! String
         pubClass.setAppDelgVal("V_LANGCODE", withVal: langCode)
         
-        for (var loopi = 0; loopi < pubClass.aryLangCode.count; loopi++) {
+        for loopi in (0..<pubClass.aryLangCode.count) {
             if (langCode == pubClass.aryLangCode[loopi]) {
                 swchLang.selectedSegmentIndex = loopi
                 
@@ -41,25 +38,12 @@ class MainLogin: UIViewController {
         
         // 檢查裝置是否有指定檔案(會員/Mead 資料檔)
         self.DBCheck()
-        
-        // 設定 Mead Db
-        pubClass.setMeadDB()
-        
-        // test
-        //let mFileMang = FileMang()
-        //print(mFileMang.aryAppPath)
-        //print(mFileMang.createDir("pict"))
-        //print(mFileMang.isFilePath("pict"))
-        //print(mFileMang.isFilePath("pict.zip"))
-        
-        //mFileMang.ZipAddDir("pict/", strZipName: "pict.zip")
-
     }
-
-
+    
+    
     /**
-    * 設定頁面語系
-    */
+     * 設定頁面顯示文字
+     */
     private func setPageLang() {
         labTitle.text = pubClass.getLang("app_name")
     }
@@ -68,17 +52,17 @@ class MainLogin: UIViewController {
      * 檢查裝置是否有指定資料庫檔案 (會員/Mead記錄 資料檔)
      */
     private func DBCheck() {
-        let mMemberClass = MemberClass(ProjectPubClass: pubClass)
+        let mMemberClass = MemberClass()
         mMemberClass.chkData()
         
-        let mRecordClass = RecordClass(ProjectPubClass: pubClass)
+        let mRecordClass = RecordClass()
         mRecordClass.chkData()
     }
     
     /**
-    * act 語系改變
-    * swicth lang: Base, zh-Hans, zh-Hant, es
-    */
+     * act 語系改變, prefer data 'langCode' 更新
+     * swicth lang: Base, zh-Hans, zh-Hant, es
+     */
     @IBAction func actLang(sender: UISegmentedControl) {
         let aryLang = pubClass.aryLangCode
         
@@ -87,12 +71,9 @@ class MainLogin: UIViewController {
         let langCode = aryLang[sender.selectedSegmentIndex]
         mPref.setObject(langCode, forKey: "lang")
         mPref.synchronize()
-
+        
         pubClass.setAppDelgVal("V_LANGCODE", withVal: langCode)
         self.setPageLang()
-        
-        // 設定 Mead Db
-        pubClass.setMeadDB()
     }
     
     override func didReceiveMemoryWarning() {

@@ -11,8 +11,8 @@ class MeadCFG {
     /** 紀錄資料數值的 最小值 = 8 */
     let D_VALUE_MIN = 8;
     
-    /** 最大的資料數值  = 201*/
-    let D_VALUE_MAX = 201;
+    /** 最大的資料數值  = 200*/
+    let D_VALUE_MAX = 200;
     
     /** 設備連線後,固定傳送數值 = 1*/
     let D_DEVICE_CONNVALUE = 1;
@@ -39,15 +39,11 @@ class MeadCFG {
     
     /** MEAD 資料, 檢測項目的 id code 順序 */
     let D_ARY_MEADDBID = "H1L,H2L,H3L,H4L,H5L,H6L,H1R,H2R,H3R,H4R,H5R,H6R,F1L,F2L,F3L,F4L,F5L,F6L,F1R,F2R,F3R,F4R,F5R,F6R"
-
-    // 其他 class
-    private var pubClass: PubClass!
     
     /**
      * init
      */
-    init(ProjectPubClass mPubClass: PubClass) {
-        pubClass = mPubClass
+    init() {
     }
     
     /**
@@ -68,20 +64,19 @@ class MeadCFG {
      */
     func getAryAllTestData()->Array<Dictionary<String, String>> {
         var aryAllTestData: Array<Dictionary<String, String>> = []
-
+        
         // 身體部位先開始
-        for (var i = 0; i < aryBody.count; i++) {
+        for i in (0..<aryBody.count) {
             // 左右
-            for (var j = 0; j < aryDirection.count; j++) {
+            for j in (0..<aryDirection.count) {
                 // 檢測點的數目
-                for (var k = 0; k < intTestingNums; k++) {
+                for k in (0..<intTestingNums) {
                     var dictItem: Dictionary<String, String> = [:]
                     dictItem["serial"] = String(k + 1)
                     dictItem["id"] = aryBody[i] + dictItem["serial"]!
                     dictItem["body"] = aryBody[i]
                     dictItem["direction"] = aryDirection[j]
                     dictItem["val"] = "0"
-
                     
                     aryAllTestData.append(dictItem)
                 }
@@ -91,6 +86,4 @@ class MeadCFG {
         return aryAllTestData
     }
     
-
-
 }

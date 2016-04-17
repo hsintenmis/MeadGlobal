@@ -8,14 +8,14 @@ import Foundation
  * 本專案會員的設定檔與公用 method
  */
 class JSONClass {
-    let isDebug = false
+    private let isDebug = false
     
     /**
      * init
      */
     init() {
     }
- 
+    
     /**
      * JSON string 轉為 Array
      */

@@ -154,7 +154,7 @@
 		D7CF064D1C47412C004E8E71 /* H1_L_P.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7CF064C1C47412C004E8E71 /* H1_L_P.jpg */; };
 		D7CF06501C474F33004E8E71 /* BLEMeadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CF064F1C474F33004E8E71 /* BLEMeadService.swift */; };
 		D7CF06571C475710004E8E71 /* BLEMeadMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CF06561C475710004E8E71 /* BLEMeadMain.swift */; };
-		D7FD81671C45F6CA00FA9E5A /* TestingMemberSel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FD81661C45F6CA00FA9E5A /* TestingMemberSel.swift */; };
+		D7FD81671C45F6CA00FA9E5A /* TestingMemberList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FD81661C45F6CA00FA9E5A /* TestingMemberList.swift */; };
 		D7FD81691C46070F00FA9E5A /* TestingGuestSel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FD81681C46070F00FA9E5A /* TestingGuestSel.swift */; };
 		D7FD816C1C46368F00FA9E5A /* MeadCFG.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FD816B1C46368F00FA9E5A /* MeadCFG.swift */; };
 		D7FD81711C464E1500FA9E5A /* pict_testing in Resources */ = {isa = PBXBuildFile; fileRef = D7FD81701C464E1500FA9E5A /* pict_testing */; };
@@ -339,7 +339,7 @@
 		D7CF064C1C47412C004E8E71 /* H1_L_P.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = H1_L_P.jpg; sourceTree = "<group>"; };
 		D7CF064F1C474F33004E8E71 /* BLEMeadService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BLEMeadService.swift; path = BTClass/BLEMeadService.swift; sourceTree = "<group>"; };
 		D7CF06561C475710004E8E71 /* BLEMeadMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BLEMeadMain.swift; path = BTClass/BLEMeadMain.swift; sourceTree = "<group>"; };
-		D7FD81661C45F6CA00FA9E5A /* TestingMemberSel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestingMemberSel.swift; path = Testing/TestingMemberSel.swift; sourceTree = "<group>"; };
+		D7FD81661C45F6CA00FA9E5A /* TestingMemberList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestingMemberList.swift; path = Testing/TestingMemberList.swift; sourceTree = "<group>"; };
 		D7FD81681C46070F00FA9E5A /* TestingGuestSel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestingGuestSel.swift; path = Testing/TestingGuestSel.swift; sourceTree = "<group>"; };
 		D7FD816B1C46368F00FA9E5A /* MeadCFG.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeadCFG.swift; path = MeadClass/MeadCFG.swift; sourceTree = "<group>"; };
 		D7FD81701C464E1500FA9E5A /* pict_testing */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pict_testing; sourceTree = "<group>"; };
@@ -461,8 +461,6 @@
 		D72C9BD21C3A492E00856494 /* MeadGlobal */ = {
 			isa = PBXGroup;
 			children = (
-				D720220A1C4E355F00741D14 /* MeadGlobal.entitlements */,
-				D77686FA1C3B655A008F4564 /* Info.plist */,
 				D77686E71C3B6296008F4564 /* Main.storyboard */,
 				D72C9BE61C3A4A0F00856494 /* MainHome */,
 				D77687221C3B72F3008F4564 /* Testing */,
@@ -474,10 +472,12 @@
 				D72C9BEF1C3A4CCD00856494 /* PubClass */,
 				D72C9BE51C3A49C200856494 /* SysFile */,
 				D72C9BFF1C3A4D3400856494 /* image */,
-				D7FD81701C464E1500FA9E5A /* pict_testing */,
 				D72C9BF61C3A4CF900856494 /* lang */,
+				D7FD81701C464E1500FA9E5A /* pict_testing */,
 				42E38E441C4BFA1F00B04FAE /* html */,
 				D72021CD1C4E121500741D14 /* SSZipArchive */,
+				D77686FA1C3B655A008F4564 /* Info.plist */,
+				D720220A1C4E355F00741D14 /* MeadGlobal.entitlements */,
 				D72022051C4E1B3F00741D14 /* libz.tbd */,
 				D72022021C4E1A5B00741D14 /* MeadGlobal-Bridging-Header.h */,
 			);
@@ -513,10 +513,10 @@
 			children = (
 				D72C9BF21C3A4CCD00856494 /* PubClass.swift */,
 				D72C9BF01C3A4CCD00856494 /* ImageClass.swift */,
-				D72C9BF11C3A4CCD00856494 /* NoDataView.swift */,
 				D70EE3461C3CDE7100944E21 /* CutImage.swift */,
 				D776872D1C3BAF56008F4564 /* FileMang.swift */,
 				4256A34B1C40E5F900131142 /* JSONClass.swift */,
+				D72C9BF11C3A4CCD00856494 /* NoDataView.swift */,
 			);
 			path = PubClass;
 			sourceTree = "<group>";
@@ -633,7 +633,7 @@
 				42D3D3071C42A2FA002FF7B8 /* TestingUser.swift */,
 				D701449A1C449CA800813650 /* TestingUserPager.swift */,
 				D7FD81681C46070F00FA9E5A /* TestingGuestSel.swift */,
-				D7FD81661C45F6CA00FA9E5A /* TestingMemberSel.swift */,
+				D7FD81661C45F6CA00FA9E5A /* TestingMemberList.swift */,
 				D77687251C3B7B17008F4564 /* CellCollect.swift */,
 			);
 			name = Testing;
@@ -856,7 +856,7 @@
 				D72021C31C4DE92400741D14 /* RecordDetailTxt.swift in Sources */,
 				D776872E1C3BAF56008F4564 /* FileMang.swift in Sources */,
 				D72021FF1C4E121500741D14 /* unzip.c in Sources */,
-				D7FD81671C45F6CA00FA9E5A /* TestingMemberSel.swift in Sources */,
+				D7FD81671C45F6CA00FA9E5A /* TestingMemberList.swift in Sources */,
 				42C0F3AF1C4AAAB300248FBE /* RecordMemberMain.swift in Sources */,
 				D72021F41C4E121500741D14 /* aeskey.c in Sources */,
 				D72C9BF51C3A4CCD00856494 /* PubClass.swift in Sources */,

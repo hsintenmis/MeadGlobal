@@ -1,9 +1,5 @@
 //
 //  MeadGlobal-Bridging-Header.h
-//  MeadGlobal
-//
-//  Created by htemis on 2016/1/19.
-//  Copyright © 2016年 htemis. All rights reserved.
 //
 
 /*

@@ -36,20 +36,14 @@ import Foundation
  *    21 :  左高右低
  */
 class MeadClass {
-    // 固定參數
-    private var D_TOTDATANUMS = 0
-    
     // 其他 class
-    private var mMeadCFG: MeadCFG
-    private var pubClass: PubClass!
+    private var mMeadCFG = MeadCFG()
+    private var pubClass = PubClass()
     
     /**
      * init
      */
-    init(ProjectPubClass mPubClass: PubClass) {
-        pubClass = mPubClass
-        mMeadCFG = MeadCFG(ProjectPubClass: pubClass)
-        D_TOTDATANUMS = mMeadCFG.D_TOTDATANUMS
+    init() {
     }
     
     /**
@@ -71,7 +65,7 @@ class MeadClass {
         }
         
         // 取得avg, 高低標數值
-        avg = Int(totVal / D_TOTDATANUMS)
+        avg = Int(totVal / (mMeadCFG.D_TOTDATANUMS))
         avgL = (avg - mMeadCFG.D_ENGVALUE_HIGHLOW_GAP)
         if (avgL <= mMeadCFG.D_VALUE_MIN) {
             avgL = mMeadCFG.D_VALUE_MIN
@@ -88,7 +82,7 @@ class MeadClass {
     /**
      * 取得檢測數值有問題的 '代碼', ex. F522,F222
      *
-     * @param aryData: Array<Dictionary<String, String>>, 檢測資料 
+     * @param aryData: Array<Dictionary<String, String>>, 檢測資料
      *
      * @return String: "" or "F522,F222, ..."
      */
@@ -103,7 +97,7 @@ class MeadClass {
         var tmpItem: Dictionary<String, AnyObject> = [:]
         
         // loop data
-        for (var i=0; i < D_TOTDATANUMS; i++) {
+        for i in (0..<mMeadCFG.D_TOTDATANUMS) {
             var intAbs = 0  // 高低標差距值
             var intLRval = 0 // ex. L: 10, R: 2
             let dictItem = aryData[i]
@@ -134,11 +128,11 @@ class MeadClass {
         // Dictionary 排序, 重新產生 array data
         let arySortedDict = tmpSortDict.sort { $0.0 > $1.0 }
         var aryNewData: Array<Dictionary<String, AnyObject>> = []
-
+        
         for aryItem in arySortedDict {
             var dictVal = aryItem.1
             tmpItem = [:]
-
+            
             // 比對 id 是否重複
             tmpItem["id"] = dictVal["id"] as! String
             //tmpItem["stat"] = dictVal["stat"] as! Int
@@ -146,7 +140,7 @@ class MeadClass {
             if (aryNewData.count > 0) {
                 var hasData = false
                 
-                for (var i=0; i<aryNewData.count; i++) {
+                for i in (0..<aryNewData.count) {
                     let tmpItem1 = aryNewData[i]
                     if (tmpItem1["id"] as! String == tmpItem["id"] as! String) {
                         aryNewData[i]["stat"] = (tmpItem1["stat"] as! Int) + (dictVal["stat"] as! Int)
@@ -154,7 +148,6 @@ class MeadClass {
                         hasData = true
                     }
                 }
-
                 
                 if (!hasData) {
                     tmpItem["stat"] = dictVal["stat"] as! Int
@@ -168,7 +161,7 @@ class MeadClass {
         }
         
         // 產生回傳 String
-        for (var i=0; i<aryNewData.count; i++) {
+        for i in (0..<aryNewData.count) {
             let strHead = aryNewData[i]["id"] as! String
             let strStat = String(format: "%02d", aryNewData[i]["stat"] as! Int)
             
@@ -179,7 +172,5 @@ class MeadClass {
         
         return strRS
     }
-    
-    
     
 }

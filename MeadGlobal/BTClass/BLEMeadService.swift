@@ -1,8 +1,8 @@
 //
 // 藍芽 BLE 檢測儀, 測試使用藍牙 BLE HC-08模組
-// D_DEVNAME = "HTEBT401", "HC-08"
+// D_DEVNAME = "HTEBT401", "HC-08", "%MEAD%"
 // Service :0000ffe0-0000-1000-8000-00805f9b34fb
-// chart   :0000ffe1-0000-1000-8000-00805f9b34fb
+// chart   :0000ffe1-0000-1000-8000-00805f9b34fb (w/n)
 //
 // 藍牙 BLE 必填標準參數 (iOS不用處理)
 // 關閉或打開通知(Notify)的UUID, 藍牙規格固定值

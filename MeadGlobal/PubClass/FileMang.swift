@@ -10,15 +10,17 @@ import UIKit
  * 檔案增刪修寫讀處理
  */
 class FileMang {
+    private var isDebug = false
+    
     /** 本專案所有資料的根目錄設定為 'dbdata', 沒有 '/' */
     let D_ROOT_PATH = "dbdata"
     
-    // 其他設定
-    var isDebug = true;
+    // public
     var mDocPath: String!  // 取得 documentsPath 路徑, 含'/'
-    var aryAppPath: Array<String>!
-    
     let mFileMgr = NSFileManager.defaultManager()
+    
+    // 其他設定
+    private var aryAppPath: Array<String>!
     
     /**
      * init
@@ -80,11 +82,11 @@ class FileMang {
     }
     
     /**
-    * 檔案寫資料 / 建立檔案 (String 寫入)
-    *
-    * @param strData : string or ""
-    * @return Boolean
-    */
+     * 檔案寫資料 / 建立檔案 (String 寫入)
+     *
+     * @param strData : string or ""
+     * @return Boolean
+     */
     func write(strFileName: String!, strData: String)->Bool {
         let mFile = self.mDocPath + strFileName
         let mData = (strData.isEmpty) ? "" : strData
@@ -109,9 +111,9 @@ class FileMang {
     }
     
     /**
-    * 讀取檔案資料
-    * @return: String or ""
-    */
+     * 讀取檔案資料
+     * @return: String or ""
+     */
     func read(strFileName: String!) -> String {
         let mFile = self.mDocPath + strFileName
         if (!self.isFilePath(strFileName)) {
@@ -126,7 +128,6 @@ class FileMang {
         
         return String(data: mBuff!, encoding: NSUTF8StringEncoding)!
     }
-
     
     /**
      * 讀取檔案資料
@@ -135,7 +136,7 @@ class FileMang {
     func createDir(strName: String!)->Bool {
         let objDocPath = aryAppPath[0]
         let dataPath = objDocPath + "/" + strName
-
+        
         do {
             try NSFileManager.defaultManager().createDirectoryAtPath(dataPath, withIntermediateDirectories: false, attributes: nil)
             
@@ -148,12 +149,12 @@ class FileMang {
     }
     
     /**
-    * 檔案或目錄更名
-    */
+     * 檔案或目錄更名
+     */
     func rename(SourceName strSource: String, TargetName strTarget: String)->Bool {
         do {
             try mFileMgr.moveItemAtPath(strSource, toPath: strTarget)
-                return true
+            return true
         } catch let error as NSError {
             if (isDebug) { print(error.localizedDescription) }
             

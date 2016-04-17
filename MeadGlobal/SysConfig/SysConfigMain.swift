@@ -6,28 +6,20 @@ import UIKit
 import Foundation
 
 /**
- * '設定'主頁面
+ * 系統設定, 由首頁導入
  */
 class SysConfig: UIViewController {
     // @IBOutlet
     @IBOutlet weak var containerPager: UIView!
     
     // common property
-    private var mVCtrl: UIViewController!
-    private var pubClass: PubClass!
+    private var pubClass = PubClass()
     
-    // viewDidLoad
+    /**
+     * View load
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // common property
-        mVCtrl = self
-        pubClass = PubClass(viewControl: mVCtrl)
-    }
-    
-    // viewDidAppear
-    override func viewDidAppear(animated: Bool) {
-        
     }
     
     /**

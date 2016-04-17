@@ -11,7 +11,8 @@
 "cancel" = "Cancel";
 "btnact_done" = "Done";
 "nodata" = "No data ...";
-"delselconfrimmsg" = "Are you sure to delete the selected data?!";'
+"delselconfrimmsg" = "Are you sure to delete the selected data?!";
+"savedataconfrimmsg" = "Data will save!\nplease confirm all data are correct.";
 "err_delfailure" = "Delete failure!";
 "err_data" = "Data error!";
 
