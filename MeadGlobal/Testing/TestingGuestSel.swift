@@ -12,7 +12,6 @@ class TestingGuestSel: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     // @IBOutlet
     @IBOutlet weak var labName: UILabel!
     @IBOutlet weak var edAge: UITextField!
-    @IBOutlet weak var labAge: UILabel!
     @IBOutlet weak var swchGender: UISegmentedControl!
     
     // common property
@@ -42,7 +41,6 @@ class TestingGuestSel: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
      * 設定頁面語系
      */
     private func setPageLang() {
-        labAge.text = pubClass.getLang("age")
         swchGender.setTitle(pubClass.getLang("gender_M"), forSegmentAtIndex: 0)
         swchGender.setTitle(pubClass.getLang("gender_F"), forSegmentAtIndex: 1)
     }

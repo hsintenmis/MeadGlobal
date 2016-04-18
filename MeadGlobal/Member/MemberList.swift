@@ -23,7 +23,7 @@ class MemberList: UIViewController, PubClassDelegate {
     private var aryNewAllData: Array<Dictionary<String, String>> = []
     
     // 其他 class, property
-    private var strMode: String!
+    private var strMode: String = "add"
     private let mFileMang = FileMang()
     private var mMemberClass: MemberClass!
     private var strToday: String!
@@ -225,23 +225,15 @@ class MemberList: UIViewController, PubClassDelegate {
      * Segue 跳轉頁面，StoryBoard 介面需要拖曳 pressenting segue
      */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        strMode = sender as! String
+        
         let mVC = segue.destinationViewController as! MemberAdEd
+        mVC.strMode = strMode
+        mVC.delegate = self
         
         // 編輯頁面
         if (sender as! String == "edit") {
-            strMode = "edit"
-            mVC.strMode = "edit"
             mVC.dictMember = aryAllData[currIndexPath!.row]
-            
-            return
-        }
-        
-        // 會員新增
-        if (sender as! String == "add") {
-            strMode = "add"
-            mVC.strMode = "add"
-            
-            return
         }
         
         return

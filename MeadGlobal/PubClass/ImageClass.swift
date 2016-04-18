@@ -48,7 +48,7 @@ class ImageClass {
      * 指定 SIZE, 回傳正方形影像
      */
     func SquareImageTo(image: UIImage, size: CGSize) -> UIImage {
-        return ResizeImage(SquareImage(image), targetSize: size)
+        return ResizeImage(SquareImage(image), targetSize: size, compRate: 1.0)
     }
     
     /**

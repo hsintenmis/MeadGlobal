@@ -82,7 +82,6 @@ class RecordDetailTxt: UIViewController {
         // 其他參數設定
         let strGender = dictMeadData["gender"]!
         let strAvg = dictMeadData["avg"]!
-        var loopi = 0;
         
         // 重整數值資料對應的 key, ex. 'H1R' = '35', 'F3L' = '102'
         let aryKey = mMeadCFG.D_ARY_MEADDBID.componentsSeparatedByString(",")
