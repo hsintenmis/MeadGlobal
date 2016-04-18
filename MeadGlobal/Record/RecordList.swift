@@ -8,45 +8,40 @@ import Foundation
 /**
  * 檢測資料列表
  */
-class RecordList: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class RecordList: UIViewController {
     // @IBOutlet
     @IBOutlet weak var tableData: UITableView!
     
     // common property
-    private var mVCtrl: UIViewController!
-    private var pubClass: PubClass!
+    private var pubClass = PubClass()
     
-    // public, 由上層設定的參數
+    // public, parent 設定
     var dictUser: Dictionary<String, String> = [:]
     
     // 指定會員檢測資料 ary data
     private var aryMeadData: Array<Dictionary<String, String>> = []
     
     // 其他 class, property
-    private var mRecordClass: RecordClass!
+    private var mRecordClass = RecordClass()
     private var strToday: String!
     
-    // viewDidLoad
+    /**
+     * viewDidLoad
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // common property
-        mVCtrl = self
-        pubClass = PubClass(viewControl: mVCtrl)
-        tableData.delegate = self
-        tableData.dataSource = self
-        
-        mRecordClass = RecordClass(ProjectPubClass: pubClass)
         
         //取得指定 user 的檢測資料，設定到 'aryMeadData'
         aryMeadData = mRecordClass.getDataWithMemberId(dictUser["id"])
     }
 
-    // viewDidAppear
+    /**
+     * viewDidAppear
+     */
     override func viewDidAppear(animated: Bool) {
         //  沒有檢測資料跳離
         if (aryMeadData.count < 1) {
-            pubClass.popIsee(Msg: pubClass.getLang("nodata"), withHandler: {self.dismissViewControllerAnimated(true, completion: nil)})
+            pubClass.popIsee(self, Msg: pubClass.getLang("nodata"), withHandler: {self.dismissViewControllerAnimated(true, completion: nil)})
             
             return
         }
@@ -72,10 +67,7 @@ class RecordList: UIViewController, UITableViewDataSource, UITableViewDelegate {
         let mCell: RecordListCell = tableView.dequeueReusableCellWithIdentifier("cellRecordList", forIndexPath: indexPath) as! RecordListCell
         let ditItem = aryMeadData[indexPath.row] as Dictionary<String, String>
         
-        mCell.labDate.text = pubClass.formatDateWithStr(ditItem["sdate"], type: "8s")
-        mCell.labAvg.text = ditItem["avg"]
-        mCell.labAvgH.text = ditItem["avgH"]
-        mCell.labAvgL.text = ditItem["avgL"]
+        mCell.initView(ditItem)
         
         return mCell
     }
@@ -88,14 +80,14 @@ class RecordList: UIViewController, UITableViewDataSource, UITableViewDelegate {
         if editingStyle == UITableViewCellEditingStyle.Delete {
             
             // 彈出 confirm 視窗, 點取 'OK' 執行實際刪除資料程序
-            pubClass.popConfirm([pubClass.getLang("syswarring"), pubClass.getLang("delselconfrimmsg")], withHandlerYes:
+            pubClass.popConfirm(self, aryMsg: [pubClass.getLang("syswarring"), pubClass.getLang("delselconfrimmsg")], withHandlerYes:
                 {
                     // 資料庫檔案刪除資料
                     let strId = self.aryMeadData[indexPath.row]["id"]!
                     let dictRS = self.mRecordClass.del(strId)
                     if (dictRS["rs"] as! Bool != true) {
                         // 顯示刪除失敗訊息
-                        self.pubClass.popIsee(Msg: "err_delfailure")
+                        self.pubClass.popIsee(self, Msg: self.pubClass.getLang("err_delfailure"))
                         
                         return
                     }
@@ -118,8 +110,8 @@ class RecordList: UIViewController, UITableViewDataSource, UITableViewDelegate {
         if (strIdentName == "RecordList") {
             let indexPath = self.tableData.indexPathForSelectedRow!
             let dictItem = aryMeadData[indexPath.row]
-            let cvChild = segue.destinationViewController as! RecordDetail
-            cvChild.dictMeadData = dictItem
+            let mVC = segue.destinationViewController as! RecordDetail
+            mVC.dictMeadData = dictItem
             
             return
         }

@@ -21,19 +21,16 @@ class RecordDetail: UIViewController {
     @IBOutlet weak var viewLoading: UIActivityIndicatorView!
     @IBOutlet weak var labLoading: UILabel!
     
-    // public property
-    var mVCtrl: UIViewController!
-    var pubClass: PubClass!
+    // common property
+    private var pubClass = PubClass()
     
-    // 檢測結果的 val 與  key array
-    var aryKey: Array<String> = []
-    var aryVal: Array<String> = []
-    
-    // 高低標與平均值
-    var strAvg = "0", strAvgH = "0", strAvgL = "0";
+    // 檢測結果的 val 與  key array, 高低標與平均值
+    private var aryKey: Array<String> = []
+    private var aryVal: Array<String> = []
+    private var strAvg = "0", strAvgH = "0", strAvgL = "0";
     
     // 其他 class, property
-    private var mMeadCFG: MeadCFG! // MEAD 設定檔
+    private var mMeadCFG = MeadCFG() // MEAD 設定檔
     
     /**
      * public, 檢測數值相關資料, 由parent segue設定資料
@@ -49,14 +46,11 @@ class RecordDetail: UIViewController {
      */
     var dictMeadData: Dictionary<String, String>!
     
-    // View load
+    /**
+     * viewDidLoad
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // 固定初始參數
-        mVCtrl = self
-        pubClass = PubClass(viewControl: mVCtrl)
-        mMeadCFG = MeadCFG(ProjectPubClass: pubClass)
         
         // 產生'項目'與'數值'的 array data, 設定其他檢測數值參數
         aryKey = mMeadCFG.D_ARY_MEADDBID.componentsSeparatedByString(",")
@@ -64,23 +58,14 @@ class RecordDetail: UIViewController {
         strAvg = dictMeadData["avg"]!
         strAvgH = dictMeadData["avgH"]!
         strAvgL = dictMeadData["avgL"]!
-        
-        
-        //print(dictMeadData)
-        self.initViewField()
-    }
-    
-    // View DidAppear
-    override func viewDidAppear(animated: Bool){
-        super.viewDidAppear(animated)
-        self.setViewChartHTML()
     }
     
     /**
-     * 初始與設定 VCview 內的 field
+     * viewDidAppear
      */
-    private func initViewField() {
-        
+    override func viewDidAppear(animated: Bool){
+        super.viewDidAppear(animated)
+        self.setViewChartHTML()
     }
     
     /**
@@ -89,27 +74,27 @@ class RecordDetail: UIViewController {
      */
     private func setViewChartHTML() {
         var mapVal: Dictionary<String, String> = [:]
-        var loopi = 0;
         
         // 取得數組 'aryVal' 最大值作為圖表 Y 軸最大值
         var currMax = 0, newMax = 0;
-        for (loopi = 0; loopi < 24; loopi++) {
+        
+        for loopi in (0..<mMeadCFG.D_TOTDATANUMS) {
             newMax = Int(aryVal[loopi])!
             if (newMax > currMax) {
                 currMax = newMax;
             }
         }
-        //currMax += 10;
+
         mapVal["D_YAXIS_MAX"] = String(currMax)
         
         // 檢測的全部數值，前12個為 'H', 後12個為 'F', 解析為 '左右'
         var strD_L_VAL = "", strD_R_VAL = ""
-        
-        for (loopi = 17; loopi >= 12; loopi--) {
+
+        for loopi in (12..<18).reverse() {
             strD_L_VAL += aryVal[loopi] + ","
         }
         
-        for (loopi = 5; loopi >= 0; loopi--) {
+        for loopi in (0..<6).reverse() {
             strD_L_VAL += aryVal[loopi];
             
             if (loopi > 0) {
@@ -118,10 +103,11 @@ class RecordDetail: UIViewController {
         }
         mapVal["D_L_VAL"] = strD_L_VAL
         
-        for (loopi = 23; loopi >= 18 ; loopi--) {
+        for loopi in (18..<24).reverse() {
             strD_R_VAL += aryVal[loopi] + ","
         }
-        for (loopi = 11; loopi >= 6; loopi--) {
+        
+        for loopi in (6..<12).reverse() {
             strD_R_VAL += aryVal[loopi];
             
             if (loopi > 6) {
@@ -191,6 +177,8 @@ class RecordDetail: UIViewController {
     /** WebView delegate Start */
     func webView(webView: UIWebView!, didFailLoadWithError error: NSError!) {
         //print("Webview fail with error \(error)");
+        labLoading.alpha = 0.0
+        viewLoading.stopAnimating()
     }
     
     func webView(webView: UIWebView!, shouldStartLoadWithRequest request: NSURLRequest!, navigationType: UIWebViewNavigationType)->Bool {
@@ -199,27 +187,25 @@ class RecordDetail: UIViewController {
     
     func webViewDidStartLoad(webView: UIWebView!) {
         labLoading.alpha = 1.0
-        viewLoading.alpha = 1.0
-        //print("Webview started Loading")
+        viewLoading.startAnimating()
     }
     
     func webViewDidFinishLoad(webView: UIWebView!) {
         labLoading.alpha = 0.0
-        viewLoading.alpha = 0.0
-        //print("Webview did finish load")
+        viewLoading.stopAnimating()
     }
     /** WebView delegate End */
      
      /**
-     * Segue 跳轉頁面，StoryBoard 介面需要拖曳 pressenting segue
+     * Segue 跳轉頁面
      */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let strIdentName = segue.identifier
         
         // segue 為點取 button '學理分析'
         if (strIdentName == "RecordDetail") {
-            let cvChild = segue.destinationViewController as! RecordDetailTxt
-            cvChild.dictMeadData = dictMeadData
+            let mVC = segue.destinationViewController as! RecordDetailTxt
+            mVC.dictMeadData = dictMeadData
             
             return
         }

@@ -6,28 +6,32 @@ import UIKit
 import Foundation
 
 /**
- * 檢測資料首頁，先顯示會員列表
+ * 檢測資料首頁，顯示會員列表
  */
 class RecordMemberMain: UIViewController {
     // @IBOutlet
     @IBOutlet weak var containerPager: UIView!
     
     // common property
-    private var mVCtrl: UIViewController!
-    private var pubClass: PubClass!
+    private var pubClass = PubClass()
     
     // viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // common property
-        mVCtrl = self
-        pubClass = PubClass(viewControl: mVCtrl)
     }
     
-    // viewDidAppear
-    override func viewDidAppear(animated: Bool) {
+    /**
+     * Segue 跳轉頁面，本頁面直接跳轉 'TestingMemberList'
+     */
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "TestingMemberList") {
+            let mVC = segue.destinationViewController as! TestingMemberList
+            mVC.identTarget = "RecordList"
+            
+            return
+        }
         
+        return
     }
     
     /**

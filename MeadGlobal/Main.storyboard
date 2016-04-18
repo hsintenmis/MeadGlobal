@@ -399,20 +399,20 @@
                                 </items>
                             </navigationBar>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hcd-VR-j0A">
-                                <rect key="frame" x="-6" y="64" width="332" height="504"/>
+                                <rect key="frame" x="-2" y="64" width="324" height="504"/>
                                 <connections>
-                                    <segue destination="jAf-je-1RB" kind="embed" identifier="RecordMemberMain" id="ihu-Eg-G5c"/>
+                                    <segue destination="jAf-je-1RB" kind="embed" identifier="TestingMemberList" id="ihu-Eg-G5c"/>
                                 </connections>
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="IFx-8b-5Gl" firstAttribute="leading" secondItem="LKl-FQ-mBm" secondAttribute="leadingMargin" constant="-18" id="0bN-x8-47e"/>
+                            <constraint firstItem="hcd-VR-j0A" firstAttribute="leading" secondItem="IFx-8b-5Gl" secondAttribute="leading" id="1NK-7g-51y"/>
+                            <constraint firstItem="hcd-VR-j0A" firstAttribute="trailing" secondItem="IFx-8b-5Gl" secondAttribute="trailing" id="5oE-Gu-xTM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="IFx-8b-5Gl" secondAttribute="trailing" constant="-18" id="BJE-SN-Lct"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="hcd-VR-j0A" secondAttribute="trailing" constant="-22" id="RAY-gR-wom"/>
                             <constraint firstItem="hcd-VR-j0A" firstAttribute="top" secondItem="IFx-8b-5Gl" secondAttribute="bottom" id="faM-Ib-lIW"/>
                             <constraint firstItem="IFx-8b-5Gl" firstAttribute="top" secondItem="AFY-be-nfb" secondAttribute="bottom" id="kYq-Ee-D10"/>
-                            <constraint firstItem="hcd-VR-j0A" firstAttribute="leading" secondItem="LKl-FQ-mBm" secondAttribute="leadingMargin" constant="-22" id="wv2-7u-bP3"/>
                             <constraint firstItem="mnv-L4-JXz" firstAttribute="top" secondItem="hcd-VR-j0A" secondAttribute="bottom" id="yuR-u6-8Su"/>
                         </constraints>
                     </view>
@@ -641,7 +641,7 @@
                                     <inset key="sectionInset" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cellCollect" id="G5M-OD-ZL0" customClass="CellCollect" customModule="MeadGlobal" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cellBLEMeadMain" id="G5M-OD-ZL0" customClass="BLEMeadMainCell" customModule="MeadGlobal" customModuleProvider="target">
                                         <rect key="frame" x="4" y="3" width="70" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -793,6 +793,7 @@
                         <outlet property="labTestVal" destination="cpr-aQ-C3y" id="ffc-JI-CsW"/>
                         <outlet property="labTxtExistVal" destination="MoX-xk-T5s" id="xtY-vc-Ses"/>
                         <outlet property="viewCollect" destination="cnc-fd-T6e" id="sTx-ha-K4I"/>
+                        <segue destination="H4W-0L-xZ0" kind="show" identifier="RecordDetail" id="VTP-gS-l3A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NKq-8D-1dU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1396,7 +1397,7 @@
                         <viewControllerLayoutGuide type="bottom" id="9iA-Kb-OCb"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ze4-0k-8I5">
-                        <rect key="frame" x="0.0" y="0.0" width="324" height="379"/>
+                        <rect key="frame" x="0.0" y="0.0" width="324" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" placeholder="搜尋會員" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6ed-5g-Rci">
@@ -1407,7 +1408,7 @@
                                 </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="dvq-JD-9UE">
-                                <rect key="frame" x="-2" y="44" width="328" height="335"/>
+                                <rect key="frame" x="-2" y="44" width="328" height="460"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cellTestingMemberList" rowHeight="120" id="myh-BN-5AV" customClass="MemberListCell" customModule="MeadGlobal" customModuleProvider="target">
@@ -1661,6 +1662,10 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="8ak-At-goy" id="H1O-46-8BW"/>
+                                    <outlet property="delegate" destination="8ak-At-goy" id="9m7-mJ-3DO"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1685,7 +1690,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V51-GH-kdz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1589" y="1086"/>
+            <point key="canvasLocation" x="1589" y="1230"/>
         </scene>
         <!--能量檢測詳細資料-->
         <scene sceneID="Qvb-ra-9nY">
@@ -1739,7 +1744,7 @@
                                 <color key="textColor" red="0.18823529410000001" green="0.18823529410000001" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ecM-4N-Fuf">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ecM-4N-Fuf">
                                 <rect key="frame" x="150" y="248" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
@@ -1769,7 +1774,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M3z-Q6-q25" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2083" y="1086"/>
+            <point key="canvasLocation" x="2083" y="1230"/>
         </scene>
         <!--能量檢測分析-文字-->
         <scene sceneID="hIk-VH-TkS">
@@ -1969,7 +1974,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KUy-sW-lvI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2525" y="1086"/>
+            <point key="canvasLocation" x="2557" y="1230"/>
         </scene>
     </scenes>
     <resources>
@@ -1986,7 +1991,8 @@
         <image name="user_group_128.png" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Vzb-Z0-nvL"/>
+        <segue reference="ihu-Eg-G5c"/>
         <segue reference="Qho-W9-hPP"/>
+        <segue reference="VTP-gS-l3A"/>
     </inferredMetricsTieBreakers>
 </document>

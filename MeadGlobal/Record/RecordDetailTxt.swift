@@ -25,46 +25,40 @@ class RecordDetailTxt: UIViewController {
     @IBOutlet weak var tableList: UITableView!
     
     // common property
-    private var mVCtrl: UIViewController!
-    private var pubClass: PubClass!
+    private var pubClass = PubClass()
+    
+    // public, parent 設定
+    var dictMeadData: Dictionary<String, String> = [:]
     
     // TableView 需要的資料
     private var aryDataSource_0: Array<Dictionary<String, String>> = []  // sect 0
     private var aryDataSource_1: Array<Dictionary<String, String>> = []  // sect 1
     
-    // public, 檢測數值相關資料, 由parent segue設定資料
-    var dictMeadData: Dictionary<String, String> = [:]  // parent 設定
-    
     // mead 96 種結果的 DB data
     private var dictMeadDB: Dictionary<String, AnyObject> = [:]
     
     // 其他 class, property
-    private var mMeadCFG: MeadCFG! // MEAD 設定檔
+    private var mMeadCFG = MeadCFG() // MEAD 設定檔
     
-    // View load
+    /**
+     * View load
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 固定初始參數
-        mVCtrl = self
-        pubClass = PubClass(viewControl: mVCtrl)
-        mMeadCFG = MeadCFG(ProjectPubClass: pubClass)
-        
         // 檢查是否需要顯示本頁面, 判別欄位 'problem_id'
         if (dictMeadData["problem"]?.characters.count < 1) {
-            pubClass.popIsee(Msg: pubClass.getLang("testingvalokmsg"))
-            self.dismissViewControllerAnimated(true, completion: nil)
-            
+            pubClass.popIsee(self, Msg: pubClass.getLang("testingvalokmsg"), withHandler: {self.dismissViewControllerAnimated(true, completion: nil)})
             return
         }
         
         // 取得 mead_db 檔案的 JSON string, 解析為 array or dict
-        dictMeadDB = pubClass.getAppDelgVal("V_DICTMEADDB") as! Dictionary<String, AnyObject>
+        dispatch_async(dispatch_get_main_queue(), {
+            self.dictMeadDB = self.pubClass.getMeadDB()
+        })
         
         if (dictMeadDB.count < 1) {
-            pubClass.popIsee(Msg: pubClass.getLang("err_data"))
-            self.dismissViewControllerAnimated(true, completion: nil)
-            
+            pubClass.popIsee(self, Msg: pubClass.getLang("err_data"), withHandler: {self.dismissViewControllerAnimated(true, completion: nil)})
             return
         }
         
@@ -74,20 +68,6 @@ class RecordDetailTxt: UIViewController {
         self.tableList.rowHeight = UITableViewAutomaticDimension
         self.initTableDataSource()
         self.tableList.reloadData()
-    }
-    
-    // View DidAppear
-    override func viewDidAppear(animated: Bool) {
-        
-    }
-    
-    /**
-     * 初始與設定 VCview 內的 field
-     */
-    private func initViewField() {
-        dispatch_async(dispatch_get_main_queue(), {
-            
-        })
     }
     
     /**
@@ -109,14 +89,14 @@ class RecordDetailTxt: UIViewController {
         let aryVal = dictMeadData["val"]!.componentsSeparatedByString(",")
         
         var dictKeyVal: Dictionary<String, String> = [:]
-        for (loopi = 0; loopi < aryKey.count; loopi++ ) {
+        for loopi in (0..<aryKey.count) {
             dictKeyVal[aryKey[loopi]] = aryVal[loopi]
         }
         
         // 取得有問題的 iNo 代碼 array, 重新整理取得前四筆資料
         var aryOrgData = dictMeadData["problem"]!.componentsSeparatedByString(",")
         
-        for (loopi=0; loopi<aryOrgData.count; loopi++) {
+        for loopi in (0..<aryOrgData.count) {
             if (loopi == mMeadCFG.D_REPORT_ANALY_MAXNUMS) {
                 break
             }
@@ -194,27 +174,7 @@ class RecordDetailTxt: UIViewController {
         
         let mCell: RecordDetailCell = tableView.dequeueReusableCellWithIdentifier("cellRecordDetailCell", forIndexPath: indexPath) as! RecordDetailCell
         
-        mCell.labTitle.text = dictItem["title"]
-        mCell.labMsg.text = dictItem["msg"]
-        mCell.labL_avg.text = dictItem["avg"]
-        mCell.labR_avg.text = dictItem["avg"]
-        mCell.labL_val.text = dictItem["val_L"]
-        mCell.labR_val.text = dictItem["val_R"]
-        
-        // 判斷使否要顯示 左右數值
-        if (dictItem["val_L"] == "") {
-            mCell.view_L.alpha = 0.0
-        } else {
-            mCell.view_L.alpha = 1.0
-            mCell.img_L.image = UIImage(named: dictItem["img_L"]!)
-        }
-        
-        if (dictItem["val_R"] == "") {
-            mCell.view_R.alpha = 0.0
-        } else {
-            mCell.view_R.alpha = 1.0
-            mCell.img_R.image = UIImage(named: dictItem["img_R"]!)
-        }
+        mCell.initView(dictItem)
         
         return mCell
     }

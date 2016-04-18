@@ -8,6 +8,6 @@ import UIKit
 /**
  * BLEMeadMain 檢測項目 UICollectionView Cell
  */
-class CellCollect: UICollectionViewCell {
+class BLEMeadMainCell: UICollectionViewCell {
     @IBOutlet weak var labName: UILabel!
 }
