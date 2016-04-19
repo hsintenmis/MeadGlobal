@@ -17,6 +17,8 @@ class MemberAdEdContainer: UITableViewController, UIImagePickerControllerDelegat
     @IBOutlet weak var edBirth: UITextField!
     @IBOutlet weak var swchGender: UISegmentedControl!
     @IBOutlet weak var cellBirth: UITableViewCell!
+    @IBOutlet weak var btnGallery: UIButton!
+    @IBOutlet weak var btnCmaera: UIButton!
     
     // common property
     private var pubClass = PubClass()
@@ -68,9 +70,11 @@ class MemberAdEdContainer: UITableViewController, UIImagePickerControllerDelegat
         // 編輯模式特殊處理
         self.procEditMode()
         
-        // 點取 'edBirth' 彈出日期視窗取代 '鍵盤視窗'
+        // view field 設定, 'edBirth' 彈出日期視窗取代 '鍵盤視窗'
         edBirth.inputView = datePickerView
         initInputViewTopBar()
+        btnGallery.layer.cornerRadius = 5.0
+        btnCmaera.layer.cornerRadius = 5.0
     }
     
     /**

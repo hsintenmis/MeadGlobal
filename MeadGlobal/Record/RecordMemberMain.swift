@@ -26,7 +26,7 @@ class RecordMemberMain: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "TestingMemberList") {
             let mVC = segue.destinationViewController as! TestingMemberList
-            mVC.identTarget = "RecordList"
+            mVC.identTarget = "RecordMemberMain"
             
             return
         }

@@ -97,9 +97,8 @@ class MemberAdEd: UIViewController {
                 
                 return
             }
-            else {
-                strMemberID = dictRS["id"] as! String
-            }
+            
+            strMemberID = dictRS["id"] as! String
         }
         
         // 編輯儲存
@@ -112,9 +111,8 @@ class MemberAdEd: UIViewController {
                 
                 return
             }
-            else {
-                strMemberID = dictRS["id"] as! String
-            }
+            
+            strMemberID = dictRS["id"] as! String
         }
         
         // 圖片儲存

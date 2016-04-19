@@ -27,6 +27,7 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
     
     @IBOutlet weak var labTxtExistVal: UILabel!
     @IBOutlet weak var labExistVal: UILabel!
+    @IBOutlet weak var btnConn: UIButton!
     
     // common property
     private var pubClass = PubClass()
@@ -89,6 +90,11 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
         
         // 檢測數值 array data 初始與產生
         aryTestingData = mMeadCFG.getAryAllTestData()
+        
+        // view filed 設定
+        btnConn.alpha = 0.0
+        btnConn.enabled = false
+        btnConn.layer.cornerRadius = 5.0
     }
     
     /**
@@ -308,34 +314,21 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
         // 一般狀態
         case "BT_statu":
             if (result != true) {
-                pubClass.popIsee(self, Msg: msg, withHandler: {
-                    self.dismissViewControllerAnimated(true, completion: nil)
-                })
-            } else {
-                // BT 設備連線成功
-                self.moveCollectCell(0)
-                CURR_STATU = STATU_READY
-            }
-            
-            labBTMsg.text = msg
-            break
-            
-        // 連線狀態
-        case "BT_conn":
-            if (result != true) {
-                mBLEMeadService.BTDisconn()
-                pubClass.popIsee(self, Msg: msg, withHandler: {
+                pubClass.popIsee(self, Msg: pubClass.getLang("err_data"), withHandler: {
                     self.dismissViewControllerAnimated(true, completion: nil)
                 })
                 
                 return
             }
             
-            labBTMsg.text = msg
-            
             // 搜尋不到藍芽設備=1, 手機藍牙未開=3
             if let code = intVal {
                 if (code == 1 || code == 3) {
+                    labBTMsg.text = msg
+                    
+                    btnConn.alpha = 1.0
+                    btnConn.enabled = true
+                    
                     return
                 }
                 
@@ -349,6 +342,25 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
                 }
             }
             
+            labBTMsg.text = msg
+            break
+            
+        // 連線狀態
+        case "BT_conn":
+            // 表示 BT 斷線
+            if (result != true) {
+                pubClass.popIsee(self, Msg: msg, withHandler: {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                })
+                
+                return
+            }
+            
+            // BT 設備連線成功
+            labBTMsg.text = msg
+            self.moveCollectCell(0)
+            CURR_STATU = STATU_READY
+            
             break
             
         // 資料傳輸標記
@@ -358,7 +370,7 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
                 if (intVal! < mMeadCFG.D_VALUE_MAX) {
                     
                     // 數值介於 1 ~ 最小值，回傳  1
-                    if (intVal! >= 1 && intVal! <= mMeadCFG.D_VALUE_MIN) {
+                    if (intVal! <= mMeadCFG.D_VALUE_MIN) {
                         analyBTData(1)
                     } else {
                         analyBTData(intVal!)
@@ -402,7 +414,7 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
      */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // 能量檢測詳細內容 class, 圖表顯示
-        if (sender as! String == "RecordDetail") {
+        if (segue.identifier == "RecordDetail") {
             let mVC = segue.destinationViewController as! RecordDetail
             mVC.dictMeadData = sender as! Dictionary<String, String>
             
@@ -509,6 +521,15 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
     }
     
     /**
+     * act, 點取 '連線'
+     */
+    @IBAction func actConn(sender: UIButton) {
+        self.mBLEMeadService.BTConnStart()
+        btnConn.alpha = 0.0
+        btnConn.enabled = false
+    }
+    
+    /**
      * act 返回前頁
      */
     @IBAction func actBack(sender: UIBarButtonItem) {
@@ -523,8 +544,12 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
         }
         
         // 跳離
-        self.mBLEMeadService.BTDisconn()
-        self.dismissViewControllerAnimated(true, completion: {})
+        if (self.mBLEMeadService.BT_ISREADYFOTESTING == true) {
+            self.mBLEMeadService.BTDisconn()
+        }
+        else {
+            self.dismissViewControllerAnimated(true, completion: {})
+        }
         
         return
     }

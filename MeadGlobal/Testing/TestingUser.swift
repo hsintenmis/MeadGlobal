@@ -66,13 +66,13 @@ class TestingUser: UIViewController, TestingUserPagerDelg {
     private func changBtnColor(position: Int) {
         // 訪客
         if (position == 0) {
-            btnGuest.layer.backgroundColor = pubClass.ColorCGColor(myColor.Sliver.rawValue)
+            btnGuest.layer.backgroundColor = pubClass.ColorCGColor(myColor.Gold.rawValue)
             btnMember.layer.backgroundColor = pubClass.ColorCGColor(myColor.White.rawValue)
         }
         // 會員
         else {
             btnGuest.layer.backgroundColor = pubClass.ColorCGColor(myColor.White.rawValue)
-            btnMember.layer.backgroundColor = pubClass.ColorCGColor(myColor.Sliver.rawValue)
+            btnMember.layer.backgroundColor = pubClass.ColorCGColor(myColor.Gold.rawValue)
         }
     }
     

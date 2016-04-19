@@ -47,27 +47,30 @@ class RecordDetailTxt: UIViewController {
         super.viewDidLoad()
         
         // 檢查是否需要顯示本頁面, 判別欄位 'problem_id'
-        if (dictMeadData["problem"]?.characters.count < 1) {
-            pubClass.popIsee(self, Msg: pubClass.getLang("testingvalokmsg"), withHandler: {self.dismissViewControllerAnimated(true, completion: nil)})
+        var bolNoProblem = false
+        if let strProblem: String = dictMeadData["problem"] {
+            if (strProblem.characters.count > 0) {
+                bolNoProblem = true
+            }
+        }
+        
+        if (bolNoProblem != true) {
+            pubClass.popIsee(self, Msg: pubClass.getLang("meadreport_valokmsg"), withHandler: {self.dismissViewControllerAnimated(true, completion: nil)})
             return
         }
         
         // 取得 mead_db 檔案的 JSON string, 解析為 array or dict
-        dispatch_async(dispatch_get_main_queue(), {
-            self.dictMeadDB = self.pubClass.getMeadDB()
-        })
-        
+        self.dictMeadDB = self.pubClass.getMeadDB()
+
         if (dictMeadDB.count < 1) {
             pubClass.popIsee(self, Msg: pubClass.getLang("err_data"), withHandler: {self.dismissViewControllerAnimated(true, completion: nil)})
             return
         }
         
-        /* 初始與設定 TableView 需要的 datasource */
-        // TableCell autoheight
+        // TableView 相關設定
+        initTableDataSource()
         self.tableList.estimatedRowHeight = 100.0
         self.tableList.rowHeight = UITableViewAutomaticDimension
-        self.initTableDataSource()
-        self.tableList.reloadData()
     }
     
     /**
@@ -149,7 +152,7 @@ class RecordDetailTxt: UIViewController {
      * UITableView, 'section' 回傳指定的數量
      */
     func numberOfSectionsInTableView(tableView: UITableView!)->Int {
-        return 2
+        return (aryDataSource_0.count < 1) ? 0 : 2
     }
     
     /**
@@ -158,6 +161,10 @@ class RecordDetailTxt: UIViewController {
      * 可根據 'section' 回傳指定的數量
      */
     func tableView(tableView: UITableView!, numberOfRowsInSection section:Int) -> Int {
+        if (aryDataSource_0.count < 1) {
+            return 0
+        }
+        
         return (section == 0) ? aryDataSource_0.count : 1
     }
     

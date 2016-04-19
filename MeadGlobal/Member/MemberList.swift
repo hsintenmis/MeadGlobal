@@ -23,7 +23,7 @@ class MemberList: UIViewController, PubClassDelegate {
     private var aryNewAllData: Array<Dictionary<String, String>> = []
     
     // 其他 class, property
-    private var strMode: String = "add"
+    private var strMode: String!
     private let mFileMang = FileMang()
     private var mMemberClass: MemberClass!
     private var strToday: String!
@@ -46,10 +46,6 @@ class MemberList: UIViewController, PubClassDelegate {
         if (bolReload == true) {
             bolReload = false
             
-            if (strMode == "add") {
-                currIndexPath = nil
-            }
-            
             self.reloadTableData()
         }
     }
@@ -58,7 +54,11 @@ class MemberList: UIViewController, PubClassDelegate {
      * #mark: PubClassDelegate, page reload
      */
     func PageNeedReload(needReload: Bool) {
-         bolReload = needReload
+        bolReload = needReload
+        
+        if (strMode == "add") {
+            currIndexPath = nil
+        }
     }
     
     /**
@@ -151,7 +151,7 @@ class MemberList: UIViewController, PubClassDelegate {
         
         // TableView data source 資料重整
         currIndexPath = nil
-        self.reloadTableData()
+        //self.reloadTableData()
     }
     
     /** mark: SearchBar delegate Start */

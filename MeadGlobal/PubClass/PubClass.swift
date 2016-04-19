@@ -34,6 +34,8 @@ enum myColor: String {
     case Blue = "66CCFF"
     case Black = "000000"
     case Green = "99CC33"
+    case Gold = "FFCC66"
+    case BlueSel = "0066FF"
 }
 
 /**
@@ -484,15 +486,17 @@ class PubClass {
      */
     func getMeadDB()->Dictionary<String, AnyObject>! {
         let mJSONClass = JSONClass()
-        let mFile = "meaddb_" + (self.getPrefData("lang") as! String)
+        let strFileNamePath = "meaddb_" + (self.getPrefData("lang") as! String)
+        var dictRS: Dictionary<String, AnyObject> = [:]
         
         do {
-            let fileRoot = NSBundle.mainBundle().pathForResource(mFile, ofType: "txt")
+            let fileRoot = NSBundle.mainBundle().pathForResource(strFileNamePath, ofType: "txt")
             let strJSON = try String(contentsOfFile: fileRoot!, encoding: NSUTF8StringEncoding)
-            return mJSONClass.JSONStrToDict(strJSON) as Dictionary<String, AnyObject>
+            dictRS = mJSONClass.JSONStrToDict(strJSON) as Dictionary<String, AnyObject>
         } catch {
-            return [:]
         }
+        
+        return dictRS
     }
     
     /**

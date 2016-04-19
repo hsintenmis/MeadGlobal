@@ -243,6 +243,7 @@ class MemberClass {
             return dictRS
         }
         
+        dictRS["id"] = dictData["id"]
         dictRS["rs"] = true
         
         return dictRS

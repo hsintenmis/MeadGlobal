@@ -39,7 +39,7 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     var BT_ISREADYFOTESTING = false  // 藍牙周邊是否可以開始使用
     
     // 藍芽裝置名稱
-    private let aryBTNAME = ["HC-08", "HTEBT401", "=EMD00401"]
+    private let aryBTNAME = ["HC-08", "HTEBT401"]
     
     // UUID, Service, Char
     private let UID_SERV: CBUUID = CBUUID(string: "0000ffe0-0000-1000-8000-00805f9b34fb")
@@ -93,9 +93,9 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             mCentMgr.cancelPeripheralConnection(mConnDev!)
         }
         
-        mCentMgr = nil
-        mConnDev = nil
-        BT_ISREADYFOTESTING = false
+        //mCentMgr = nil
+        //mConnDev = nil
+        //BT_ISREADYFOTESTING = false
     }
     
     /**
@@ -107,20 +107,34 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         
         if (IS_DEBUG) { print("Discovered: \(peripheral.name)") }
         
-        // 找到指定裝置 名稱 or addr
-        for strDevName in aryBTNAME {
-            if (peripheral.name == strDevName) {
-                self.mConnDev = peripheral
-                self.mCentMgr.stopScan()
-                self.mCentMgr.connectPeripheral(peripheral, options: nil)
+        var bolIsMatch = false
+        var currDevName = ""
+        
+        if let strTmp = peripheral.name {
+            currDevName = strTmp
+        } else {
+            return
+        }
+        
+        // 比對指定藍芽設備的 名稱 or addr
+        for strTmp in aryBTNAME {
+            if (currDevName == strTmp) {
+                bolIsMatch = true
+                break
             }
-                
-            // TODO , name like 'EMD'
-            else if (strDevName.uppercaseString.rangeOfString("EMD") != nil) {
-                self.mConnDev = peripheral
-                self.mCentMgr.stopScan()
-                self.mCentMgr.connectPeripheral(peripheral, options: nil)
+        }
+        
+        // 本專案用, 設備名稱包含 'EMD'
+        if (bolIsMatch != true) {
+            if (currDevName.uppercaseString.rangeOfString("EMD") != nil) {
+                bolIsMatch = true
             }
+        }
+        
+        if (bolIsMatch == true) {
+            self.mConnDev = peripheral
+            self.mCentMgr.stopScan()
+            self.mCentMgr.connectPeripheral(peripheral, options: nil)
         }
     }
     
@@ -129,6 +143,14 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
      * 找到指定的Dev後，開始查詢與連接該Dev相關的 Service, Chart
      */
     func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
+        
+        // 再次確認連線設備的名稱
+        /*
+        if (peripheral.name!.uppercaseString.rangeOfString("EMD") == nil) {
+            mConnDev = nil
+            return
+        }
+        */
         
         if (IS_DEBUG) { print("\(peripheral.name): Start discover Device channel ...") }
         
@@ -148,9 +170,10 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         
         if (IS_DEBUG) { print("CBCentralManager Disconnection!") }
         
-        // 本 class 執行相關 BLE 中斷程序, 標記：'BT_conn'
-        BTDisconn()
-        delegate?.handlerBLE("BT_conn", result: false, msg: pubClass.getLang("bt_connect_break"), intVal: nil)
+        // 已連線後 (狀態為: BT_ISREADYFOTESTING = true)，標記：'BT_conn'
+        if (BT_ISREADYFOTESTING == true) {
+            delegate?.handlerBLE("BT_conn", result: false, msg: pubClass.getLang("bt_connect_break"), intVal: nil)
+        }
     }
     
     /**
@@ -170,6 +193,7 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             bolRS = true
             
             // parent 顯示藍牙開啟搜尋周邊訊息
+            msg = "bt_searching"
             delegate?.handlerBLE("BT_statu", result: true, msg: pubClass.getLang(msg), intVal: nil)
             
             // CBCentralManager 開始執行搜索藍牙 Device
@@ -303,8 +327,6 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         
         // 有資料
         if (characteristic.value?.length > 0) {
-            if (IS_DEBUG) {print("chart update:\n\(characteristic.value!)")}
-            
             // 取得回傳資料，格式如: HEX: 01 00 23 A0 02 ..., [Byte] = [UInt8]
             let mNSData = characteristic.value!
             var mIntVal = [UInt8](count:mNSData.length, repeatedValue:0)
@@ -312,7 +334,12 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             
             self.analyRespon(mIntVal)
             
-            if (IS_DEBUG) { print("int val: \(mIntVal)") }
+            /*
+            if (IS_DEBUG) {
+                print("chart update:\n\(characteristic.value!)")
+                print("int val: \(mIntVal)")
+            }
+            */
         }
     }
     

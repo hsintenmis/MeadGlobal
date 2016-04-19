@@ -127,7 +127,7 @@ class RecordDetail: UIViewController {
         
         // 圖表相關, 標題/次標題, 帶入會員資料
         let strGender = pubClass.getLang("gender_" + dictMeadData["gender"]!)
-        let strAge = dictMeadData["age"]! + pubClass.getLang("member_name")
+        let strAge = dictMeadData["age"]! + pubClass.getLang("age_name")
         let strDate = pubClass.getLang("mead_testingdate") + ":" + pubClass.formatDateWithStr(dictMeadData["sdate"], type: 8)
         let strChartSubTitle = strGender + ", " + strAge + ", " + strDate
         

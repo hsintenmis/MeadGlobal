@@ -1,6 +1,131 @@
 "app_name" = "能量检测系统";
 "version" = "ver";
-
+"sysprompt" = "系统提示";
+"syswarring" = "系统警告 !!";
 "back" = "返回";
 "save" = "储存";
+"datasavecomplete" = "储存完成";
+"i_see" = "我知道了!";
+"confirm_yes" = "是";
+"confirm_no" = "否";
+"cancel" = "取消";
+"btnact_done" = "完成";
+"nodata" = "目前没有资料...";
+"delselconfrimmsg" = "请再次确认是否删除选择的资料?!";
+"savedataconfrimmsg" = "资料即将储存!\n请再次确认输入的资料是否正确?!";
+"err_delfailure" = "删除失败!";
+"err_data" = "资料错误!";
+
+"age" = "年龄";
+"gender" = "性别";
+"gender_M" = "男性";
+"gender_F" = "女性";
+"tel" = "TEL";
+"plzselmember" = "请选择会员!";
+"err_userage" = "年龄错误!";
+"err_memberclass_updateSerial" = "资料库会员序号档错误!";
+"err_recordclass_updateSerial" = "资料库记录序号档错误!";
+"err_memberclass_datanotexists" = "资料库没有指定的会员资料!";
+"err_recordclass_datanotexists" = "资料库没有指定的记录资料!";
+
+"member_name" = "会员姓名";
+"member_id" = "会员编号";
 "member_add" = "会员新增";
+"member_edit" = "会员编辑";
+"member_delconfirmmsg" = "确定删除已选择的会员?!";
+"member_guestname" = "尊荣贵宾";
+"member_err_birth" = "会员生日错误!";
+
+"err_bt_connect" = "系统错误:蓝牙资料连线建立失败!";
+"err_connectlost" = "蓝牙连线讯号遗失!";
+"bt_founddev" = "找到蓝牙设备!";
+"bt_connect_break" = "蓝牙连线中断!";
+"bt_selectbtdevice" = "选择蓝牙设备";
+"bt_alreadymatchdevice" = "目前已经配对的设备";
+"bt_searching" = "蓝芽设备搜寻中. . .";
+"bt_searchingstop" = "停止搜寻蓝芽设备";
+"bt_cantfindbtdevice" = "搜寻不到蓝牙设备!";
+"bt_devicenotyetmatch" = "装置未配对";
+"bt_devicenotsupportbt" = "本机不支援蓝牙功能. . .";
+"bt_btdeviceconnsuccessful" = "蓝牙连线成功!";
+"bt_btdeviceready" = "蓝牙装置就绪, 可以开始量测了!";
+"bt_readytesting" = "可以开始量测了!";
+"btnotactivemsg" = "行动装置的蓝牙功能未开启!";
+"bt_bondcomplete" = "蓝牙设备绑定完成!";
+"bt_plzsearchagain" = "请重新搜寻蓝牙设备. . .";
+"bt_initing" = "蓝牙设备初始中...";
+
+"bt_mobile_off" = "蓝牙未开启";
+"bt_mobile_on" = "蓝牙已开启";
+"bt_mobile_resetting" = "蓝牙重启中";
+"bt_mobile_unauthorized" = "蓝牙未通过认证";
+"bt_mobile_unknown_stat" = "蓝芽为未知状态";
+"bt_mobile_unsupported" = "蓝芽不支援";
+
+"mead_point_ready" = "探针未与任何量测点接触!";
+"mead_point_recive" = "量测点正在确认中. . .";
+"mead_point_finish" = "完成数值读取!";
+"mead_point_movenext" = "完成数值读取, 请检测下一个量测点!";
+"mead_testing_finish" = "检测结束，请选择会员将资料存档！";
+"mead_existtestingval" = "已测数值";
+"mead_resetmsg" = "已检测的数值资料将会重设, 请再次确认!";
+"mead_errval" = "检测数值错误, 请重新测量!";
+"mead_recordaddcomplete" = "检测资料存档完成!";
+"mead_recordaddfailure" = "检测资料存档错误!";
+"mead_notsaveinfomsg" = "资料尚未存档, 确定直接离开本页面吗?";
+"mead_guestcantsave" = "访客资料不能储存!";
+"mead_testingdate" = "检测日期";
+
+"mead_body_FL" = "左足";
+"mead_body_FR" = "右足";
+"mead_body_HL" = "左腕";
+"mead_body_HR" = "右腕";
+
+"ORAGN_H1" = "肺,鼻,皮肤";
+"ORAGN_H2" = "心,循环系统";
+"ORAGN_H3" = "心,舌,精神状态";
+"ORAGN_H4" = "小肠";
+"ORAGN_H5" = "淋巴免疫系统";
+"ORAGN_H6" = "大肠,皮肤";
+"ORAGN_F1" = "脾,胰,消化系统";
+"ORAGN_F2" = "肝,眼,循环系统";
+"ORAGN_F3" = "肾,副肾,生殖器";
+"ORAGN_F4" = "膀胱,泌尿系统";
+"ORAGN_F5" = "胆,胆道系";
+"ORAGN_F6" = "胃,消化系统";
+
+"MERIDIAN_H1" = "肺经";
+"MERIDIAN_H2" = "心包经";
+"MERIDIAN_H3" = "心经";
+"MERIDIAN_H4" = "小肠经";
+"MERIDIAN_H5" = "三焦经";
+"MERIDIAN_H6" = "大肠经";
+"MERIDIAN_F1" = "脾经";
+"MERIDIAN_F2" = "肝经";
+"MERIDIAN_F3" = "肾经";
+"MERIDIAN_F4" = "膀胱经";
+"MERIDIAN_F5" = "胆经";
+"MERIDIAN_F6" = "胃经";
+
+"engval_avg" = "能量平均值";
+"engval_avgshort" = "平均";
+"engval_high" = "高标";
+"engval_low" = "低标";
+"meadreport_east" = "东方学理";
+"meadreport_west" = "西方学理";
+"meadreport_analy" = "分析";
+"meadreport_pdsuggest" = "调理建议";
+"direct_L" = "左";
+"direct_R" = "右";
+"BODY_F_L" = "左足";
+"BODY_F_R" = "右足";
+"BODY_H_L" = "左腕";
+"BODY_H_R" = "右腕";
+"TESTINGVAL_L" = "左侧数值";
+"TESTINGVAL_R" = "右侧数值";
+"meadreport_analy" = "分析";
+"meadreport_pdsuggest" = "调理建议";
+
+"sysconfig_backupcompleted" = "备份完成!";
+"sysconfig_restorecompleted" = "资料还原完成!";
+

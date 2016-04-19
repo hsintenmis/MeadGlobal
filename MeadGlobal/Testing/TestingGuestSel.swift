@@ -149,7 +149,7 @@ class TestingGuestSel: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         dictUser["age"] = edAge.text!
         dictUser["gender"] = (swchGender.selectedSegmentIndex == 0) ? "M" : "F"
         
-        if (dictUser["age"] == nil) {
+        if (dictUser["age"]?.characters.count < 1) {
             pubClass.popIsee(self, Msg: pubClass.getLang("err_userage"))
             
             return
