@@ -10,7 +10,7 @@ import Foundation
  */
 class SysConfig: UIViewController {
     // @IBOutlet
-    @IBOutlet weak var containerPager: UIView!
+    @IBOutlet weak var navybarTop: UINavigationBar!
     
     // common property
     private var pubClass = PubClass()
@@ -20,6 +20,8 @@ class SysConfig: UIViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        pubClass.setNavybarTxt(navybarTop, aryTxtCode: ["menu_config", "homepage"])
     }
     
     /**

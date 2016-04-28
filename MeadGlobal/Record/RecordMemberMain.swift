@@ -11,13 +11,18 @@ import Foundation
 class RecordMemberMain: UIViewController {
     // @IBOutlet
     @IBOutlet weak var containerPager: UIView!
+    @IBOutlet weak var navybarTop: UINavigationBar!
     
     // common property
     private var pubClass = PubClass()
     
-    // viewDidLoad
+    /**
+     * viewDidLoad
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        pubClass.setNavybarTxt(navybarTop, aryTxtCode: ["menu_record", "homepage"])
     }
     
     /**

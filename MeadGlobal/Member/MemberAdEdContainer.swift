@@ -20,6 +20,12 @@ class MemberAdEdContainer: UITableViewController, UIImagePickerControllerDelegat
     @IBOutlet weak var btnGallery: UIButton!
     @IBOutlet weak var btnCmaera: UIButton!
     
+    @IBOutlet weak var labPict: UILabel!
+    @IBOutlet weak var labName: UILabel!
+    @IBOutlet weak var labTel: UILabel!
+    @IBOutlet weak var labBirth: UILabel!
+    @IBOutlet weak var labGender: UILabel!
+    
     // common property
     private var pubClass = PubClass()
     
@@ -83,6 +89,15 @@ class MemberAdEdContainer: UITableViewController, UIImagePickerControllerDelegat
     private func setPageLang() {
         swchGender.setTitle(pubClass.getLang("gender_M"), forSegmentAtIndex: 0)
         swchGender.setTitle(pubClass.getLang("gender_F"), forSegmentAtIndex: 1)
+        
+        btnGallery.setTitle(pubClass.getLang("selectgallery"), forState: UIControlState.Normal)
+        btnCmaera.setTitle(pubClass.getLang("selectcamera"), forState: UIControlState.Normal)
+        
+        labPict.text = pubClass.getLang("member_pict")
+        labName.text = pubClass.getLang("member_name")
+        labTel.text = pubClass.getLang("tel")
+        labBirth.text = pubClass.getLang("birth")
+        labGender.text = pubClass.getLang("gender")
     }
     
     /**

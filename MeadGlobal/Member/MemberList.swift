@@ -12,6 +12,8 @@ class MemberList: UIViewController, PubClassDelegate {
     // @IBOutlet
     @IBOutlet weak var tableData: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var navybarTop: UINavigationBar!
+    @IBOutlet weak var labeDelMember: UILabel!
 
     // common property
     private var pubClass = PubClass()
@@ -37,7 +39,9 @@ class MemberList: UIViewController, PubClassDelegate {
 
         mMemberClass = MemberClass()
         strToday = pubClass.getDevToday()
+        setPageLang()
     }
+    
     
     /**
      * viewDidAppear
@@ -48,6 +52,14 @@ class MemberList: UIViewController, PubClassDelegate {
             
             self.reloadTableData()
         }
+    }
+    
+    /**
+     * 設定頁面顯示文字
+     */
+    private func setPageLang() {
+        pubClass.setNavybarTxt(navybarTop, aryTxtCode: ["header_memberlist", "homepage", "add"])
+        labeDelMember.text = pubClass.getLang("slipleftdeldata")
     }
     
     /**

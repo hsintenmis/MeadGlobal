@@ -13,6 +13,7 @@ class TestingGuestSel: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     @IBOutlet weak var labName: UILabel!
     @IBOutlet weak var edAge: UITextField!
     @IBOutlet weak var swchGender: UISegmentedControl!
+    @IBOutlet weak var btnStart: UIButton!
     
     // common property
     private var pubClass = PubClass()
@@ -43,6 +44,10 @@ class TestingGuestSel: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     private func setPageLang() {
         swchGender.setTitle(pubClass.getLang("gender_M"), forSegmentAtIndex: 0)
         swchGender.setTitle(pubClass.getLang("gender_F"), forSegmentAtIndex: 1)
+        
+        labName.text = pubClass.getLang("member_guestname")
+        edAge.placeholder = pubClass.getLang("inputage")
+        btnStart.setTitle(pubClass.getLang("starttesting"), forState: UIControlState.Normal)
     }
     
     /**

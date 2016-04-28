@@ -19,15 +19,18 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
     @IBOutlet weak var labGender: UILabel!
     @IBOutlet weak var imgBody: UIImageView!
     @IBOutlet weak var viewCollect: UICollectionView!
-    
     @IBOutlet weak var labBTMsg: UILabel!
     @IBOutlet weak var labPointMsg: UILabel!
     @IBOutlet weak var labPointMsg1: UILabel!
     @IBOutlet weak var labTestVal: UILabel!
-    
     @IBOutlet weak var labTxtExistVal: UILabel!
     @IBOutlet weak var labExistVal: UILabel!
     @IBOutlet weak var btnConn: UIButton!
+    
+    @IBOutlet weak var navybarTop: UINavigationBar!
+    @IBOutlet weak var btnRecord: UIBarButtonItem!
+    @IBOutlet weak var btnSave: UIBarButtonItem!
+    @IBOutlet weak var btnConnect: UIButton!
     
     // common property
     private var pubClass = PubClass()
@@ -78,6 +81,7 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        setPageLang()
         
         // BTScaleService 實體化與相關參數設定
         mBLEMeadService = BLEMeadService()
@@ -105,6 +109,16 @@ class BLEMeadMain: UIViewController, BLEMeadServiceDelegate {
         
         // 開始連接藍芽設備
         mBLEMeadService.BTConnStart()
+    }
+    
+    /**
+     * 設定頁面顯示文字
+     */
+    private func setPageLang() {
+        pubClass.setNavybarTxt(navybarTop, aryTxtCode: ["menu_testing", "back", "retesting"])
+        btnRecord.title = pubClass.getLang("testingreport")
+        btnSave.title = pubClass.getLang("save")
+        btnConnect.setTitle(pubClass.getLang("connect"), forState: UIControlState.Normal)
     }
     
     /**

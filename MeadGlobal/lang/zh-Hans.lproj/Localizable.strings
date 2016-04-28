@@ -15,13 +15,38 @@
 "savedataconfrimmsg" = "资料即将储存!\n请再次确认输入的资料是否正确?!";
 "err_delfailure" = "删除失败!";
 "err_data" = "资料错误!";
+"homepage" = "首页";
+
+"week_0" = "日";
+"week_1" = "一";
+"week_2" = "二";
+"week_3" = "三";
+"week_4" = "四";
+"week_5" = "五";
+"week_6" = "六";
+"week_7" = "日";
+
+"mm_01" = "一月";
+"mm_02" = "二月";
+"mm_03" = "三月";
+"mm_04" = "四月";
+"mm_05" = "五月";
+"mm_06" = "六月";
+"mm_07" = "七月";
+"mm_08" = "八月";
+"mm_09" = "九月";
+"mm_10" = "十月";
+"mm_11" = "十一月";
+"mm_12" = "十二月";
 
 "age" = "年龄";
+"age_name" = "岁";
 "gender" = "性别";
 "gender_M" = "男性";
 "gender_F" = "女性";
 "tel" = "TEL";
 "plzselmember" = "请选择会员!";
+
 "err_userage" = "年龄错误!";
 "err_memberclass_updateSerial" = "资料库会员序号档错误!";
 "err_recordclass_updateSerial" = "资料库记录序号档错误!";
@@ -125,7 +150,37 @@
 "TESTINGVAL_R" = "右侧数值";
 "meadreport_analy" = "分析";
 "meadreport_pdsuggest" = "调理建议";
+"meadreport_valokmsg" = "健康状况良好，请继续保持！";
 
 "sysconfig_backupcompleted" = "备份完成!";
 "sysconfig_restorecompleted" = "资料还原完成!";
 
+"menu_testing" = "能量检测";
+"menu_member" = "会员管理";
+"menu_record" = "检测纪录";
+"menu_config" = "系统设定";
+"homepage_subtitle" = "iSOQI 能量检测仪全球通用单机版";
+"header_memberlist" = "会员列表";
+"slipleftdeldata" = "(向左方滑动可以删除)";
+"add" = "新增";
+"selectgallery" = "选择图库";
+"selectcamera" = "选择相机";
+"member_pict" = "会员图片";
+"birth" = "生日";
+"subjects_were_config" = "受测者设定";
+"guest" = "访客";
+"member" = "会员";
+"inputage" = "输入年龄";
+"starttesting" = "开始量测";
+"retesting" = "重新检测";
+"testingreport" = "检测报告";
+"connect" = "连线";
+"datalist" = "资料列表";
+"cellmead_avg" = "平均";
+"cellmead_h" = "高标";
+"cellmead_l" = "低标";
+"meaddataanaly" = "能量检测分析";
+"theoretical_analysis" = "学理分析";
+"dataloading" = "资料读取中...";
+"backuptocloud" = "资料备份到云端";
+"restore" = "资料还原";

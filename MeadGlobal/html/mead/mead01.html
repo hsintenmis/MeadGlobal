@@ -48,7 +48,7 @@ tooltip: {
 
 legend: {
   selectedMode: false,
-  data:["左側","右側"]
+  data:["D_SIDE_L","D_SIDE_R"]
 },
 
 grid:{
@@ -61,10 +61,10 @@ yAxis : [
   {
     type : 'category',
 
-    data : ["胃经 F6", "胆经 F5", "膀胱经 F4", "肾经 F3", "肝经 F2", "脾经 F1", "大肠经 H6", "三焦经 H5", "小肠经 H4", "心经 H3", "心包经 H2","肺经 H1"],
+    data : ["D_F6 F6", "D_F5 F5", "D_F4 F4", "D_F3 F3", "D_F2 F2", "D_F1 F1", "D_H6 H6", "D_H5 H5", "D_H4 H4", "D_H3 H3", "D_H2 H2","D_H1 H1"],
     axisLabel : {
       textStyle:{
-        fontSize:11,
+        fontSize:9,
         color:"#303030",
       },
     },
@@ -104,7 +104,7 @@ xAxis : [
 series : [
 
   {
-    name:'右側',
+    name:'D_SIDE_R',
     type:'bar',
     data:[D_R_VAL],
     barGap: "2%",
@@ -142,7 +142,7 @@ series : [
       },
       data:[
         [
-          {name:'平均', value: D_AVG, xAxis:D_AVG, yAxis: -1},
+          {name:'Avg.', value: D_AVG, xAxis:D_AVG, yAxis: -1},
           {xAxis:D_AVG, yAxis: 12}
         ],
       ]
@@ -150,7 +150,7 @@ series : [
   },
 
   {
-    name:'左側',
+    name:'D_SIDE_L',
     type:'bar',
     data:[D_L_VAL],
     clickable: false,
@@ -190,12 +190,12 @@ series : [
       },
       data:[
         [
-          {name:'高標', value: D_HI, xAxis:D_HI, yAxis: 12},
+          {name:'High', value: D_HI, xAxis:D_HI, yAxis: 12},
           {xAxis:D_HI, yAxis: -1}
         ],
 
         [
-          {name:'低標', value: D_LOW, xAxis:D_LOW, yAxis: 12},
+          {name:'Low', value: D_LOW, xAxis:D_LOW, yAxis: 12},
           {xAxis:D_LOW, yAxis: -1}
         ],
       ]

@@ -15,15 +15,22 @@ class TestingUser: UIViewController, TestingUserPagerDelg {
     @IBOutlet weak var btnGuest: UIButton!
     @IBOutlet var btnMember: UIView!
 
+    @IBOutlet weak var navybarTop: UINavigationBar!
+    @IBOutlet weak var labGuest: UILabel!
+    @IBOutlet weak var labMember: UILabel!
+    
     // common property
     private var pubClass = PubClass()
     
     // 其他 property
     private var mTestingUserPager: TestingUserPager!
     
-    // viewDidLoad
+    /**
+     * viewDidLoad
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
+        setPageLang()
         
         // 樣式/外觀/顏色
         btnGuest.layer.cornerRadius = 5
@@ -33,6 +40,15 @@ class TestingUser: UIViewController, TestingUserPagerDelg {
         btnMember.layer.borderWidth = 1
         btnMember.layer.borderColor = pubClass.ColorCGColor(myColor.Gray.rawValue)
         self.changBtnColor(0)
+    }
+    
+    /**
+     * 設定頁面顯示文字
+     */
+    private func setPageLang() {
+        pubClass.setNavybarTxt(navybarTop, aryTxtCode: ["subjects_were_config", "homepage"])
+        labGuest.text = pubClass.getLang("guest")
+        labMember.text = pubClass.getLang("member")
     }
     
     /**

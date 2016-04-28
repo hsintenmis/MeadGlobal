@@ -120,8 +120,7 @@ class PubClass {
      * 輸入字串轉換為指定語系文字, 點取 'Localizable' 語系檔查看'?'
      */
     func getLang(strCode: String!)->String {
-        let AppDelg = self.getAppDelg()
-        let strLang = AppDelg.V_LANGCODE + ".lproj/Localizable"
+        let strLang = self.getAppDelg().V_LANGCODE + ".lproj/Localizable"
         
         return NSLocalizedString(strCode, tableName: strLang, bundle:NSBundle.mainBundle(), value: "", comment: "")
     }
@@ -362,6 +361,8 @@ class PubClass {
     
     /**
      * 字串格式化可閱讀的日期文字, ex. '20150131235959' = 2015年01月31日 23:59<BR>
+     * country code:  ["Base", "zh-Hans", "zh-Hant", "es"]
+     *
      * @param type: 8 or 14 (Int)
      */
     func formatDateWithStr(strDate: String!, type: Int?)->String {
@@ -369,6 +370,7 @@ class PubClass {
             return strDate
         }
         
+        let strLang = self.getAppDelg().V_LANGCODE
         let nsStrDate = strDate as NSString
         var strYY: String, strMM: String, strDD: String
         
@@ -377,7 +379,11 @@ class PubClass {
         strDD = nsStrDate.substringWithRange(NSRange(location: 6, length: 2))
         
         if (type == 8) {
-            return "\(strYY)年\(Int(strMM)!)月\(Int(strDD)!)日"
+            if (strLang == "zh-Hans" || strLang == "zh-Hant") {
+                return "\(strYY)年\(Int(strMM)!)月\(Int(strDD)!)日"
+            }
+            
+            return getLang("mm_" + strMM) + " " + strDD + ", " + strYY
         }
         
         if (type > 8) {
@@ -386,7 +392,11 @@ class PubClass {
             strHH = nsStrDate.substringWithRange(NSRange(location: 8, length: 2))
             strMin = nsStrDate.substringWithRange(NSRange(location: 10, length: 2))
             
-            return "\(strYY)年\(strMM)月\(strDD)日 \(strHH):\(strMin)"
+            if (strLang == "zh-Hans" || strLang == "zh-Hant") {
+                return "\(strYY)年\(strMM)月\(strDD)日 \(strHH):\(strMin)"
+            }
+            
+            return strHH + ":" + strMin + getLang("mm_" + strMM) + " " + strDD + ", " + strYY
         }
         
         return strDate
@@ -500,7 +510,8 @@ class PubClass {
     }
     
     /**
-     * DISABLE
+     * DISABLE!!
+     *
      * 取得對應語系 Mead DB JSON data, 直接設定到 appdelege
      * 檔名對應如: meaddb_Base, meaddb_zh-Hans ...
      */
@@ -518,6 +529,19 @@ class PubClass {
         }
         
         return
+    }
+
+    /**
+     * 頁面 navybar 文字設定
+     * @param: aryTxtCode, 0=title, 1=左 btn, 2=右 btn
+     */
+    func setNavybarTxt(mBar: UINavigationBar!, aryTxtCode: Array<String>) {
+        mBar.topItem!.title = self.getLang(aryTxtCode[0])
+        mBar.topItem!.leftBarButtonItem?.title = self.getLang(aryTxtCode[1])
+        
+        if aryTxtCode.count > 1 {
+            mBar.topItem!.rightBarButtonItem?.title = self.getLang(aryTxtCode[2])
+        }
     }
     
 }

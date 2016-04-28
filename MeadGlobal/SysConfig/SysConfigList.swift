@@ -18,6 +18,8 @@ class SysConfigList: UITableViewController, UIDocumentPickerDelegate, SSZipArchi
     
     // @IBOutlet
     @IBOutlet var tableList: UITableView!
+    @IBOutlet weak var labBack: UILabel!
+    @IBOutlet weak var labRestore: UILabel!
     
     // property
     private var pubClass = PubClass()
@@ -30,6 +32,9 @@ class SysConfigList: UITableViewController, UIDocumentPickerDelegate, SSZipArchi
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        labBack.text = pubClass.getLang("backuptocloud")
+        labRestore.text = pubClass.getLang("restore")
     }
     
     /**

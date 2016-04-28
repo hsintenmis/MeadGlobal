@@ -23,6 +23,7 @@ class RecordDetailTxt: UIViewController {
     
     // @IBOutlet
     @IBOutlet weak var tableList: UITableView!
+    @IBOutlet weak var navybarTop: UINavigationBar!
     
     // common property
     private var pubClass = PubClass()
@@ -45,6 +46,8 @@ class RecordDetailTxt: UIViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        pubClass.setNavybarTxt(navybarTop, aryTxtCode: ["meaddataanaly", "back"])
         
         // 檢查是否需要顯示本頁面, 判別欄位 'problem_id'
         var bolNoProblem = false

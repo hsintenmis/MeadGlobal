@@ -1,6 +1,6 @@
 //
 // 藍芽 BLE 檢測儀, 測試使用藍牙 BLE HC-08模組
-// D_DEVNAME = "HTEBT401", "HC-08"
+// D_DEVNAME = "HTEBT401", "HC-08", "MEAD"
 // Service :0000ffe0-0000-1000-8000-00805f9b34fb
 // chart   :0000ffe1-0000-1000-8000-00805f9b34fb
 //
@@ -39,7 +39,7 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     var BT_ISREADYFOTESTING = false  // 藍牙周邊是否可以開始使用
     
     // 藍芽裝置名稱
-    private let aryBTNAME = ["HC-08", "HTEBT401"]
+    private let aryBTNAME = ["HC-08", "HTE", "MEAD"]
     
     // UUID, Service, Char
     private let UID_SERV: CBUUID = CBUUID(string: "0000ffe0-0000-1000-8000-00805f9b34fb")

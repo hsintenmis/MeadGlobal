@@ -11,6 +11,11 @@ class MainLogin: UIViewController {
     // @IBOutlet
     @IBOutlet weak var swchLang: UISegmentedControl!
     @IBOutlet weak var labTitle: UILabel!
+    @IBOutlet weak var labSubTitle: UILabel!
+    @IBOutlet weak var labTesting: UILabel!
+    @IBOutlet weak var labMember: UILabel!
+    @IBOutlet weak var labRecord: UILabel!
+    @IBOutlet weak var labConfig: UILabel!
     
     // common property
     private var pubClass = PubClass()
@@ -46,6 +51,11 @@ class MainLogin: UIViewController {
      */
     private func setPageLang() {
         labTitle.text = pubClass.getLang("app_name")
+        labSubTitle.text = pubClass.getLang("homepage_subtitle")
+        labTesting.text = pubClass.getLang("menu_testing")
+        labMember.text = pubClass.getLang("menu_member")
+        labRecord.text = pubClass.getLang("menu_record")
+        labConfig.text = pubClass.getLang("menu_config")
     }
     
     /**

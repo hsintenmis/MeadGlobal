@@ -20,7 +20,8 @@ class RecordDetail: UIViewController {
     @IBOutlet weak var webChart: UIWebView!
     @IBOutlet weak var viewLoading: UIActivityIndicatorView!
     @IBOutlet weak var labLoading: UILabel!
-    
+    @IBOutlet weak var navybarTop: UINavigationBar!
+
     // common property
     private var pubClass = PubClass()
     
@@ -52,6 +53,9 @@ class RecordDetail: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        pubClass.setNavybarTxt(navybarTop, aryTxtCode: ["meaddataanaly", "back", "theoretical_analysis"])
+        labLoading.text = pubClass.getLang("dataloading")
+        
         // 產生'項目'與'數值'的 array data, 設定其他檢測數值參數
         aryKey = mMeadCFG.D_ARY_MEADDBID.componentsSeparatedByString(",")
         aryVal = dictMeadData["val"]!.componentsSeparatedByString(",")
@@ -66,6 +70,30 @@ class RecordDetail: UIViewController {
     override func viewDidAppear(animated: Bool){
         super.viewDidAppear(animated)
         self.setViewChartHTML()
+    }
+    
+    /**
+     * 產生圖表需要的文字
+     */
+    private func setChartTxt(strHTML: String!) -> String! {
+        var newStrHTML = strHTML
+        
+        // 左右側
+        newStrHTML = newStrHTML.stringByReplacingOccurrencesOfString("D_SIDE_L", withString: pubClass.getLang("direct_L"))
+        newStrHTML = newStrHTML.stringByReplacingOccurrencesOfString("D_SIDE_R", withString: pubClass.getLang("direct_R"))
+        
+        // 經絡名稱
+        let aryBody = ["H", "F"]
+        
+        for strBody in aryBody {
+            for loopi in (1..<7) {
+                let strDefnKey = "D_" + strBody + String(loopi)
+                newStrHTML = newStrHTML.stringByReplacingOccurrencesOfString(strDefnKey, withString: pubClass.getLang("MERIDIAN_" + strBody + String(loopi)))
+            }
+        }
+        
+        
+        return newStrHTML
     }
     
     /**
@@ -161,6 +189,8 @@ class RecordDetail: UIViewController {
             strHTML = strHTML.stringByReplacingOccurrencesOfString("D_CHART_TITLE", withString: mapVal["D_CHART_TITLE"]!)
             
             strHTML = strHTML.stringByReplacingOccurrencesOfString("D_CHART_SUBTITLE", withString: mapVal["D_CHART_SUBTITLE"]!)
+            
+            strHTML = setChartTxt(strHTML as String)
             
             // 以 HTML code 產生新的 WebView
             let baseFile = NSBundle.mainBundle().pathForResource(D_BASE_FILENAME, ofType: "html", inDirectory: D_BASE_URL)!

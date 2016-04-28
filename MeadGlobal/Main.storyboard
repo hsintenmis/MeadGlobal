@@ -202,6 +202,11 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="labConfig" destination="PQc-Eg-eTZ" id="0SV-Z3-Qdh"/>
+                        <outlet property="labMember" destination="Wk7-Cb-wts" id="hWW-K6-YQx"/>
+                        <outlet property="labRecord" destination="tf0-4T-xgq" id="TJC-Q8-yyk"/>
+                        <outlet property="labSubTitle" destination="x9o-aT-nxr" id="RYL-C6-8KY"/>
+                        <outlet property="labTesting" destination="ENx-LB-WCP" id="3QV-sb-mU0"/>
                         <outlet property="labTitle" destination="Pl4-Dh-KiX" id="GbL-of-Xrn"/>
                         <outlet property="swchLang" destination="6yg-Ff-5CO" id="KD2-oq-DTw"/>
                     </connections>
@@ -266,6 +271,9 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="navybarTop" destination="1iz-qB-Hik" id="FVr-3F-vaK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jjt-yc-73S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -280,10 +288,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
-                            <tableViewSection headerTitle="資料管理" id="bja-vP-c8C">
+                            <tableViewSection headerTitle="" id="bja-vP-c8C">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cellBackup" textLabel="jnz-X8-QIY" rowHeight="55" style="IBUITableViewCellStyleDefault" id="n33-85-kYF" userLabel="cellFileUpload">
-                                        <rect key="frame" x="0.0" y="50" width="324" height="55"/>
+                                        <rect key="frame" x="0.0" y="35" width="324" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="n33-85-kYF" id="pwO-7n-n9g">
                                             <rect key="frame" x="0.0" y="0.0" width="291" height="54"/>
@@ -300,7 +308,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cellRestore" textLabel="SSo-Jl-oZO" rowHeight="55" style="IBUITableViewCellStyleDefault" id="dL0-dc-M5a" userLabel="cellFileRestore">
-                                        <rect key="frame" x="0.0" y="105" width="324" height="55"/>
+                                        <rect key="frame" x="0.0" y="90" width="324" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dL0-dc-M5a" id="Cmn-th-V7J">
                                             <rect key="frame" x="0.0" y="0.0" width="291" height="54"/>
@@ -318,34 +326,6 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="其他設定" id="RmC-r2-YFm">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="keQ-6Q-rnu">
-                                        <rect key="frame" x="0.0" y="203" width="324" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="keQ-6Q-rnu" id="xyY-j7-TqD">
-                                            <rect key="frame" x="0.0" y="0.0" width="324" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="2T5-Ea-o7b">
-                                        <rect key="frame" x="0.0" y="247" width="324" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2T5-Ea-o7b" id="giV-bA-3SL">
-                                            <rect key="frame" x="0.0" y="0.0" width="324" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="PBF-op-rw2">
-                                        <rect key="frame" x="0.0" y="291" width="324" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PBF-op-rw2" id="DbF-dL-HSN">
-                                            <rect key="frame" x="0.0" y="0.0" width="324" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="90N-IU-2wa" id="CpX-Z8-qoi"/>
@@ -357,6 +337,8 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
+                        <outlet property="labBack" destination="jnz-X8-QIY" id="eE6-13-heW"/>
+                        <outlet property="labRestore" destination="SSo-Jl-oZO" id="eMX-2N-v5j"/>
                         <outlet property="tableList" destination="vZV-Zg-BIE" id="jqR-Wb-QY1"/>
                     </connections>
                 </tableViewController>
@@ -422,6 +404,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="containerPager" destination="hcd-VR-j0A" id="vdD-z0-vRV"/>
+                        <outlet property="navybarTop" destination="IFx-8b-5Gl" id="Kdf-T4-oTY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pfl-hU-Xp8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -543,6 +526,9 @@
                         <outlet property="btnGuest" destination="e7h-fQ-ZqO" id="FJO-p9-5fD"/>
                         <outlet property="btnMember" destination="G0O-g7-XTp" id="gqU-vz-F1c"/>
                         <outlet property="containerPager" destination="XEP-h2-ls5" id="Ilm-ow-JdK"/>
+                        <outlet property="labGuest" destination="3Es-8J-7Nq" id="eqZ-eh-zm0"/>
+                        <outlet property="labMember" destination="vsu-Tv-Pn0" id="IR6-ty-jne"/>
+                        <outlet property="navybarTop" destination="Y4Q-xQ-b2h" id="fOO-1e-XZ1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LLO-CY-yg0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -705,7 +691,7 @@
                                 <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DTW-ER-Wy7">
-                                <rect key="frame" x="291" y="193" width="13" height="17"/>
+                                <rect key="frame" x="291" y="218" width="13" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.37647058820000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -788,7 +774,7 @@
                             <constraint firstItem="Xix-YT-oxC" firstAttribute="centerY" secondItem="07B-0x-dR4" secondAttribute="centerY" id="tQs-pD-Pzz"/>
                             <constraint firstItem="KRQ-VW-UCg" firstAttribute="leading" secondItem="ABw-tr-AKS" secondAttribute="leadingMargin" constant="-18" id="uQ1-SV-SHX"/>
                             <constraint firstItem="07B-0x-dR4" firstAttribute="top" secondItem="cnc-fd-T6e" secondAttribute="bottom" constant="10" id="xJU-jc-2cy"/>
-                            <constraint firstItem="DTW-ER-Wy7" firstAttribute="top" secondItem="07B-0x-dR4" secondAttribute="bottom" constant="10" id="yJb-Z0-PLc"/>
+                            <constraint firstItem="DTW-ER-Wy7" firstAttribute="top" secondItem="07B-0x-dR4" secondAttribute="bottom" constant="35" id="yJb-Z0-PLc"/>
                             <constraint firstItem="s4Y-jB-eSp" firstAttribute="top" secondItem="07B-0x-dR4" secondAttribute="bottom" constant="8" id="zHa-jw-Seh"/>
                         </constraints>
                     </view>
@@ -799,6 +785,9 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="btnConn" destination="Xix-YT-oxC" id="0Ms-J7-33a"/>
+                        <outlet property="btnConnect" destination="Xix-YT-oxC" id="XtT-WZ-efB"/>
+                        <outlet property="btnRecord" destination="pyZ-K2-0h8" id="6EB-iM-DDa"/>
+                        <outlet property="btnSave" destination="w31-gh-YJH" id="6aa-KX-iOS"/>
                         <outlet property="imgBody" destination="fhi-mE-SRx" id="Ni9-va-Znt"/>
                         <outlet property="imgUser" destination="hx2-Nt-gXE" id="G6N-7g-DZi"/>
                         <outlet property="labBTMsg" destination="07B-0x-dR4" id="tiJ-Tr-Cgr"/>
@@ -809,6 +798,7 @@
                         <outlet property="labPointMsg1" destination="DTW-ER-Wy7" id="8F8-dC-wLU"/>
                         <outlet property="labTestVal" destination="cpr-aQ-C3y" id="ffc-JI-CsW"/>
                         <outlet property="labTxtExistVal" destination="MoX-xk-T5s" id="xtY-vc-Ses"/>
+                        <outlet property="navybarTop" destination="KRQ-VW-UCg" id="KWY-jU-fpS"/>
                         <outlet property="viewCollect" destination="cnc-fd-T6e" id="sTx-ha-K4I"/>
                         <segue destination="H4W-0L-xZ0" kind="show" identifier="RecordDetail" id="VTP-gS-l3A"/>
                     </connections>
@@ -856,7 +846,7 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <searchBar contentMode="redraw" placeholder="搜尋會員" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="st9-1g-49h">
+                            <searchBar contentMode="redraw" text="" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="st9-1g-49h">
                                 <rect key="frame" x="-2" y="64" width="324" height="44"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                 <connections>
@@ -983,6 +973,8 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="labeDelMember" destination="GjZ-Wj-kIC" id="kgr-5g-rXm"/>
+                        <outlet property="navybarTop" destination="Dox-MY-2IX" id="HbU-iy-Vny"/>
                         <outlet property="searchBar" destination="st9-1g-49h" id="mrA-YQ-vNb"/>
                         <outlet property="tableData" destination="nuG-53-SKN" id="Pd0-IY-uNY"/>
                         <segue destination="beN-aa-WJk" kind="show" identifier="MemberAdEd" id="fWg-nm-Lze"/>
@@ -1073,10 +1065,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
-                            <tableViewSection headerTitle="照片" id="8W0-ZD-o2N">
+                            <tableViewSection headerTitle="" id="8W0-ZD-o2N">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="120" id="wnG-nj-5Yd">
-                                        <rect key="frame" x="0.0" y="50" width="324" height="120"/>
+                                        <rect key="frame" x="0.0" y="35" width="324" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wnG-nj-5Yd" id="UJX-Y6-R9k">
                                             <rect key="frame" x="0.0" y="0.0" width="324" height="119"/>
@@ -1144,10 +1136,10 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="會員資料" id="hMA-2b-dei">
+                            <tableViewSection headerTitle="" id="hMA-2b-dei">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ngK-AU-ku5">
-                                        <rect key="frame" x="0.0" y="221" width="324" height="44"/>
+                                        <rect key="frame" x="0.0" y="191" width="324" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ngK-AU-ku5" id="TzF-Wt-pwh">
                                             <rect key="frame" x="0.0" y="0.0" width="324" height="43"/>
@@ -1182,7 +1174,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="bcm-mD-5L6">
-                                        <rect key="frame" x="0.0" y="265" width="324" height="44"/>
+                                        <rect key="frame" x="0.0" y="235" width="324" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bcm-mD-5L6" id="K1c-5I-41P">
                                             <rect key="frame" x="0.0" y="0.0" width="324" height="43"/>
@@ -1217,7 +1209,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="EAZ-N7-bbp">
-                                        <rect key="frame" x="0.0" y="309" width="324" height="44"/>
+                                        <rect key="frame" x="0.0" y="279" width="324" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EAZ-N7-bbp" id="797-tS-5V7">
                                             <rect key="frame" x="0.0" y="0.0" width="324" height="43"/>
@@ -1250,7 +1242,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Kz5-2G-pzT">
-                                        <rect key="frame" x="0.0" y="353" width="324" height="44"/>
+                                        <rect key="frame" x="0.0" y="323" width="324" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Kz5-2G-pzT" id="L7J-Rt-o3j">
                                             <rect key="frame" x="0.0" y="0.0" width="324" height="43"/>
@@ -1297,6 +1289,11 @@
                         <outlet property="edName" destination="u4t-av-QIS" id="VQr-z5-Llu"/>
                         <outlet property="edTel" destination="oQJ-Fr-Pgb" id="yn9-9k-7ko"/>
                         <outlet property="imgTarget" destination="jdt-nK-ajE" id="ayr-jA-8rA"/>
+                        <outlet property="labBirth" destination="T3w-gp-Kzj" id="RHB-RA-wnT"/>
+                        <outlet property="labGender" destination="QAL-pQ-Nbe" id="bMQ-Zv-9PL"/>
+                        <outlet property="labName" destination="5sC-T6-PXM" id="DCT-7i-P0G"/>
+                        <outlet property="labPict" destination="fa2-3k-NQ3" id="IUc-zM-mMx"/>
+                        <outlet property="labTel" destination="sj5-Oq-9pp" id="2Kd-Us-BIP"/>
                         <outlet property="swchGender" destination="JUi-7E-Lso" id="aC1-j1-pOO"/>
                     </connections>
                 </tableViewController>
@@ -1408,7 +1405,12 @@
                             <constraint firstItem="Enu-yk-Pj4" firstAttribute="leading" secondItem="NJW-6h-h8A" secondAttribute="leadingMargin" constant="-18" id="piN-0a-G3M"/>
                         </constraints>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
+                        <outlet property="btnStart" destination="Enu-yk-Pj4" id="1o6-j4-Q5k"/>
                         <outlet property="edAge" destination="hZi-iY-S24" id="ki0-nk-gbW"/>
                         <outlet property="labName" destination="RuN-Wz-rCx" id="LQl-iI-Kpr"/>
                         <outlet property="swchGender" destination="r9B-vx-6ht" id="ef1-fP-RTn"/>
@@ -1431,7 +1433,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="324" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="搜尋會員" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6ed-5g-Rci">
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" text="" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6ed-5g-Rci">
                                 <rect key="frame" x="16" y="0.0" width="292" height="44"/>
                                 <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
@@ -1588,7 +1590,7 @@
                                 </items>
                             </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="60" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="Uo6-XR-QTm" userLabel="tableMead">
-                                <rect key="frame" x="-2" y="64" width="324" height="504"/>
+                                <rect key="frame" x="-2" y="94" width="324" height="474"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cellRecordList" id="I7l-np-iki" userLabel="Table Cell" customClass="RecordListCell" customModule="MeadGlobal" customModuleProvider="target">
@@ -1690,6 +1692,9 @@
                                             <outlet property="labAvgH" destination="WFc-eD-mZf" id="32o-ie-Lcz"/>
                                             <outlet property="labAvgL" destination="Iee-Se-v5j" id="7nA-o5-A90"/>
                                             <outlet property="labDate" destination="yxJ-1z-qR5" id="YxR-qe-Iw8"/>
+                                            <outlet property="labTitleAvg" destination="vIC-ZN-i0r" id="QJb-05-6Ze"/>
+                                            <outlet property="labTitleH" destination="X6S-B2-WnZ" id="R4q-f1-kzV"/>
+                                            <outlet property="labTitleL" destination="I7a-jn-EsG" id="a5H-rC-luk"/>
                                             <segue destination="H4W-0L-xZ0" kind="show" identifier="RecordList" id="kdk-t1-ttc"/>
                                         </connections>
                                     </tableViewCell>
@@ -1699,16 +1704,28 @@
                                     <outlet property="delegate" destination="8ak-At-goy" id="9m7-mJ-3DO"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(向左方滑動可以刪除資料)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gAZ-Q5-UKp">
+                                <rect key="frame" x="8" y="64" width="304" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="wtG-o6-dDw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.56470588239999997" green="0.56470588239999997" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Uo6-XR-QTm" firstAttribute="leading" secondItem="ZtJ-Oi-nKu" secondAttribute="leading" id="0SP-1s-R9v"/>
                             <constraint firstItem="ZtJ-Oi-nKu" firstAttribute="top" secondItem="dc0-Qk-Ay7" secondAttribute="bottom" id="GKN-rJ-BBQ"/>
                             <constraint firstItem="ZtJ-Oi-nKu" firstAttribute="leading" secondItem="giT-lN-UzI" secondAttribute="leadingMargin" constant="-18" id="HT4-4I-qul"/>
+                            <constraint firstItem="gAZ-Q5-UKp" firstAttribute="top" secondItem="ZtJ-Oi-nKu" secondAttribute="bottom" id="JQi-9r-U3k"/>
                             <constraint firstItem="Uo6-XR-QTm" firstAttribute="trailing" secondItem="ZtJ-Oi-nKu" secondAttribute="trailing" id="e6R-Ti-9KJ"/>
                             <constraint firstItem="wHw-2d-NiI" firstAttribute="top" secondItem="Uo6-XR-QTm" secondAttribute="bottom" id="fsP-0Y-n1d"/>
-                            <constraint firstItem="Uo6-XR-QTm" firstAttribute="top" secondItem="ZtJ-Oi-nKu" secondAttribute="bottom" id="ixW-Rj-1ic"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ZtJ-Oi-nKu" secondAttribute="trailing" constant="-18" id="mcR-sz-dIs"/>
+                            <constraint firstItem="gAZ-Q5-UKp" firstAttribute="trailing" secondItem="ZtJ-Oi-nKu" secondAttribute="trailing" constant="-10" id="ona-Ho-wau"/>
+                            <constraint firstItem="gAZ-Q5-UKp" firstAttribute="leading" secondItem="ZtJ-Oi-nKu" secondAttribute="leading" constant="10" id="s0p-gn-E3d"/>
+                            <constraint firstItem="Uo6-XR-QTm" firstAttribute="top" secondItem="gAZ-Q5-UKp" secondAttribute="bottom" id="uT3-Jw-AAn"/>
                         </constraints>
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
@@ -1717,6 +1734,8 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="labDeldata" destination="gAZ-Q5-UKp" id="VnN-XD-Wao"/>
+                        <outlet property="navybarTop" destination="ZtJ-Oi-nKu" id="uba-Cv-X5O"/>
                         <outlet property="tableData" destination="Uo6-XR-QTm" id="RCL-66-VTK"/>
                     </connections>
                 </viewController>
@@ -1800,6 +1819,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="labLoading" destination="L3M-hg-MLI" id="4q2-bC-xbe"/>
+                        <outlet property="navybarTop" destination="ef2-HA-wLi" id="9BH-nI-5m1"/>
                         <outlet property="viewLoading" destination="ecM-4N-Fuf" id="1Hq-kC-bLh"/>
                         <outlet property="webChart" destination="tKV-wX-ekn" id="TQ3-dB-oto"/>
                     </connections>
@@ -2001,6 +2021,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="navybarTop" destination="qNr-ej-PF0" id="0EP-Im-tFv"/>
                         <outlet property="tableList" destination="ghD-xT-tzb" id="wfF-bL-PNE"/>
                     </connections>
                 </viewController>
@@ -2023,8 +2044,8 @@
         <image name="user_group_128.png" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="h3E-0L-El4"/>
-        <segue reference="VTP-gS-l3A"/>
         <segue reference="ihu-Eg-G5c"/>
+        <segue reference="Qho-W9-hPP"/>
+        <segue reference="VTP-gS-l3A"/>
     </inferredMetricsTieBreakers>
 </document>

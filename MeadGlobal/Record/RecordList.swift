@@ -11,6 +11,8 @@ import Foundation
 class RecordList: UIViewController {
     // @IBOutlet
     @IBOutlet weak var tableData: UITableView!
+    @IBOutlet weak var navybarTop: UINavigationBar!
+    @IBOutlet weak var labDeldata: UILabel!
     
     // common property
     private var pubClass = PubClass()
@@ -30,6 +32,9 @@ class RecordList: UIViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        pubClass.setNavybarTxt(navybarTop, aryTxtCode: ["datalist", "back"])
+        labDeldata.text = pubClass.getLang("slipleftdeldata")
         
         //取得指定 user 的檢測資料，設定到 'aryMeadData'
         aryMeadData = mRecordClass.getDataWithMemberId(dictUser["id"])

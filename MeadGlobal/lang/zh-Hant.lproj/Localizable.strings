@@ -15,6 +15,29 @@
 "savedataconfrimmsg" = "資料即將儲存!\n請再次確認輸入的資料是否正確?!";
 "err_delfailure" = "刪除失敗!";
 "err_data" = "資料錯誤!";
+"homepage" = "首頁";
+
+"week_0" = "日";
+"week_1" = "一";
+"week_2" = "二";
+"week_3" = "三";
+"week_4" = "四";
+"week_5" = "五";
+"week_6" = "六";
+"week_7" = "日";
+
+"mm_01" = "一月";
+"mm_02" = "二月";
+"mm_03" = "三月";
+"mm_04" = "四月";
+"mm_05" = "五月";
+"mm_06" = "六月";
+"mm_07" = "七月";
+"mm_08" = "八月";
+"mm_09" = "九月";
+"mm_10" = "十月";
+"mm_11" = "十一月";
+"mm_12" = "十二月";
 
 "age" = "年齡";
 "age_name" = "歲";
@@ -132,3 +155,32 @@
 "sysconfig_backupcompleted" = "備份完成!";
 "sysconfig_restorecompleted" = "資料還原完成!";
 
+"menu_testing" = "能量檢測";
+"menu_member" = "會員管理";
+"menu_record" = "檢測紀錄";
+"menu_config" = "系統設定";
+"homepage_subtitle" = "iSOQI 能量檢測儀全球通用單機版";
+"header_memberlist" = "會員列表";
+"slipleftdeldata" = "(向左方滑動可以刪除)";
+"add" = "新增";
+"selectgallery" = "選擇圖庫";
+"selectcamera" = "選擇相機";
+"member_pict" = "會員圖片";
+"birth" = "生日";
+"subjects_were_config" = "受測者設定";
+"guest" = "訪客";
+"member" = "會員";
+"inputage" = "輸入年齡";
+"starttesting" = "開始量測";
+"retesting" = "重新檢測";
+"testingreport" = "檢測報告";
+"connect" = "連線";
+"datalist" = "資料列表";
+"cellmead_avg" = "平均";
+"cellmead_h" = "高標";
+"cellmead_l" = "低標";
+"meaddataanaly" = "能量檢測分析";
+"theoretical_analysis" = "學理分析";
+"dataloading" = "資料讀取中...";
+"backuptocloud" = "資料備份到雲端";
+"restore" = "資料還原";

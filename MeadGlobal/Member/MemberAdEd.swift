@@ -46,6 +46,7 @@ class MemberAdEd: UIViewController {
     private func setPageLang() {
         PageTitle.title = (strMode == "add") ?
             pubClass.getLang("member_add") : pubClass.getLang("member_edit")
+
         btnBack.title = pubClass.getLang("back")
         btnSave.title = pubClass.getLang("save")
     }
