@@ -16,6 +16,7 @@ class MainLogin: UIViewController {
     @IBOutlet weak var labMember: UILabel!
     @IBOutlet weak var labRecord: UILabel!
     @IBOutlet weak var labConfig: UILabel!
+    @IBOutlet weak var labVer: UILabel!
     
     // common property
     private var pubClass = PubClass()
@@ -40,6 +41,7 @@ class MainLogin: UIViewController {
         
         // 設定頁面語系
         self.setPageLang()
+        labVer.text = pubClass.getLang("version") + ":" + (NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String)
         
         // 檢查裝置是否有指定檔案(會員/Mead 資料檔)
         self.DBCheck()

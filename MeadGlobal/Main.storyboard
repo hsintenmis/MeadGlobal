@@ -208,6 +208,7 @@
                         <outlet property="labSubTitle" destination="x9o-aT-nxr" id="RYL-C6-8KY"/>
                         <outlet property="labTesting" destination="ENx-LB-WCP" id="3QV-sb-mU0"/>
                         <outlet property="labTitle" destination="Pl4-Dh-KiX" id="GbL-of-Xrn"/>
+                        <outlet property="labVer" destination="suh-Ma-9tb" id="2az-Av-ay2"/>
                         <outlet property="swchLang" destination="6yg-Ff-5CO" id="KD2-oq-DTw"/>
                     </connections>
                 </viewController>
