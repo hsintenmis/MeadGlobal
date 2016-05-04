@@ -184,9 +184,8 @@ class SysConfigList: UITableViewController, UIDocumentPickerDelegate, SSZipArchi
      * Segue 跳轉頁面
      */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let strIdentName = segue.identifier
-        
-        print(strIdentName)
+        //let strIdentName = segue.identifier
+        //print(strIdentName)
     }
     
     override func didReceiveMemoryWarning() {

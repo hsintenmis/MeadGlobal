@@ -30,6 +30,7 @@ class MemberList: UIViewController, PubClassDelegate {
     private var mMemberClass: MemberClass!
     private var strToday: String!
     private var bolReload = true
+    private var mRecordClass = RecordClass()
     
     /**
      * viewDidLoad
@@ -77,6 +78,10 @@ class MemberList: UIViewController, PubClassDelegate {
     * 重新整理 TableView 資料
     */
     private func reloadTableData() {
+        // search init
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        
         // 取得會員全部資料
         aryAllData = mMemberClass.getAll(isSortASC: false)
         aryNewAllData = aryAllData
@@ -140,6 +145,7 @@ class MemberList: UIViewController, PubClassDelegate {
             // 彈出 confirm 視窗, 點取 'OK' 執行實際刪除資料程序
             pubClass.popConfirm(self, aryMsg: [pubClass.getLang("syswarring"), pubClass.getLang("member_delconfirmmsg")], withHandlerYes: { self.delProc(indexPath) }, withHandlerNo: {return} )
         }
+
     }
     
     /**
@@ -159,11 +165,12 @@ class MemberList: UIViewController, PubClassDelegate {
         // 刪除會員圖片
         self.mFileMang.delete(strId! + ".png")
         
-        // TODO 刪除 mead 檢測資料
+        // 刪除 mead 檢測資料
+        mRecordClass.delWithMemberId(strId)
         
         // TableView data source 資料重整
         currIndexPath = nil
-        //self.reloadTableData()
+        reloadTableData()
     }
     
     /** mark: SearchBar delegate Start */

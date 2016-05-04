@@ -184,3 +184,7 @@
 "dataloading" = "資料讀取中...";
 "backuptocloud" = "資料備份到雲端";
 "restore" = "資料還原";
+"err_membername" = "姓名錯誤!";
+"err_tel" = "電話錯誤!";
+"err_birth" = "生日錯誤!";
+"err_member_delfailure" = "資料刪除失敗...";

@@ -184,3 +184,7 @@
 "dataloading" = "Data loading...";
 "backuptocloud" = "Data backup to cloud";
 "restore" = "Data restore";
+"err_membername" = "Name error!";
+"err_tel" = "TEL error!";
+"err_birth" = "Birthday error!";
+"err_member_delfailure" = "Data delete failure...";
