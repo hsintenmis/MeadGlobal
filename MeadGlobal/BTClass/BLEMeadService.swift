@@ -39,7 +39,7 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     var BT_ISREADYFOTESTING = false  // 藍牙周邊是否可以開始使用
     
     // 藍芽裝置名稱
-    private let aryBTNAME = ["HC-08", "HTE", "MEAD"]
+    private let aryBTNAME = ["HC", "HTE", "MEAD", "MD", "EMD"]
     
     // UUID, Service, Char
     private let UID_SERV: CBUUID = CBUUID(string: "0000ffe0-0000-1000-8000-00805f9b34fb")
@@ -116,6 +116,15 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             return
         }
         
+        // 比對部分字串的 藍芽設備名稱
+        for strTmp in aryBTNAME {
+            if (currDevName.uppercaseString.rangeOfString(strTmp) != nil) {
+                bolIsMatch = true
+                break
+            }
+        }
+        
+        /*
         // 比對指定藍芽設備的 名稱 or addr
         for strTmp in aryBTNAME {
             if (currDevName == strTmp) {
@@ -130,6 +139,7 @@ class BLEMeadService: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                 bolIsMatch = true
             }
         }
+        */
         
         if (bolIsMatch == true) {
             self.mConnDev = peripheral
